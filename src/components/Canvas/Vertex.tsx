@@ -1,8 +1,17 @@
 import IVertex from '../../interfaces/IVertex'
+import useVerticesContext from '../../contexts/vertices/useVerticesContext'
 
 const Vertex = ({ id, x, y }: IVertex) => {
+  const vertices = useVerticesContext()
+
+  const onVertexRightClick = (event: React.MouseEvent) => {
+    event.preventDefault()
+
+    vertices.remove(id)
+  }
+
   return (
-    <g>
+    <g onContextMenu={onVertexRightClick}>
       <circle
         id={`circle-${id}`}
         cx={x}
