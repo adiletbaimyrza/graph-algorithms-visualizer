@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import useVerticesContext from '../../contexts/vertices/useVerticesContext'
-import Vertex from './Vertex'
-import IVertex from '../../interfaces/IVertex'
-import { isVertexPositionValid } from './CanvasUtils'
 import useVertexIdContext from '../../contexts/vertexId/useVertexIdContext'
 import useEdgesContext from '../../contexts/edges/useEdgesContext'
+import Vertex from './Vertex'
 import Edge from './Edge'
+import { isVertexPositionValid } from './CanvasUtils'
+import IVertex from '../../interfaces/IVertex'
 
 function Canvas() {
   const vertices = useVerticesContext()

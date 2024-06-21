@@ -1,11 +1,11 @@
-import IVertex from '../../interfaces/IVertex'
-import IEdge from '../../interfaces/IEdge'
 import useVerticesContext from '../../contexts/vertices/useVerticesContext'
 import useLinkingVertexContext from '../../contexts/linkingVertex/useLinkingVertexContext'
 import useEdgeIdContext from '../../contexts/edgeId/useEdgeIdContext'
-import { isNewEdgeValid } from './VertexUtils'
 import useEdgesContext from '../../contexts/edges/useEdgesContext'
+import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
+import IVertex from '../../interfaces/IVertex'
+import IEdge from '../../interfaces/IEdge'
 
 const Vertex = ({ id, x, y }: IVertex) => {
   const vertices = useVerticesContext()
