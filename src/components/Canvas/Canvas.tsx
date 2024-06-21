@@ -4,9 +4,12 @@ import Vertex from './Vertex'
 import IVertex from '../../interfaces/IVertex'
 import { isVertexPositionValid } from './CanvasUtils'
 import useVertexIdContext from '../../contexts/vertexId/useVertexIdContext'
+import useEdgesContext from '../../contexts/edges/useEdgesContext'
+import Edge from './Edge'
 
 function Canvas() {
   const vertices = useVerticesContext()
+  const edges = useEdgesContext()
   const vertexId = useVertexIdContext()
 
   const canvasRef = useRef<SVGSVGElement | null>(null)
@@ -42,6 +45,9 @@ function Canvas() {
       onClick={onCanvasClick}
       className="bg-slate-900 h-full w-full"
     >
+      {edges.get().map((edge) => (
+        <Edge key={edge.id} {...edge} />
+      ))}
       {vertices.get().map((vertex) => (
         <Vertex key={vertex.id} {...vertex} />
       ))}
