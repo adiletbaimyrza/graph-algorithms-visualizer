@@ -10,7 +10,15 @@ const Vertex = ({ id, x, y }: IVertex) => {
         r={30}
         className="stroke-slate-300 fill-slate-300"
       ></circle>
-      <text>{id}</text>
+      <text
+        x={x}
+        y={y}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize="12"
+      >
+        {id}
+      </text>
     </g>
   )
 }
