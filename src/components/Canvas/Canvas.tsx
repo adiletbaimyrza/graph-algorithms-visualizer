@@ -43,7 +43,7 @@ function Canvas() {
       className="bg-slate-900 h-full w-full"
     >
       {vertices.get().map((vertex) => (
-        <Vertex {...vertex} />
+        <Vertex key={vertex.id} {...vertex} />
       ))}
     </svg>
   )
