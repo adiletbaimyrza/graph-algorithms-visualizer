@@ -141,7 +141,12 @@ const Vertex = ({ id, x, y }: IVertex) => {
   const onVertexRightClick = (event: React.MouseEvent) => {
     event.preventDefault()
 
+    const filteredEdges: IEdge[] = edges
+      .get()
+      .filter((edge) => !(edge.vertexOne.id == id || edge.vertexTwo.id == id))
+
     vertices.remove(id)
+    edges.set(filteredEdges)
   }
 
   return (
