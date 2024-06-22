@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/d3": "^7.4.3",
     "@types/jquery": "^3.5.30",
+    "d3": "^7.9.0",
     "jquery": "^3.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
