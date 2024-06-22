@@ -1,0 +1,7 @@
+https://sighack.com/post/poisson-disk-sampling-bridsons-algorithm
+https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf
+https://www.jasondavies.com/poisson-disc/
+
+https://en.wikipedia.org/wiki/Delaunay_triangulation
+https://github.com/mapbox/delaunator?tab=readme-ov-file
+https://mapbox.github.io/delaunator/
