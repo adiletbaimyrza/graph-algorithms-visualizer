@@ -48,4 +48,4 @@ const isVertexPositionValid = (
   return !(isTooCloseToOtherVertices || isVertexOutOfBounds)
 }
 
-export { isVertexPositionValid }
+export { isOutOfBounds, euclideanDistance, isVertexPositionValid }
