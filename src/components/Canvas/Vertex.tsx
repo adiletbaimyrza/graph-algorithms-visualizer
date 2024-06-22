@@ -153,13 +153,14 @@ const Vertex = ({ id, x, y }: IVertex) => {
       onClick={onVertexLeftClick}
       onContextMenu={onVertexRightClick}
       ref={vertexRef}
+      className="group"
     >
       <circle
         id={`circle-${id}`}
         cx={x}
         cy={y}
         r={30}
-        className="stroke-slate-300 fill-slate-300"
+        className="stroke-slate-400 fill-slate-400 group-hover:stroke-white stroke-[3]"
       ></circle>
       <text
         x={x}

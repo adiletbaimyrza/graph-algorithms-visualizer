@@ -5,13 +5,14 @@ const toggleLinkingVertex = (id: number) => {
 
   if (linkingVertex) {
     const currentFill = linkingVertex.css('fill')
+    console.log(currentFill)
 
-    const slate300 = 'rgb(203, 213, 225)'
+    const slate400 = 'rgb(148, 163, 184)'
 
-    if (currentFill === slate300) {
+    if (currentFill === slate400) {
       linkingVertex.css('fill', 'red')
     } else {
-      linkingVertex.css('fill', slate300)
+      linkingVertex.css('fill', slate400)
     }
   }
 }

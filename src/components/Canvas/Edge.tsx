@@ -11,17 +11,17 @@ const Edge = ({ id, vertexOne, vertexTwo }: IEdge) => {
   }
 
   return (
-    <g onContextMenu={onRightClick}>
+    <g onContextMenu={onRightClick} className="group">
       <line
         id={`line-${id}`}
         x1={vertexOne.x}
         y1={vertexOne.y}
         x2={vertexTwo.x}
         y2={vertexTwo.y}
-        strokeWidth={5}
+        strokeWidth={10}
         strokeDasharray={2000}
         strokeDashoffset={2000}
-        className="stroke-orange-300 animate-[drawLine_1s_forwards]"
+        className="stroke-green-700 animate-[drawLine_1s_forwards] group-hover:stroke-white"
       />
     </g>
   )
