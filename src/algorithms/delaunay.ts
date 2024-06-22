@@ -67,4 +67,4 @@ const delaunay = (
   return finalEdges
 }
 
-export { delaunay }
+export default delaunay

@@ -5,6 +5,7 @@ import useVerticesContext from '../../contexts/vertices/useVerticesContext'
 import useLinkingVertexContext from '../../contexts/linkingVertex/useLinkingVertexContext'
 import useEdgeIdContext from '../../contexts/edgeId/useEdgeIdContext'
 import useEdgesContext from '../../contexts/edges/useEdgesContext'
+import useVertexRadiusContext from '../../contexts/vertexRadius/useVertexRadiusContext'
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
 import IVertex from '../../interfaces/IVertex'
@@ -15,6 +16,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
   const edges = useEdgesContext()
   const linkingVertex = useLinkingVertexContext()
   const edgeId = useEdgeIdContext()
+  const vertexRadius = useVertexRadiusContext()
   const vertexRef = useRef<SVGGElement | null>(null)
 
   useEffect(() => {
@@ -159,7 +161,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
         id={`circle-${id}`}
         cx={x}
         cy={y}
-        r={30}
+        r={vertexRadius.get()}
         className="stroke-slate-400 fill-slate-400 group-hover:stroke-white stroke-[3]"
       ></circle>
       <text

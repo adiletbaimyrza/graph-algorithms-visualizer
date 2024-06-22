@@ -14,7 +14,11 @@ const useVertexId = () => {
     return prevVertexId
   }
 
-  return { get, set }
+  const reset = () => {
+    setVertexId(0)
+  }
+
+  return { get, set, reset }
 }
 
 export default useVertexId

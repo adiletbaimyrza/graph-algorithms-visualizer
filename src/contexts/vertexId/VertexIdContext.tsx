@@ -4,6 +4,7 @@ import useVertexId from './useVertexId'
 interface VertexIdContextType {
   get: () => number
   set: (newVertexId: number) => void
+  reset: () => void
 }
 
 // prettier-ignore

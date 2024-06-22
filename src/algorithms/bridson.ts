@@ -121,4 +121,4 @@ const bridson = (
   return finalVertices
 }
 
-export { bridson }
+export default bridson

@@ -4,6 +4,7 @@ import { VertexIdProvider } from './vertexId/VertexIdContext'
 import { EdgeIdProvider } from './edgeId/EdgeIdContext'
 import { EdgesProvider } from './edges/EdgesContext'
 import { LinkingVertexProvider } from './linkingVertex/LinkingVertexContext'
+import { VertexRadiusProvider } from './vertexRadius/VertexRadiusContext'
 
 interface ProviderHubProps {
   children: ReactNode
@@ -16,7 +17,9 @@ const ProviderHub = ({ children }: ProviderHubProps) => {
         <LinkingVertexProvider>
           <EdgeIdProvider>
             <EdgesProvider>
-              <LinkingVertexProvider>{children}</LinkingVertexProvider>
+              <LinkingVertexProvider>
+                <VertexRadiusProvider>{children}</VertexRadiusProvider>
+              </LinkingVertexProvider>
             </EdgesProvider>
           </EdgeIdProvider>
         </LinkingVertexProvider>

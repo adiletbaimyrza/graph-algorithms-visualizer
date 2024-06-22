@@ -4,6 +4,7 @@ import useEdgeId from './useEdgeId'
 interface EdgeIdContextType {
   get: () => number
   set: (newEdgeId: number) => void
+  reset: () => void
 }
 
 // prettier-ignore

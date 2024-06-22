@@ -14,7 +14,11 @@ const useEdgeId = () => {
     return prevEdgeId
   }
 
-  return { get, set }
+  const reset = () => {
+    setEdgeId(0)
+  }
+
+  return { get, set, reset }
 }
 
 export default useEdgeId

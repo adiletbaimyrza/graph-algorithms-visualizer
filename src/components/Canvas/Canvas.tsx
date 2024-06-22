@@ -6,11 +6,13 @@ import Vertex from './Vertex'
 import Edge from './Edge'
 import { isVertexPositionValid } from './CanvasUtils'
 import IVertex from '../../interfaces/IVertex'
+import useVertexRadiusContext from '../../contexts/vertexRadius/useVertexRadiusContext'
 
 function Canvas() {
   const vertices = useVerticesContext()
   const edges = useEdgesContext()
   const vertexId = useVertexIdContext()
+  const vertexRadius = useVertexRadiusContext()
 
   const canvasRef = useRef<SVGSVGElement | null>(null)
 
@@ -28,7 +30,7 @@ function Canvas() {
         vertices.get(),
         canvasRef.current.clientWidth,
         canvasRef.current.clientHeight,
-        30
+        vertexRadius.get()
       )
     ) {
       vertices.add(newVertex)
@@ -41,6 +43,7 @@ function Canvas() {
 
   return (
     <svg
+      id="canvas"
       ref={canvasRef}
       onClick={onCanvasClick}
       className="bg-slate-900 h-full w-full"
