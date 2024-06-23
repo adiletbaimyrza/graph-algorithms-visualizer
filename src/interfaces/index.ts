@@ -1,3 +1,6 @@
 export type { default as IVertex } from './IVertex'
 export type { default as IEdge } from './IEdge'
+export type { default as IStep } from './IStep'
 export type { default as GraphSizeType } from './GraphSizeType'
+export type { default as AlgoType } from './AlgoType'
+export type { default as AdjListType } from './AdjListType'

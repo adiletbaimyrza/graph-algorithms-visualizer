@@ -1,12 +1,14 @@
 import { useRandomGraph } from '../../algorithms'
+import { useCurrentAlgo } from '../../contexts'
 
 const Panel = () => {
   const generate = useRandomGraph()
+  const currentAlgo = useCurrentAlgo()
 
   return (
-    <div className="absolute bg-slate-200">
+    <div className="bg-slate-200">
       <button
-        className="p-2"
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
         onClick={() => {
           generate('xs')
         }}
@@ -14,7 +16,7 @@ const Panel = () => {
         xs
       </button>
       <button
-        className="p-2"
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
         onClick={() => {
           generate('s')
         }}
@@ -22,7 +24,7 @@ const Panel = () => {
         s
       </button>
       <button
-        className="p-2"
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
         onClick={() => {
           generate('m')
         }}
@@ -30,7 +32,7 @@ const Panel = () => {
         m
       </button>
       <button
-        className="p-2"
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
         onClick={() => {
           generate('l')
         }}
@@ -38,12 +40,36 @@ const Panel = () => {
         l
       </button>
       <button
-        className="p-2"
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
         onClick={() => {
           generate('xl')
         }}
       >
         xl
+      </button>
+      <button
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
+        onClick={() => {
+          currentAlgo.set('dfs')
+        }}
+      >
+        dfs
+      </button>
+      <button
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
+        onClick={() => {
+          currentAlgo.set('bfs')
+        }}
+      >
+        bfs
+      </button>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={() => {
+          console.log('run algorithm')
+        }}
+      >
+        RUN
       </button>
     </div>
   )

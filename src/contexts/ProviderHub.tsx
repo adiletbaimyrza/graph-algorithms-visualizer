@@ -7,6 +7,8 @@ import { LinkingVertexProvider } from './linkingVertex/LinkingVertexContext'
 import { VertexRadiusProvider } from './vertexRadius/VertexRadiusContext'
 import { FontSizeProvider } from './fontSize/FontSizeContext'
 import { LineWidthProvider } from './lineWidth/LineWidthContext'
+import { CurrentAlgoProvider } from './currentAlgo/CurrentAlgoContext'
+import { StepIdProvider } from './stepId/StepIdContext'
 
 interface ProviderHubProps {
   children: ReactNode
@@ -21,7 +23,11 @@ const ProviderHub = ({ children }: ProviderHubProps) => {
             <LinkingVertexProvider>
               <VertexRadiusProvider>
                 <FontSizeProvider>
-                  <LineWidthProvider>{children}</LineWidthProvider>
+                  <LineWidthProvider>
+                    <CurrentAlgoProvider>
+                      <StepIdProvider>{children}</StepIdProvider>
+                    </CurrentAlgoProvider>
+                  </LineWidthProvider>
                 </FontSizeProvider>
               </VertexRadiusProvider>
             </LinkingVertexProvider>

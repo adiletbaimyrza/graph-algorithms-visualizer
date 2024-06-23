@@ -48,7 +48,7 @@ function Canvas() {
       id="canvas"
       ref={canvasRef}
       onClick={onCanvasClick}
-      className="bg-slate-900 h-full w-full"
+      className="bg-slate-900 w-full"
     >
       {edges.get().map((edge) => (
         <Edge key={edge.id} {...edge} />
