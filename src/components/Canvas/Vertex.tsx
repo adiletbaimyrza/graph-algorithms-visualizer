@@ -7,11 +7,11 @@ import {
   useEdgeId,
   useEdges,
   useVertexRadius,
+  useFontSize,
 } from '../../contexts'
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
-import IVertex from '../../interfaces/IVertex'
-import IEdge from '../../interfaces/IEdge'
+import { IVertex, IEdge } from '../../interfaces'
 
 const Vertex = ({ id, x, y }: IVertex) => {
   const vertices = useVertices()
@@ -19,6 +19,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
   const linkingVertex = useLinkingVertex()
   const edgeId = useEdgeId()
   const vertexRadius = useVertexRadius()
+  const fontSize = useFontSize()
   const vertexRef = useRef<SVGGElement | null>(null)
 
   useEffect(() => {
@@ -171,7 +172,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
         y={y}
         textAnchor="middle"
         dominantBaseline="middle"
-        fontSize={12}
+        fontSize={fontSize.get()}
         className="select-none"
       >
         {id}

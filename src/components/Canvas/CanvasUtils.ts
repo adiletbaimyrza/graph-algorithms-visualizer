@@ -1,4 +1,4 @@
-import IVertex from '../../interfaces/IVertex'
+import { IVertex } from '../../interfaces'
 
 const isOutOfBounds = (
   x: number,

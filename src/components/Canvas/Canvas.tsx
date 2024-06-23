@@ -8,7 +8,7 @@ import {
 import Vertex from './Vertex'
 import Edge from './Edge'
 import { isVertexPositionValid } from './CanvasUtils'
-import IVertex from '../../interfaces/IVertex'
+import { IVertex } from '../../interfaces'
 
 function Canvas() {
   const vertices = useVertices()

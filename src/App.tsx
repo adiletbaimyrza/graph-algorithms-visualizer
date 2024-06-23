@@ -1,5 +1,4 @@
-import Canvas from './components/Canvas/Canvas'
-import Panel from './components/Panel/Panel'
+import { Canvas, Panel } from './components'
 import './App.css'
 
 function App() {
