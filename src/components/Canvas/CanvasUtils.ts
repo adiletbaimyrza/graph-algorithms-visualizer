@@ -1,4 +1,4 @@
-import IVertex from '../../interfaces/IVertex'
+import { IVertex } from '../../interfaces'
 
 const isOutOfBounds = (
   x: number,
@@ -48,4 +48,4 @@ const isVertexPositionValid = (
   return !(isTooCloseToOtherVertices || isVertexOutOfBounds)
 }
 
-export { isVertexPositionValid }
+export { isOutOfBounds, euclideanDistance, isVertexPositionValid }

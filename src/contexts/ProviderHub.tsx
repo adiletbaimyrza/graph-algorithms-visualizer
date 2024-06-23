@@ -1,6 +1,14 @@
 import { ReactNode } from 'react'
 import { VerticesProvider } from './vertices/VerticesContext'
 import { VertexIdProvider } from './vertexId/VertexIdContext'
+import { EdgeIdProvider } from './edgeId/EdgeIdContext'
+import { EdgesProvider } from './edges/EdgesContext'
+import { LinkingVertexProvider } from './linkingVertex/LinkingVertexContext'
+import { VertexRadiusProvider } from './vertexRadius/VertexRadiusContext'
+import { FontSizeProvider } from './fontSize/FontSizeContext'
+import { LineWidthProvider } from './lineWidth/LineWidthContext'
+import { CurrentAlgoProvider } from './currentAlgo/CurrentAlgoContext'
+import { StepIdProvider } from './stepId/StepIdContext'
 
 interface ProviderHubProps {
   children: ReactNode
@@ -9,7 +17,23 @@ interface ProviderHubProps {
 const ProviderHub = ({ children }: ProviderHubProps) => {
   return (
     <VerticesProvider>
-      <VertexIdProvider>{children}</VertexIdProvider>
+      <VertexIdProvider>
+        <EdgeIdProvider>
+          <EdgesProvider>
+            <LinkingVertexProvider>
+              <VertexRadiusProvider>
+                <FontSizeProvider>
+                  <LineWidthProvider>
+                    <CurrentAlgoProvider>
+                      <StepIdProvider>{children}</StepIdProvider>
+                    </CurrentAlgoProvider>
+                  </LineWidthProvider>
+                </FontSizeProvider>
+              </VertexRadiusProvider>
+            </LinkingVertexProvider>
+          </EdgesProvider>
+        </EdgeIdProvider>
+      </VertexIdProvider>
     </VerticesProvider>
   )
 }

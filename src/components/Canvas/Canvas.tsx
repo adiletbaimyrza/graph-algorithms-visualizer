@@ -1,13 +1,20 @@
 import { useRef } from 'react'
-import useVerticesContext from '../../contexts/vertices/useVerticesContext'
+import {
+  useVertices,
+  useVertexId,
+  useEdges,
+  useVertexRadius,
+} from '../../contexts'
 import Vertex from './Vertex'
-import IVertex from '../../interfaces/IVertex'
+import Edge from './Edge'
 import { isVertexPositionValid } from './CanvasUtils'
-import useVertexIdContext from '../../contexts/vertexId/useVertexIdContext'
+import { IVertex } from '../../interfaces'
 
 function Canvas() {
-  const vertices = useVerticesContext()
-  const vertexId = useVertexIdContext()
+  const vertices = useVertices()
+  const edges = useEdges()
+  const vertexId = useVertexId()
+  const vertexRadius = useVertexRadius()
 
   const canvasRef = useRef<SVGSVGElement | null>(null)
 
@@ -25,7 +32,7 @@ function Canvas() {
         vertices.get(),
         canvasRef.current.clientWidth,
         canvasRef.current.clientHeight,
-        30
+        vertexRadius.get()
       )
     ) {
       vertices.add(newVertex)
@@ -38,10 +45,14 @@ function Canvas() {
 
   return (
     <svg
+      id="canvas"
       ref={canvasRef}
       onClick={onCanvasClick}
-      className="bg-slate-900 h-full w-full"
+      className="bg-slate-900 w-full"
     >
+      {edges.get().map((edge) => (
+        <Edge key={edge.id} {...edge} />
+      ))}
       {vertices.get().map((vertex) => (
         <Vertex key={vertex.id} {...vertex} />
       ))}

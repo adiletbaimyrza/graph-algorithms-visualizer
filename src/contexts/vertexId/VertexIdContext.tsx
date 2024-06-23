@@ -1,9 +1,10 @@
-import { createContext, ReactNode } from 'react'
-import useVertexId from './useVertexId'
+import { useState, createContext, ReactNode } from 'react'
 
 interface VertexIdContextType {
+  state: number
   get: () => number
   set: (newVertexId: number) => void
+  reset: () => void
 }
 
 // prettier-ignore
@@ -14,10 +15,27 @@ interface VertexIdProviderProps {
 }
 
 const VertexIdProvider = ({ children }: VertexIdProviderProps) => {
-  const vertexId = useVertexId()
+  const [vertexId, setVertexId] = useState<number>(0)
+
+  const state = vertexId
+
+  const set = (newVertexId: number) => {
+    setVertexId(newVertexId)
+  }
+
+  const get = () => {
+    const prevVertexId = vertexId
+    setVertexId(vertexId + 1)
+
+    return prevVertexId
+  }
+
+  const reset = () => {
+    setVertexId(0)
+  }
 
   return (
-    <VertexIdContext.Provider value={vertexId}>
+    <VertexIdContext.Provider value={{ state, get, set, reset }}>
       {children}
     </VertexIdContext.Provider>
   )
