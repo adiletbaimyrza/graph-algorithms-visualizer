@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { VertexIdContext, VertexIdContextType } from './VertexIdContext'
 
-const useVertexIdContext = (): VertexIdContextType => {
+const useVertexId = (): VertexIdContextType => {
   const vertexIdContext = useContext(VertexIdContext)
 
   if (!vertexIdContext) {
@@ -13,4 +13,4 @@ const useVertexIdContext = (): VertexIdContextType => {
   return vertexIdContext
 }
 
-export default useVertexIdContext
+export default useVertexId

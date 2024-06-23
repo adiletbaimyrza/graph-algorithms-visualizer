@@ -1,7 +1,7 @@
-import { createContext, ReactNode } from 'react'
-import useEdgeId from './useEdgeId'
+import { useState, createContext, ReactNode } from 'react'
 
 interface EdgeIdContextType {
+  state: number
   get: () => number
   set: (newEdgeId: number) => void
   reset: () => void
@@ -15,10 +15,29 @@ interface EdgeIdProviderProps {
 }
 
 const EdgeIdProvider = ({ children }: EdgeIdProviderProps) => {
-  const edgeId = useEdgeId()
+  const [edgeId, setEdgeId] = useState<number>(0)
+
+  const state = edgeId
+
+  const set = (newEdgeId: number) => {
+    setEdgeId(newEdgeId)
+  }
+
+  const get = () => {
+    const prevEdgeId = edgeId
+    setEdgeId(edgeId + 1)
+
+    return prevEdgeId
+  }
+
+  const reset = () => {
+    setEdgeId(0)
+  }
 
   return (
-    <EdgeIdContext.Provider value={edgeId}>{children}</EdgeIdContext.Provider>
+    <EdgeIdContext.Provider value={{ state, set, get, reset }}>
+      {children}
+    </EdgeIdContext.Provider>
   )
 }
 

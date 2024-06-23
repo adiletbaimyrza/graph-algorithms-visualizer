@@ -1,7 +1,7 @@
-import { createContext, ReactNode } from 'react'
-import useVertexRadius from './useVertexRadius'
+import { useState, createContext, ReactNode } from 'react'
 
 interface VertexRadiusContextType {
+  state: number
   get: () => number
   set: (newVertexRadius: number) => void
 }
@@ -14,10 +14,20 @@ interface VertexRadiusProviderProps {
 }
 
 const VertexRadiusProvider = ({ children }: VertexRadiusProviderProps) => {
-  const vertexRadius = useVertexRadius()
+  const [vertexRadius, setVertexRadius] = useState<number>(20)
+
+  const state = vertexRadius
+
+  const set = (newVertexRadius: number) => {
+    setVertexRadius(newVertexRadius)
+  }
+
+  const get = () => {
+    return vertexRadius
+  }
 
   return (
-    <VertexRadiusContext.Provider value={vertexRadius}>
+    <VertexRadiusContext.Provider value={{ state, get, set }}>
       {children}
     </VertexRadiusContext.Provider>
   )

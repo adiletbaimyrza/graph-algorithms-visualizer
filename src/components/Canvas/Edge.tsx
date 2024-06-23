@@ -1,8 +1,8 @@
-import useEdgesContext from '../../contexts/edges/useEdgesContext'
+import useEdges from '../../contexts/edges'
 import IEdge from '../../interfaces/IEdge'
 
 const Edge = ({ id, vertexOne, vertexTwo }: IEdge) => {
-  const edges = useEdgesContext()
+  const edges = useEdges()
 
   const onRightClick = (event: React.MouseEvent) => {
     event.preventDefault()

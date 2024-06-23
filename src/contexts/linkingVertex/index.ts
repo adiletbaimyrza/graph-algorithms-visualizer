@@ -4,7 +4,7 @@ import {
   LinkingVertexContextType,
 } from './LinkingVertexContext'
 
-const useLinkingVertexContext = (): LinkingVertexContextType => {
+const useLinkingVertex = (): LinkingVertexContextType => {
   const linkingVertexContext = useContext(LinkingVertexContext)
 
   if (!linkingVertexContext) {
@@ -16,4 +16,4 @@ const useLinkingVertexContext = (): LinkingVertexContextType => {
   return linkingVertexContext
 }
 
-export default useLinkingVertexContext
+export default useLinkingVertex

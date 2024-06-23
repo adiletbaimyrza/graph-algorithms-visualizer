@@ -4,7 +4,7 @@ import {
   VertexRadiusContextType,
 } from './VertexRadiusContext'
 
-const useVertexRadiusContext = (): VertexRadiusContextType => {
+const useVertexRadius = (): VertexRadiusContextType => {
   const vertexRadiusContext = useContext(VertexRadiusContext)
 
   if (!vertexRadiusContext) {
@@ -16,4 +16,4 @@ const useVertexRadiusContext = (): VertexRadiusContextType => {
   return vertexRadiusContext
 }
 
-export default useVertexRadiusContext
+export default useVertexRadius

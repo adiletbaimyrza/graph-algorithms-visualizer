@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { VerticesContext, VerticesContextType } from './VerticesContext'
 
-const useVerticesContext = (): VerticesContextType => {
+const useVertices = (): VerticesContextType => {
   const verticesContext = useContext(VerticesContext)
 
   if (!verticesContext) {
@@ -13,4 +13,4 @@ const useVerticesContext = (): VerticesContextType => {
   return verticesContext
 }
 
-export default useVerticesContext
+export default useVertices

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { EdgesContext, EdgesContextType } from './EdgesContext'
 
-const useEdgesContext = (): EdgesContextType => {
+const useEdges = (): EdgesContextType => {
   const edgesContext = useContext(EdgesContext)
 
   if (!edgesContext) {
@@ -13,4 +13,4 @@ const useEdgesContext = (): EdgesContextType => {
   return edgesContext
 }
 
-export default useEdgesContext
+export default useEdges

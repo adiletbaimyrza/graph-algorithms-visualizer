@@ -1,8 +1,8 @@
-import { createContext, ReactNode } from 'react'
-import useEdges from './useEdges'
+import { useState, createContext, ReactNode } from 'react'
 import IEdge from '../../interfaces/IEdge'
 
 interface EdgesContextType {
+  state: IEdge[]
   get: () => IEdge[]
   set: (newEdges: IEdge[]) => void
   add: (newEdge: IEdge) => void
@@ -17,9 +17,33 @@ interface EdgesProviderProps {
 }
 
 const EdgesProvider = ({ children }: EdgesProviderProps) => {
-  const edges = useEdges()
+  const [edges, setEdges] = useState<IEdge[]>([])
 
-  return <EdgesContext.Provider value={edges}>{children}</EdgesContext.Provider>
+  const state = edges
+
+  const get = () => {
+    return edges
+  }
+
+  const set = (newEdges: IEdge[]) => {
+    setEdges(newEdges)
+  }
+
+  const add = (newEdge: IEdge) => {
+    const updatedEdges = [...edges, newEdge]
+    setEdges(updatedEdges)
+  }
+
+  const remove = (id: number) => {
+    const filteredEdges = edges.filter((edge) => edge.id !== id)
+    setEdges(filteredEdges)
+  }
+
+  return (
+    <EdgesContext.Provider value={{ state, get, set, add, remove }}>
+      {children}
+    </EdgesContext.Provider>
+  )
 }
 
 export { EdgesContext, EdgesProvider, type EdgesContextType }

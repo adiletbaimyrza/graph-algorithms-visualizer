@@ -1,22 +1,24 @@
 import { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 import $ from 'jquery'
-import useVerticesContext from '../../contexts/vertices/useVerticesContext'
-import useLinkingVertexContext from '../../contexts/linkingVertex/useLinkingVertexContext'
-import useEdgeIdContext from '../../contexts/edgeId/useEdgeIdContext'
-import useEdgesContext from '../../contexts/edges/useEdgesContext'
-import useVertexRadiusContext from '../../contexts/vertexRadius/useVertexRadiusContext'
+import {
+  useVertices,
+  useLinkingVertex,
+  useEdgeId,
+  useEdges,
+  useVertexRadius,
+} from '../../contexts'
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
 import IVertex from '../../interfaces/IVertex'
 import IEdge from '../../interfaces/IEdge'
 
 const Vertex = ({ id, x, y }: IVertex) => {
-  const vertices = useVerticesContext()
-  const edges = useEdgesContext()
-  const linkingVertex = useLinkingVertexContext()
-  const edgeId = useEdgeIdContext()
-  const vertexRadius = useVertexRadiusContext()
+  const vertices = useVertices()
+  const edges = useEdges()
+  const linkingVertex = useLinkingVertex()
+  const edgeId = useEdgeId()
+  const vertexRadius = useVertexRadius()
   const vertexRef = useRef<SVGGElement | null>(null)
 
   useEffect(() => {

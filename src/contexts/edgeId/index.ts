@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { EdgeIdContext, EdgeIdContextType } from './EdgeIdContext'
 
-const useEdgeIdContext = (): EdgeIdContextType => {
+const useEdgeId = (): EdgeIdContextType => {
   const edgeIdContext = useContext(EdgeIdContext)
 
   if (!edgeIdContext) {
@@ -13,4 +13,4 @@ const useEdgeIdContext = (): EdgeIdContextType => {
   return edgeIdContext
 }
 
-export default useEdgeIdContext
+export default useEdgeId
