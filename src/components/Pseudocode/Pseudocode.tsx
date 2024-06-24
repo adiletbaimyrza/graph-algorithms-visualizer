@@ -9,6 +9,7 @@ const Pseudocode = () => {
       {pseudocodes[currentAlgo.get()].map((codeLine, index) => (
         <p
           key={index}
+          id={`pseudo-${index}`}
           style={{ textIndent: `${codeLine.indent}px` }}
           className="bg-slate-600"
         >
