@@ -1,7 +1,7 @@
-import { GraphSizeType } from '../interfaces'
+import { TGraphSize } from '../types'
 
 const configureGraphSizes = (
-  graphSize: GraphSizeType,
+  graphSize: TGraphSize,
   vertexRadiusSet: (newVertexRadius: number) => void,
   fontSizeSet: (newFontSize: number) => void,
   lineWidthSet: (newLineWidth: number) => void

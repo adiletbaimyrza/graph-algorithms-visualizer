@@ -13,7 +13,7 @@ import bridson from './bridson'
 import delaunay from './delaunay'
 import { euclideanDistance, isOutOfBounds } from '../components'
 import { configureGraphSizes } from './useRandomGraphUtils'
-import { IVertex, IEdge, GraphSizeType } from '../interfaces'
+import { TVertex, TEdge, TGraphSize } from '../types'
 
 const useRandomGraph = () => {
   const vertexRadius = useVertexRadius()
@@ -31,7 +31,7 @@ const useRandomGraph = () => {
     canvasHeight.current = $('#canvas').height()
   }, [])
 
-  const generateRandomGraph = (graphSize: GraphSizeType) => {
+  const generateRandomGraph = (graphSize: TGraphSize) => {
     const radius = configureGraphSizes(
       graphSize,
       vertexRadius.set,
@@ -44,7 +44,7 @@ const useRandomGraph = () => {
     vertexId.reset()
     edgeId.reset()
 
-    const sampling: IVertex[] = bridson(
+    const sampling: TVertex[] = bridson(
       radius,
       canvasWidth.current!,
       canvasHeight.current!
@@ -66,9 +66,9 @@ const useRandomGraph = () => {
       coordinates.push(vertex.x, vertex.y)
     })
 
-    const triangulatedEdges: IEdge[] = delaunay(inBoundsVertices, coordinates)
+    const triangulatedEdges: TEdge[] = delaunay(inBoundsVertices, coordinates)
 
-    const shortDistanceEdges: IEdge[] = triangulatedEdges.filter(
+    const shortDistanceEdges: TEdge[] = triangulatedEdges.filter(
       (edge) =>
         euclideanDistance(
           edge.vertexOne.x,

@@ -1,4 +1,4 @@
-export default interface IStep {
+type TStep = {
   id: number
   description: string
   vertexId: number | undefined
@@ -7,3 +7,5 @@ export default interface IStep {
   edgeColor: string | undefined
   codeLineId: number | undefined
 }
+
+export default TStep

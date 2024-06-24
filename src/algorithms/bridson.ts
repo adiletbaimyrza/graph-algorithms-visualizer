@@ -1,20 +1,20 @@
 import { isGridPlacementValid } from './bridsonUtils'
-import IVertex from '../interfaces/IVertex'
+import { TVertex } from '../types'
 
 // Bridson's algorithm for fast Poisson disk sampling in arbitrary dimensions
 const bridson = (
   radius: number,
   canvasWidth: number,
   canvasHeight: number
-): IVertex[] => {
+): TVertex[] => {
   // Number of tries before rejection
   const maxAttempts: number = 30
   // dimension is 2D, since we use 2D svg
   const numDimensions: number = 2
   // Final array of vertices to return
-  const finalVertices: IVertex[] = []
+  const finalVertices: TVertex[] = []
   // Active array of vertices 'active list'
-  const activeVertices: IVertex[] = []
+  const activeVertices: TVertex[] = []
   // Size of a cell inside a grid
   const cellSize: number = Math.floor(radius / Math.sqrt(numDimensions))
   // The number of cells in the grid for the canvas
@@ -24,16 +24,16 @@ const bridson = (
   // Initialize first random vertex
   const randomX: number = Math.floor(Math.random() * canvasWidth)
   const randomY: number = Math.floor(Math.random() * canvasHeight)
-  const initialVertex: IVertex = {
+  const initialVertex: TVertex = {
     id: finalVertices.length,
     x: randomX,
     y: randomY,
   }
 
   // Initialize the grid
-  const grid: (IVertex | null)[][] = new Array(numCellsWidth)
+  const grid: (TVertex | null)[][] = new Array(numCellsWidth)
   for (let i = 0; i < numCellsWidth; i++) {
-    grid[i] = new Array(numCellsHeight) as (IVertex | null)[]
+    grid[i] = new Array(numCellsHeight) as (TVertex | null)[]
     for (let j = 0; j < numCellsHeight; j++) {
       grid[i][j] = null
     }
@@ -53,7 +53,7 @@ const bridson = (
     const randomIndex: number = Math.floor(
       Math.random() * activeVertices.length
     )
-    const currentVertex: IVertex = activeVertices[randomIndex]
+    const currentVertex: TVertex = activeVertices[randomIndex]
 
     let validVertexFound: boolean = false
 
@@ -71,7 +71,7 @@ const bridson = (
       const newVertexY: number =
         currentVertex.y + newRadius * Math.sin(thetaInRadians)
 
-      const vertexCandidate: IVertex = {
+      const vertexCandidate: TVertex = {
         id: finalVertices.length,
         x: newVertexX,
         y: newVertexY,
@@ -93,7 +93,7 @@ const bridson = (
         continue
       }
 
-      const newVertex: IVertex = {
+      const newVertex: TVertex = {
         id: finalVertices.length,
         x: newVertexX,
         y: newVertexY,
@@ -102,7 +102,7 @@ const bridson = (
       // Add vertex and set validVertexFound to true, if valid
       const xCellIndex: number = Math.floor(newVertex.x / cellSize)
       const yCellindex: number = Math.floor(newVertex.y / cellSize)
-      grid[xCellIndex][yCellindex] = newVertex as IVertex
+      grid[xCellIndex][yCellindex] = newVertex as TVertex
 
       finalVertices.push(newVertex)
       activeVertices.push(newVertex)

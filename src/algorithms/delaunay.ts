@@ -1,19 +1,18 @@
 import Delaunator from 'delaunator'
-import { isNewEdgeValid } from '../components/Canvas/VertexUtils'
-import IVertex from '../interfaces/IVertex'
-import IEdge from '../interfaces/IEdge'
+import { isNewEdgeValid } from '../components'
+import { TVertex, TEdge } from '../types'
 
 // Function to generate Delaunay triangulation edges from vertices
 const delaunay = (
-  vertices: IVertex[],
+  vertices: TVertex[],
   verticesCoordinates: number[]
-): IEdge[] => {
+): TEdge[] => {
   // Create a new Delaunator object from the vertices coordinates
   const delaunay: Delaunator<unknown> = new Delaunator(verticesCoordinates)
   // Get the triangles from the Delaunator object
   const triangles: Uint32Array = delaunay.triangles
   // Initialize an array to hold the final edges
-  const finalEdges: IEdge[] = []
+  const finalEdges: TEdge[] = []
 
   // Initialize a counter for edge ids
   let edgeId = 0
@@ -38,16 +37,16 @@ const delaunay = (
         (vertex) =>
           vertex.x === verticesCoordinates[2 * edge[0]] &&
           vertex.y === verticesCoordinates[2 * edge[0] + 1]
-      ) as IVertex
+      ) as TVertex
 
       const vertexTwo = vertices.find(
         (vertex) =>
           vertex.x === verticesCoordinates[2 * edge[1]] &&
           vertex.y === verticesCoordinates[2 * edge[1] + 1]
-      ) as IVertex
+      ) as TVertex
 
       // Create a new edge from the vertices
-      const newEdge: IEdge = {
+      const newEdge: TEdge = {
         id: edgeId,
         vertexOne,
         vertexTwo,

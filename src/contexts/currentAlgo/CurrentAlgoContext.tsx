@@ -1,10 +1,10 @@
 import { useState, createContext, ReactNode } from 'react'
-import { AlgoType } from '../../interfaces'
+import { TAlgo } from '../../types'
 
 interface CurrentAlgoContextType {
-  state: AlgoType
-  get: () => AlgoType
-  set: (newAlgo: AlgoType) => void
+  state: TAlgo
+  get: () => TAlgo
+  set: (newAlgo: TAlgo) => void
 }
 
 // prettier-ignore
@@ -15,11 +15,11 @@ interface CurrentAlgoProviderProps {
 }
 
 const CurrentAlgoProvider = ({ children }: CurrentAlgoProviderProps) => {
-  const [currentAlgo, setCurrentAlgo] = useState<AlgoType>('dfs')
+  const [currentAlgo, setCurrentAlgo] = useState<TAlgo>('dfs')
 
   const state = currentAlgo
 
-  const set = (newAlgo: AlgoType) => {
+  const set = (newAlgo: TAlgo) => {
     setCurrentAlgo(newAlgo)
   }
 

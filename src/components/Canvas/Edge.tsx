@@ -1,7 +1,7 @@
 import { useEdges, useLineWidth } from '../../contexts'
-import { IEdge } from '../../interfaces'
+import { TEdge } from '../../types'
 
-const Edge = ({ id, vertexOne, vertexTwo }: IEdge) => {
+const Edge = ({ id, vertexOne, vertexTwo }: TEdge) => {
   const edges = useEdges()
   const lineWidth = useLineWidth()
 

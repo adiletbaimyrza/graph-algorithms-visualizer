@@ -1,10 +1,10 @@
 import { useState, createContext, ReactNode } from 'react'
-import IVertex from '../../interfaces/IVertex'
+import { TVertex } from '../../types'
 
 interface LinkingVertexContextType {
-  state: IVertex | null
-  get: () => IVertex | null
-  set: (newlinkingVertex: IVertex) => void
+  state: TVertex | null
+  get: () => TVertex | null
+  set: (newlinkingVertex: TVertex) => void
   reset: () => void
 }
 
@@ -16,11 +16,11 @@ interface LinkingVertexProviderProps {
 }
 
 const LinkingVertexProvider = ({ children }: LinkingVertexProviderProps) => {
-  const [linkingVertex, setLinkingVertex] = useState<IVertex | null>(null)
+  const [linkingVertex, setLinkingVertex] = useState<TVertex | null>(null)
 
   const state = linkingVertex
 
-  const set = (newlinkingVertex: IVertex) => {
+  const set = (newlinkingVertex: TVertex) => {
     setLinkingVertex(newlinkingVertex)
   }
 

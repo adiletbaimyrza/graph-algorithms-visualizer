@@ -1,6 +1,6 @@
-import IEdge from '../../interfaces/IEdge'
+import { TEdge } from '../../types'
 
-const isEdgeExists = (edge: IEdge, edges: IEdge[]) => {
+const isEdgeExists = (edge: TEdge, edges: TEdge[]) => {
   return edges.some(
     (existingEdge) =>
       (existingEdge.vertexOne.id === edge.vertexOne.id &&
@@ -10,7 +10,7 @@ const isEdgeExists = (edge: IEdge, edges: IEdge[]) => {
   )
 }
 
-const isLinkingToSelf = (edge: IEdge) => {
+const isLinkingToSelf = (edge: TEdge) => {
   return (
     edge.vertexOne.id === edge.vertexTwo.id &&
     edge.vertexOne.x === edge.vertexTwo.x &&
@@ -18,7 +18,7 @@ const isLinkingToSelf = (edge: IEdge) => {
   )
 }
 
-const isNewEdgeValid = (newEdge: IEdge, edges: IEdge[]) => {
+const isNewEdgeValid = (newEdge: TEdge, edges: TEdge[]) => {
   return !isLinkingToSelf(newEdge) && !isEdgeExists(newEdge, edges)
 }
 

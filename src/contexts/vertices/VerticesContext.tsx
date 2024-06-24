@@ -1,11 +1,11 @@
 import { useState, createContext, ReactNode } from 'react'
-import IVertex from '../../interfaces/IVertex'
+import { TVertex } from '../../types'
 
 interface VerticesContextType {
-  state: IVertex[]
-  get: () => IVertex[]
-  set: (newVertices: IVertex[]) => void
-  add: (newVertex: IVertex) => void
+  state: TVertex[]
+  get: () => TVertex[]
+  set: (newVertices: TVertex[]) => void
+  add: (newVertex: TVertex) => void
   remove: (id: number) => void
 }
 
@@ -17,7 +17,7 @@ interface VerticesProviderProps {
 }
 
 const VerticesProvider = ({ children }: VerticesProviderProps) => {
-  const [vertices, setVertices] = useState<IVertex[]>([])
+  const [vertices, setVertices] = useState<TVertex[]>([])
 
   const state = vertices
 
@@ -25,11 +25,11 @@ const VerticesProvider = ({ children }: VerticesProviderProps) => {
     return vertices
   }
 
-  const set = (newVertices: IVertex[]) => {
+  const set = (newVertices: TVertex[]) => {
     setVertices(newVertices)
   }
 
-  const add = (newVertex: IVertex) => {
+  const add = (newVertex: TVertex) => {
     const updatedVertices = [...vertices, newVertex]
     setVertices(updatedVertices)
   }

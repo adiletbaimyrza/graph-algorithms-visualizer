@@ -8,7 +8,7 @@ import {
 import Vertex from './Vertex'
 import Edge from './Edge'
 import { isVertexPositionValid } from './CanvasUtils'
-import { IVertex } from '../../interfaces'
+import { TVertex } from '../../types'
 
 function Canvas() {
   const vertices = useVertices()
@@ -19,7 +19,7 @@ function Canvas() {
   const canvasRef = useRef<SVGSVGElement | null>(null)
 
   const onCanvasClick = (event: React.MouseEvent) => {
-    const newVertex: IVertex = {
+    const newVertex: TVertex = {
       id: vertexId.get(),
       x: event.clientX - canvasRef.current!.getBoundingClientRect().left,
       y: event.clientY - canvasRef.current!.getBoundingClientRect().top,

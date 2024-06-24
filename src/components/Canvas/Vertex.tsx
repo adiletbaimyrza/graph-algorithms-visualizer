@@ -11,9 +11,9 @@ import {
 } from '../../contexts'
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
-import { IVertex, IEdge } from '../../interfaces'
+import { TVertex, TEdge } from '../../types'
 
-const Vertex = ({ id, x, y }: IVertex) => {
+const Vertex = ({ id, x, y }: TVertex) => {
   const vertices = useVertices()
   const edges = useEdges()
   const linkingVertex = useLinkingVertex()
@@ -75,7 +75,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
             y,
           }
         }
-      }) as IVertex[]
+      }) as TVertex[]
 
       const newEdges = edges.get().map((edge) => {
         const edgeInDOM = $(`#line-${edge.id}`)
@@ -91,7 +91,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
             vertexTwo: { ...edge.vertexTwo, x: x2, y: y2 },
           }
         }
-      }) as IEdge[]
+      }) as TEdge[]
 
       vertices.set(newVertices)
       edges.set(newEdges)
@@ -122,7 +122,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
     const linkingVertexValue = linkingVertex.get()
 
     if (linkingVertexValue) {
-      const newEdge: IEdge = {
+      const newEdge: TEdge = {
         id: edgeId.get(),
         vertexOne: linkingVertexValue,
         vertexTwo: { id, x, y },
@@ -145,7 +145,7 @@ const Vertex = ({ id, x, y }: IVertex) => {
   const onVertexRightClick = (event: React.MouseEvent) => {
     event.preventDefault()
 
-    const filteredEdges: IEdge[] = edges
+    const filteredEdges: TEdge[] = edges
       .get()
       .filter((edge) => !(edge.vertexOne.id == id || edge.vertexTwo.id == id))
 

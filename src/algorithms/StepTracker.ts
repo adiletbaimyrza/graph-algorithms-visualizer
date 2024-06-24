@@ -1,7 +1,7 @@
-import { IStep } from '../interfaces'
+import { TStep } from '../types'
 
 class StepTracker {
-  private steps: IStep[]
+  private steps: TStep[]
   private stepId: number
 
   constructor() {
@@ -17,7 +17,7 @@ class StepTracker {
     edgeId?: number,
     edgeColor?: string
   ) => {
-    const newStep: IStep = {
+    const newStep: TStep = {
       id: this.stepId++,
       description,
       vertexId,

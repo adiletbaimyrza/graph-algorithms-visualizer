@@ -1,4 +1,4 @@
-import { IVertex } from '../../interfaces'
+import { TVertex } from '../../types'
 
 const isOutOfBounds = (
   x: number,
@@ -20,8 +20,8 @@ const euclideanDistance = (x1: number, y1: number, x2: number, y2: number) => {
 }
 
 const isVertexPositionValid = (
-  vertex: IVertex,
-  vertices: IVertex[],
+  vertex: TVertex,
+  vertices: TVertex[],
   canvasWidth: number,
   canvasHeight: number,
   vertexRadius: number

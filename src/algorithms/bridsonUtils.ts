@@ -1,16 +1,13 @@
-import {
-  euclideanDistance,
-  isOutOfBounds,
-} from '../components/Canvas/CanvasUtils'
-import IVertex from '../interfaces/IVertex'
+import { euclideanDistance, isOutOfBounds } from '../components'
+import { TVertex } from '../types'
 
 // Function to check if a grid placement is valid
 // A grid placement is considered valid if it is not out of bounds and not too close to any existing vertices
 const isGridPlacementValid = (
-  grid: (IVertex | null)[][], // The grid to check
+  grid: (TVertex | null)[][], // The grid to check
   numCellsWidth: number, // The number of cells in the grid's width
   numCellsHeight: number, // The number of cells in the grid's height
-  vertex: IVertex, // The vertex to check
+  vertex: TVertex, // The vertex to check
   radius: number, // The radius to check within
   cellSize: number, // The size of each cell in the grid
   canvasWidth: number, // The width of the canvas
@@ -34,7 +31,7 @@ const isGridPlacementValid = (
   // Check each cell in the range
   for (let i = i0; i <= i1; i++) {
     for (let j = j0; j <= j1; j++) {
-      const gridVertex: IVertex | null = grid[i][j]
+      const gridVertex: TVertex | null = grid[i][j]
       // If the cell is not empty and the Euclidean distance to the vertex is less than the radius, the placement is invalid
       if (gridVertex !== null) {
         if (
