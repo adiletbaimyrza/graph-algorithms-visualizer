@@ -22,7 +22,7 @@ const Edge = ({ id, vertexOne, vertexTwo }: TEdge) => {
         strokeWidth={lineWidth.get()}
         strokeDasharray={2000}
         strokeDashoffset={2000}
-        className="stroke-green-700 animate-[drawLine_1s_forwards] group-hover:stroke-white"
+        className="lines stroke-green-700 animate-[drawLine_1s_forwards] group-hover:stroke-white"
       />
     </g>
   )

@@ -5,11 +5,19 @@ const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const animateContinue = async (steps: TStep[]) => {
-  $('#circle-0').removeClass('fill-slate-400')
-  $('#circle-0').addClass('fill-red-700')
+const animateStartFrom = async (
+  steps: TStep[],
+  stepId: number,
+  stepIdSet: (newStepId: number) => void,
+  isAnimatingGet: () => boolean
+) => {
+  const newSteps = steps.slice(stepId)
 
-  for (const step of steps) {
+  for (const step of newSteps) {
+    if (!isAnimatingGet()) {
+      break
+    }
+
     $(`#pseudo-${step.codeLineId}`).removeClass('bg-slate-600')
     $(`#pseudo-${step.codeLineId}`).addClass('bg-yellow-600')
 
@@ -28,7 +36,9 @@ const animateContinue = async (steps: TStep[]) => {
 
     $(`#pseudo-${step.codeLineId}`).removeClass('bg-yellow-600')
     $(`#pseudo-${step.codeLineId}`).addClass('bg-slate-600')
+
+    stepIdSet(step.id)
   }
 }
 
-export default animateContinue
+export default animateStartFrom

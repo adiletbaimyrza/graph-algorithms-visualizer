@@ -1,4 +1,5 @@
 import { useCurrentAlgo } from '../../contexts'
+
 import pseudocodes from './pseudocodes'
 
 const Pseudocode = () => {
@@ -11,11 +12,12 @@ const Pseudocode = () => {
           key={index}
           id={`pseudo-${index}`}
           style={{ textIndent: `${codeLine.indent}px` }}
-          className="bg-slate-600"
+          className="pseudo bg-slate-600"
         >
           {codeLine.content}
         </p>
       ))}
+      <div id="info"></div>
     </div>
   )
 }

@@ -165,7 +165,7 @@ const Vertex = ({ id, x, y }: TVertex) => {
         cx={x}
         cy={y}
         r={vertexRadius.get()}
-        className="stroke-slate-400 fill-slate-400 group-hover:stroke-white stroke-[3]"
+        className="circles stroke-slate-400 fill-slate-400 group-hover:stroke-white stroke-[3]"
       ></circle>
       <text
         x={x}

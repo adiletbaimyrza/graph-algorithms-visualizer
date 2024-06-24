@@ -9,6 +9,7 @@ import { FontSizeProvider } from './fontSize/FontSizeContext'
 import { LineWidthProvider } from './lineWidth/LineWidthContext'
 import { CurrentAlgoProvider } from './currentAlgo/CurrentAlgoContext'
 import { StepIdProvider } from './stepId/StepIdContext'
+import { IsAnimatingProvider } from './isAnimating/IsAnimatingContext'
 
 interface ProviderHubProps {
   children: ReactNode
@@ -25,7 +26,9 @@ const ProviderHub = ({ children }: ProviderHubProps) => {
                 <FontSizeProvider>
                   <LineWidthProvider>
                     <CurrentAlgoProvider>
-                      <StepIdProvider>{children}</StepIdProvider>
+                      <StepIdProvider>
+                        <IsAnimatingProvider>{children}</IsAnimatingProvider>
+                      </StepIdProvider>
                     </CurrentAlgoProvider>
                   </LineWidthProvider>
                 </FontSizeProvider>

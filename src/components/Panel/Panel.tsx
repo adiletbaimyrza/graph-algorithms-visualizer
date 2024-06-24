@@ -1,17 +1,26 @@
 import {
-  animateContinue,
+  animateStartFrom,
   createAdjList,
   dfs,
   bfs,
   useRandomGraph,
+  animateFinishUntil,
 } from '../../algorithms'
-import { useCurrentAlgo, useVertices, useEdges } from '../../contexts'
+import {
+  useCurrentAlgo,
+  useVertices,
+  useEdges,
+  useStepId,
+  useIsAnimating,
+} from '../../contexts'
 
 const Panel = () => {
   const generate = useRandomGraph()
   const currentAlgo = useCurrentAlgo()
   const vertices = useVertices()
   const edges = useEdges()
+  const stepId = useStepId()
+  const isAnimating = useIsAnimating()
 
   return (
     <div className="bg-slate-200">
@@ -71,24 +80,72 @@ const Panel = () => {
       >
         bfs
       </button>
-      <button className="py-2 px-5 bg-green-700 border border-zinc-600">
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={() => {
+          const adj = createAdjList(vertices.get(), edges.get())
+
+          if (currentAlgo.get() === 'dfs') {
+            animateFinishUntil(dfs(0, adj), stepId.get() - 1, stepId.set)
+          } else {
+            animateFinishUntil(bfs(0, adj), stepId.get() - 1, stepId.set)
+          }
+
+          stepId.set(stepId.get() - 1)
+        }}
+      >
         prev
       </button>
       <button
         className="py-2 px-5 bg-green-700 border border-zinc-600"
         onClick={() => {
-          const adj = createAdjList(vertices.get(), edges.get())
-          if (currentAlgo.get() === 'dfs') {
-            animateContinue(dfs(0, adj))
+          if (isAnimating.get()) {
+            // If currently animating, stop animation
+            isAnimating.set(false)
           } else {
-            animateContinue(bfs(0, adj))
+            // If not animating, start animation
+            isAnimating.set(true)
+
+            // Generate adjacency list
+            const adj = createAdjList(vertices.get(), edges.get())
+
+            // Determine algorithm and start animation
+            if (currentAlgo.get() === 'dfs') {
+              animateStartFrom(
+                dfs(0, adj),
+                stepId.get(),
+                stepId.set,
+                isAnimating.get
+              )
+            } else {
+              animateStartFrom(
+                bfs(0, adj),
+                stepId.get(),
+                stepId.set,
+                isAnimating.get
+              )
+            }
           }
         }}
       >
-        play/stop
+        {isAnimating.get() ? 'stop' : 'play'}{' '}
+        {/* Toggle button label based on animation state */}
       </button>
 
-      <button className="py-2 px-5 bg-green-700 border border-zinc-600">
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={() => {
+          const adj = createAdjList(vertices.get(), edges.get())
+
+          if (currentAlgo.get() === 'dfs') {
+            animateFinishUntil(dfs(0, adj), stepId.get() + 1, stepId.set)
+          } else {
+            animateFinishUntil(bfs(0, adj), stepId.get() + 1, stepId.set)
+          }
+
+          stepId.set(stepId.get() + 1)
+        }}
+      >
         next
       </button>
     </div>

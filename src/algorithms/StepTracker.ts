@@ -13,17 +13,13 @@ class StepTracker {
     description: string,
     codeLineId: number,
     vertexId?: number,
-    vertexColor?: string,
-    edgeId?: number,
-    edgeColor?: string
+    edgeId?: number
   ) => {
-    const newStep: TStep = {
+    const newStep = {
       id: this.stepId++,
       description,
       vertexId,
-      vertexColor,
       edgeId,
-      edgeColor,
       codeLineId,
     }
 

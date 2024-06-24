@@ -8,6 +8,7 @@ export { default as useFontSize } from './fontSize'
 export { default as useLineWidth } from './lineWidth'
 export { default as useCurrentAlgo } from './currentAlgo'
 export { default as useStepId } from './stepId'
+export { default as useIsAnimating } from './isAnimating'
 
 import ProviderHub from './ProviderHub'
 export default ProviderHub
