@@ -33,6 +33,7 @@ const animateStartFrom = async (
         .removeClass('stroke-green-700')
         .addClass('stroke-yellow-200')
     }
+
     if (step.vertexId !== undefined && step.edgeId === undefined) {
       $(`#circle-${step.vertexId}`)
         .removeClass('fill-yellow-200')
