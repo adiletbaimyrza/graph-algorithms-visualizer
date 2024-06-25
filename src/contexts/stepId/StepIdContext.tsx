@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode } from 'react'
+import { useRef, createContext, ReactNode } from 'react'
 
 type StepIdContextType = {
   state: number
@@ -6,6 +6,8 @@ type StepIdContextType = {
   set: (newStepId: number) => void
   increment: () => StepIdContextType
   decrement: () => StepIdContextType
+  forward: () => StepIdContextType
+  backward: () => StepIdContextType
   reset: () => void
 }
 
@@ -17,40 +19,70 @@ type StepIdProviderProps = {
 }
 
 const StepIdProvider = ({ children }: StepIdProviderProps) => {
-  const [stepId, setStepId] = useState<number>(0)
+  const stepId = useRef<number>(0)
+  const isForward = useRef<boolean>(true)
 
-  const state = stepId
+  const state = stepId.current
 
   const set = (newStepId: number) => {
-    setStepId(newStepId)
+    stepId.current = newStepId
   }
 
   const get = () => {
-    return stepId
+    return stepId.current
   }
 
   const increment = () => {
-    setStepId(stepId + 1)
+    stepId.current = stepId.current + 1
 
-    return { state, set, get, increment, decrement, reset }
+    return bulk
   }
 
   const decrement = () => {
-    setStepId(stepId - 1)
+    stepId.current = stepId.current - 1
 
-    return { state, set, get, increment, decrement, reset }
+    return bulk
+  }
+
+  const forward = () => {
+    if (isForward.current === false) {
+      increment()
+    }
+
+    isForward.current = true
+
+    return bulk
+  }
+
+  const backward = () => {
+    if (isForward.current === true) {
+      decrement().decrement()
+    } else {
+      decrement()
+    }
+
+    isForward.current = false
+
+    return bulk
   }
 
   const reset = () => {
-    setStepId(0)
+    stepId.current = 0
+  }
+
+  const bulk = {
+    state,
+    set,
+    get,
+    increment,
+    decrement,
+    forward,
+    backward,
+    reset,
   }
 
   return (
-    <StepIdContext.Provider
-      value={{ state, set, get, increment, decrement, reset }}
-    >
-      {children}
-    </StepIdContext.Provider>
+    <StepIdContext.Provider value={bulk}>{children}</StepIdContext.Provider>
   )
 }
 
