@@ -86,9 +86,17 @@ const Panel = () => {
           const adj = createAdjList(vertices.get(), edges.get())
 
           if (currentAlgo.get() === 'dfs') {
-            animateFinishUntil(dfs(0, adj), stepId.get() - 1, stepId.set)
+            animateFinishUntil(
+              dfs(0, adj),
+              stepId.decrement().get(),
+              stepId.set
+            )
           } else {
-            animateFinishUntil(bfs(0, adj), stepId.get() - 1, stepId.set)
+            animateFinishUntil(
+              bfs(0, adj),
+              stepId.decrement().get(),
+              stepId.set
+            )
           }
 
           stepId.set(stepId.get() - 1)
@@ -100,16 +108,12 @@ const Panel = () => {
         className="py-2 px-5 bg-green-700 border border-zinc-600"
         onClick={() => {
           if (isAnimating.get()) {
-            // If currently animating, stop animation
             isAnimating.set(false)
           } else {
-            // If not animating, start animation
             isAnimating.set(true)
 
-            // Generate adjacency list
             const adj = createAdjList(vertices.get(), edges.get())
 
-            // Determine algorithm and start animation
             if (currentAlgo.get() === 'dfs') {
               animateStartFrom(
                 dfs(0, adj),
@@ -138,12 +142,20 @@ const Panel = () => {
           const adj = createAdjList(vertices.get(), edges.get())
 
           if (currentAlgo.get() === 'dfs') {
-            animateFinishUntil(dfs(0, adj), stepId.get() + 1, stepId.set)
+            animateFinishUntil(
+              dfs(0, adj),
+              stepId.increment().get(),
+              stepId.set
+            )
           } else {
-            animateFinishUntil(bfs(0, adj), stepId.get() + 1, stepId.set)
+            animateFinishUntil(
+              bfs(0, adj),
+              stepId.increment().get(),
+              stepId.set
+            )
           }
 
-          stepId.set(stepId.get() + 1)
+          stepId.set(stepId.get())
         }}
       >
         next
