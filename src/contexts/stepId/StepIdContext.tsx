@@ -4,8 +4,8 @@ type StepIdContextType = {
   state: number
   get: () => number
   set: (newStepId: number) => void
-  increment: () => void
-  decrement: () => void
+  increment: () => StepIdContextType
+  decrement: () => StepIdContextType
   reset: () => void
 }
 
@@ -31,10 +31,14 @@ const StepIdProvider = ({ children }: StepIdProviderProps) => {
 
   const increment = () => {
     setStepId(stepId + 1)
+
+    return { state, set, get, increment, decrement, reset }
   }
 
   const decrement = () => {
     setStepId(stepId - 1)
+
+    return { state, set, get, increment, decrement, reset }
   }
 
   const reset = () => {
