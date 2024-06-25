@@ -7,6 +7,7 @@ const animateFinishUntil = async (
   stepId: number,
   stepIdSet: (newStepId: number) => void
 ) => {
+  // console.log(stepId, steps[stepId]) // for debugging purposes
   resetStyles()
 
   for (const step of steps) {
@@ -16,7 +17,7 @@ const animateFinishUntil = async (
 
     $('#info').html(step.description)
 
-    if (step.vertexId && step.edgeId) {
+    if (step.vertexId !== undefined && step.edgeId !== undefined) {
       $(`#circle-${step.vertexId}`)
         .removeClass('fill-slate-400')
         .addClass('fill-yellow-200')
@@ -26,7 +27,7 @@ const animateFinishUntil = async (
         .addClass('stroke-yellow-200')
     }
 
-    if (step.vertexId && !step.edgeId) {
+    if (step.vertexId !== undefined && step.edgeId === undefined) {
       $(`#circle-${step.vertexId}`)
         .removeClass('fill-slate-400')
         .removeClass('fill-yellow-200')
@@ -34,8 +35,9 @@ const animateFinishUntil = async (
     }
   }
 
-  $(`#pseudo-${steps[stepId].codeLineId}`).removeClass('bg-slate-600')
-  $(`#pseudo-${steps[stepId].codeLineId}`).addClass('bg-yellow-600')
+  $(`#pseudo-${steps[stepId].codeLineId}`)
+    .removeClass('bg-slate-600')
+    .addClass('bg-yellow-600')
 
   stepIdSet(stepId)
 }
