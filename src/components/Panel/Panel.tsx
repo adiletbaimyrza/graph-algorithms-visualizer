@@ -66,9 +66,21 @@ const Panel = () => {
     }
   }
 
-  const play = () => {}
+  const play = () => {
+    isAnimating.set(true)
 
-  const stop = () => {}
+    const adj = createAdjList(vertices.get(), edges.get())
+
+    if (currentAlgo.get() === 'dfs') {
+      animateStartFrom(dfs(0, adj), stepId.get(), stepId.set, isAnimating.get)
+    } else {
+      animateStartFrom(bfs(0, adj), stepId.get(), stepId.set, isAnimating.get)
+    }
+  }
+
+  const stop = () => {
+    isAnimating.set(false)
+  }
 
   const randGraphBySize = (event: React.MouseEvent) => {
     generate((event.target as HTMLButtonElement).value as TGraphSize)
@@ -111,34 +123,15 @@ const Panel = () => {
       </button>
       <button
         className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={() => {
-          if (isAnimating.get()) {
-            isAnimating.set(false)
-          } else {
-            isAnimating.set(true)
-
-            const adj = createAdjList(vertices.get(), edges.get())
-
-            if (currentAlgo.get() === 'dfs') {
-              animateStartFrom(
-                dfs(0, adj),
-                stepId.get(),
-                stepId.set,
-                isAnimating.get
-              )
-            } else {
-              animateStartFrom(
-                bfs(0, adj),
-                stepId.get(),
-                stepId.set,
-                isAnimating.get
-              )
-            }
-          }
-        }}
+        onClick={play}
       >
-        {isAnimating.get() ? 'stop' : 'play'}{' '}
-        {/* Toggle button label based on animation state */}
+        play
+      </button>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={stop}
+      >
+        stop
       </button>
 
       <button
