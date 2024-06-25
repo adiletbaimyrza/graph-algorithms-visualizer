@@ -36,8 +36,7 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
       stepTracker.add(
         `Marked vertex ${currentVertexId} as visited`,
         6,
-        currentVertexId,
-        'blue'
+        currentVertexId
       )
 
       const adjacentVertices = adjacencyList.get(currentVertexId) as TPath[]
@@ -59,9 +58,7 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
             `Pushed vertex ${neighbor.vertex.id} onto the stack for future processing`,
             9,
             neighbor.vertex.id,
-            'yellow',
-            neighbor.edge.id,
-            'yellow'
+            neighbor.edge.id
           )
         } else {
           stepTracker.add(
@@ -82,4 +79,4 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
   return stepTracker.get()
 }
 
-export { dfs }
+export default dfs

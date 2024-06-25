@@ -33,8 +33,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
       stepTracker.add(
         `Marked vertex ${currentVertexId} as visited`,
         6,
-        currentVertexId,
-        'blue'
+        currentVertexId
       )
 
       const adjacentVertices = adjacencyList.get(currentVertexId) as TPath[]
@@ -55,9 +54,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
             `Enqueued vertex ${neighbor.vertex.id} for future processing`,
             9,
             neighbor.vertex.id,
-            'blue',
-            neighbor.edge.id,
-            'yellow'
+            neighbor.edge.id
           )
         } else {
           stepTracker.add(
@@ -78,4 +75,4 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
   return stepTracker.get()
 }
 
-export { bfs }
+export default bfs
