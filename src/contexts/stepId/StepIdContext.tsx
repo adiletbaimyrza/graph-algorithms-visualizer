@@ -1,16 +1,18 @@
 import { useState, createContext, ReactNode } from 'react'
 
-interface StepIdContextType {
+type StepIdContextType = {
   state: number
   get: () => number
   set: (newStepId: number) => void
+  increment: () => void
+  decrement: () => void
   reset: () => void
 }
 
 // prettier-ignore
 const StepIdContext = createContext<StepIdContextType | undefined>(undefined)
 
-interface StepIdProviderProps {
+type StepIdProviderProps = {
   children: ReactNode
 }
 
@@ -24,10 +26,15 @@ const StepIdProvider = ({ children }: StepIdProviderProps) => {
   }
 
   const get = () => {
-    const prevStepId = stepId
-    setStepId(stepId + 1)
+    return stepId
+  }
 
-    return prevStepId
+  const increment = () => {
+    setStepId(stepId + 1)
+  }
+
+  const decrement = () => {
+    setStepId(stepId - 1)
   }
 
   const reset = () => {
@@ -35,7 +42,9 @@ const StepIdProvider = ({ children }: StepIdProviderProps) => {
   }
 
   return (
-    <StepIdContext.Provider value={{ state, set, get, reset }}>
+    <StepIdContext.Provider
+      value={{ state, set, get, increment, decrement, reset }}
+    >
       {children}
     </StepIdContext.Provider>
   )
