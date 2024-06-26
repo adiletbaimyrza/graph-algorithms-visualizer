@@ -5,14 +5,8 @@ import {
   useStepId,
   useIsAnimating,
 } from '../../contexts'
-import {
-  animateStartFrom,
-  createAdjList,
-  dfs,
-  bfs,
-  useRandomGraph,
-  animateFinishUntil,
-} from '../../algorithms'
+import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
+import { animateFinishUntil, animateStartFrom } from '../../animations'
 import graphSizes from './graphSizes'
 import { TGraphSize } from '../../types'
 

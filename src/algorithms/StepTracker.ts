@@ -13,13 +13,15 @@ class StepTracker {
     description: string,
     codeLineId: number,
     vertexId?: number,
-    edgeId?: number
+    edgeId?: number,
+    isVisited?: boolean
   ) => {
     const newStep = {
       id: this.stepId++,
       description,
       vertexId,
       edgeId,
+      isVisited,
       codeLineId,
     }
 

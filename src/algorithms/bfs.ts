@@ -26,7 +26,10 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
     if (!visitedVertices.has(currentVertexId)) {
       stepTracker.add(
         `Checking if vertex ${currentVertexId} has been visited`,
-        5
+        5,
+        currentVertexId,
+        undefined,
+        true
       )
 
       visitedVertices.add(currentVertexId)
@@ -47,7 +50,10 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
         if (!visitedVertices.has(neighbor.vertex.id)) {
           stepTracker.add(
             `Checking if vertex ${neighbor.vertex.id} has been visited`,
-            8
+            8,
+            undefined,
+            neighbor.edge.id,
+            true
           )
           verticesToVisit.push(neighbor.vertex.id)
           stepTracker.add(

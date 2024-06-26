@@ -6,11 +6,15 @@ const resetStyles = () => {
     $(this)
       .removeClass('fill-yellow-200')
       .removeClass('fill-red-700')
+      .removeClass('fill-red-100')
       .addClass('fill-slate-400')
   })
 
   $('line').each(function () {
-    $(this).removeClass('stroke-yellow-200').addClass('stroke-green-700')
+    $(this)
+      .removeClass('stroke-yellow-200')
+      .removeClass('stroke-green-100')
+      .addClass('stroke-green-700')
   })
 
   $('p').each(function () {
