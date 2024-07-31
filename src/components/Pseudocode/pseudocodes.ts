@@ -26,7 +26,7 @@ const pseudocodes = {
     { indent: 40, content: 'if (!visited.has(vertex)) {' },
     { indent: 60, content: 'visited.add(vertex);' },
     { indent: 60, content: 'for (const neighbor of graph[vertex]) {' },
-    { indent: 80, content: 'if (!visited.has(vertex)) {' },
+    { indent: 80, content: 'if (!visited.has(neighbor)) {' },
     { indent: 100, content: 'stack.push(neighbor);' },
     { indent: 80, content: '}' },
     { indent: 60, content: '}' },
