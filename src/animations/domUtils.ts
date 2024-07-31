@@ -1,73 +1,73 @@
 import $ from 'jquery'
 import { TAnim } from '../types'
 
-const vertexColors = {
-  default: 'fill-slate-400',
-  looked: 'fill-red-200',
-  chosen: 'fill-yellow-700',
-  visited: 'fill-red-700',
+const vxCls = {
+  default: 'fill-slate-500',
+  checked: 'fill-red-500',
+  pushed: 'fill-yellow-500',
+  popped: 'fill-orange-500',
+  visited: 'fill-violet-500',
 }
-const edgeColors = {
+const dgCls = {
   default: 'stroke-green-700',
-  looked: 'stroke-red-200',
-  chosen: 'stroke-yellow-700',
-  visited: 'stroke-red-700',
+  checked: 'stroke-red-500',
+  pushed: 'stroke-yellow-500',
+  popped: 'stroke-orange-500',
+  visited: 'stroke-violet-500',
 }
-const codeLineColors = { default: 'bg-slate-600', highlighted: 'bg-yellow-700' }
+const codeCls = { default: 'bg-slate-600', highlight: 'bg-yellow-500' }
 
-const vertexColorsList = Object.values(vertexColors)
-const edgeColorsList = Object.values(edgeColors)
-const codeLineColorsList = Object.values(codeLineColors)
+const vxClsList = Object.values(vxCls)
+const dgClsList = Object.values(dgCls)
+const codeClsList = Object.values(codeCls)
 
-const paintPath = (
-  vertexId: number,
-  edgeId: number | undefined,
-  animation: TAnim
-) => {
-  let paintVertexTo = ''
-  let paintEdgeTo = ''
+const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
+  let vxClr = ''
+  let dgClr = ''
 
-  switch (animation) {
-    case 'toBeChosen':
-      paintVertexTo = vertexColors.chosen
-      paintEdgeTo = edgeColors.chosen
+  switch (anim) {
+    case 'Push':
+      vxClr = vxCls.pushed
+      dgClr = dgCls.pushed
       break
-    case 'toBeLooked':
-      paintVertexTo = vertexColors.looked
-      paintEdgeTo = edgeColors.looked
+    case 'Pop':
+      vxClr = vxCls.popped
+      dgClr = dgCls.popped
       break
-    case 'toBeVisited':
-      paintVertexTo = vertexColors.visited
-      paintEdgeTo = edgeColors.visited
+    case 'Check':
+      vxClr = vxCls.checked
+      dgClr = dgCls.checked
+      break
+    case 'Visit':
+      vxClr = vxCls.visited
+      dgClr = dgCls.visited
+      break
   }
-  $(`#circle-${vertexId}`).removeClass(vertexColorsList).addClass(paintVertexTo)
-  if (edgeId) {
-    $(`#line-${edgeId}`).removeClass(edgeColorsList).addClass(paintEdgeTo)
+  $(`#circle-${vxId}`).removeClass(vxClsList).addClass(vxClr)
+
+  if (dgId) {
+    $(`#line-${dgId}`).removeClass(dgClsList).addClass(dgClr)
   }
 }
 
-const highlightCodeLine = (codeLineId: number) => {
-  $(`#pseudo-${codeLineId}`)
-    .removeClass(codeLineColorsList)
-    .addClass(codeLineColors.highlighted)
+const highlightCode = (codeId: number) => {
+  $(`#pseudo-${codeId}`).removeClass(codeClsList).addClass(codeCls.highlight)
 }
 
 const resetStyles = () => {
-  const defaultVertex = vertexColors.default
-  const defaultEdge = edgeColors.default
-  const defaultCodeLine = codeLineColors.default
+  const defVx = vxCls.default
+  const defDg = dgCls.default
+  const defCode = codeCls.default
 
   $('circle').each(function () {
-    $(this).removeClass(vertexColorsList).addClass(defaultVertex)
+    $(this).removeClass(vxClsList).addClass(defVx)
   })
-
   $('line').each(function () {
-    $(this).removeClass(edgeColorsList).addClass(defaultEdge)
+    $(this).removeClass(dgClsList).addClass(defDg)
   })
-
   $('p').each(function () {
-    $(this).removeClass(codeLineColorsList).addClass(defaultCodeLine)
+    $(this).removeClass(codeClsList).addClass(defCode)
   })
 }
 
-export { paintPath, highlightCodeLine, resetStyles }
+export { paintPath, highlightCode, resetStyles }

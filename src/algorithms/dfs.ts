@@ -1,124 +1,128 @@
-import StepTracker from './StepTracker'
+import Tracker from './StepTracker'
 import { TAdjList, TPath } from '../types'
 
-const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
-  const stepTracker = new StepTracker()
-  stepTracker.add(
-    'Starting Depth-First Search (DFS) algorithm',
-    0,
-    'NoActionOnGraph'
-  )
+const dfs = (startVxId: number, adjList: TAdjList) => {
+  const tracker = new Tracker()
+  tracker.add('Start DFS', 0, 'NoAction')
 
-  const verticesToVisit = [startVertexId]
-  stepTracker.add(
-    `Initialized the stack with the starting vertex ${startVertexId}`,
-    1,
-    'NoActionOnGraph'
-  )
+  const stack = [startVxId]
+  tracker.add(`Init stack with start vertex ${startVxId}`, 1, 'Push', startVxId)
 
-  const visitedVertices = new Set<number>()
-  stepTracker.add(
-    'Initialized an empty set to keep track of visited vertices',
-    2,
-    'NoActionOnGraph'
-  )
+  const visited = new Set<number>()
+  tracker.add('Init empty set for visited vertices', 2, 'NoAction')
 
-  while (verticesToVisit.length > 0) {
-    stepTracker.add(
-      'There are still vertices to visit, continue the loop',
-      3,
-      'NoActionOnGraph'
-    )
+  while (stack.length > 0) {
+    tracker.add('Vertices still to visit, continue loop', 3, 'NoAction')
 
-    const currentVertexId = verticesToVisit.pop() as number // number
-    stepTracker.add(
-      `Popped vertex ${currentVertexId} from the stack for processing`,
-      4,
-      'NoActionOnGraph'
-    )
+    const currVxId = stack.pop() as number
 
-    let currentEdgeId = undefined
-    if (!visitedVertices.has(currentVertexId)) {
-      const prevStepId = stepTracker.getStepId() - 1
+    let currDgId = undefined
+    const prevStepId = tracker.getStepId() - 1
 
-      const prevStep = stepTracker.get().find((step) => step.id === prevStepId)
-      const prevVertexId = prevStep?.vertexId
-      if (prevVertexId) {
-        const prevStepAdjacentVertices = adjacencyList.get(
-          prevVertexId as number
-        ) as TPath[]
-        const filteredAdjacentPaths = prevStepAdjacentVertices.filter(
-          (neighbor) => neighbor.vertex.id === currentVertexId
+    const prevStep = tracker.get().find((step) => step.id === prevStepId)
+    const prevVxId = prevStep?.vertexId
+    if (prevVxId !== undefined) {
+      const prevStepAdjVxs = adjList.get(prevVxId) as TPath[] | undefined
+      if (prevStepAdjVxs) {
+        const filterAdjPaths = prevStepAdjVxs.filter(
+          (neighbor) => neighbor.vertex.id === currVxId
         )
-        const currentPath = filteredAdjacentPaths[0]
-        currentEdgeId = currentPath.edge.id
-        console.log(currentEdgeId)
+        const currentPath = filterAdjPaths[0]
+        if (currentPath && currentPath.edge) {
+          currDgId = currentPath.edge.id
+        }
       }
-      stepTracker.add(
-        `Checking if vertex ${currentVertexId} has been visited`,
+    }
+    tracker.add(
+      `Pop vertex ${currVxId} from stack`,
+      4,
+      'Pop',
+      currVxId,
+      currDgId
+    )
+
+    if (!visited.has(currVxId)) {
+      const prevStepId = tracker.getStepId() - 1
+
+      const prevStep = tracker.get().find((step) => step.id === prevStepId)
+      const prevVxId = prevStep?.vertexId
+      if (prevVxId !== undefined) {
+        const prevStepAdjVxs = adjList.get(prevVxId) as TPath[] | undefined
+        if (prevStepAdjVxs) {
+          const filterAdjPaths = prevStepAdjVxs.filter(
+            (neighbor) => neighbor.vertex.id === currVxId
+          )
+          const currentPath = filterAdjPaths[0]
+          if (currentPath && currentPath.edge) {
+            currDgId = currentPath.edge.id
+          }
+        }
+      }
+      tracker.add(
+        `Check if vertex ${currVxId} visited`,
         5,
-        'toBeLooked',
-        currentVertexId,
-        currentEdgeId
+        'Check',
+        currVxId,
+        currDgId
       )
 
-      visitedVertices.add(currentVertexId)
-      stepTracker.add(
-        `Marked vertex ${currentVertexId} as visited`,
+      visited.add(currVxId)
+      tracker.add(
+        `Mark vertex ${currVxId} as visited`,
         6,
-        'toBeVisited',
-        currentVertexId,
-        currentEdgeId
+        'Visit',
+        currVxId,
+        currDgId
       )
 
-      const adjacentVertices = adjacencyList.get(currentVertexId) as TPath[]
+      const adjVxs = adjList.get(currVxId) as TPath[]
 
-      adjacentVertices.forEach((neighbor) => {
-        stepTracker.add(
-          `Processing each adjacent vertex of the current vertex ${currentVertexId}. Now looking at vertex ${neighbor.vertex.id}`,
+      adjVxs.forEach((neighbor) => {
+        tracker.add(
+          `Process neighbor ${neighbor.vertex.id} of vertex ${currVxId}`,
           7,
-          'NoActionOnGraph'
+          'NoAction'
         )
 
-        if (!visitedVertices.has(neighbor.vertex.id)) {
-          stepTracker.add(
-            `Checking if vertex ${neighbor.vertex.id} has been visited`,
+        if (!visited.has(neighbor.vertex.id)) {
+          tracker.add(
+            `Check if neighbor ${neighbor.vertex.id} visited`,
             8,
-            'toBeLooked',
+            'Check',
             neighbor.vertex.id,
             neighbor.edge.id
           )
-          verticesToVisit.push(neighbor.vertex.id)
-          stepTracker.add(
-            `Pushed vertex ${neighbor.vertex.id} onto the stack for future processing`,
+          stack.push(neighbor.vertex.id)
+          tracker.add(
+            `Push neighbor ${neighbor.vertex.id} to stack`,
             9,
-            'toBeChosen',
+            'Push',
             neighbor.vertex.id,
             neighbor.edge.id
           )
         } else {
-          stepTracker.add(
-            `Checking if vertex ${neighbor.vertex.id} has been visited`,
+          tracker.add(
+            `Neighbor ${neighbor.vertex.id} already visited`,
             8,
-            'toBeVisited',
+            'Visit',
             neighbor.vertex.id,
             neighbor.edge.id
           )
         }
       })
     } else {
-      stepTracker.add(
-        `Checking if vertex ${currentVertexId} has been visited`,
+      tracker.add(
+        `Vertex ${currVxId} already visited`,
         5,
-        'toBeLooked',
-        currentVertexId,
-        currentEdgeId
+        'Check',
+        currVxId,
+        currDgId
       )
     }
   }
 
-  stepTracker.add('Finished Depth-First Search (DFS)', 14, 'NoActionOnGraph')
-  return stepTracker.get()
+  tracker.add('Finish DFS', 14, 'NoAction')
+  return tracker.get()
 }
 
 export default dfs

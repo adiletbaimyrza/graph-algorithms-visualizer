@@ -12,9 +12,14 @@ import {
   resetStyles,
 } from '../../animations'
 import graphSizes from './graphSizes'
-import { TGraphSize } from '../../types'
+import { TAdjList, TGraphSize } from '../../types'
+import { useEffect, useRef } from 'react'
 
 const Panel = () => {
+  const nextRef = useRef<HTMLButtonElement | null>(null)
+  const prevRef = useRef<HTMLButtonElement | null>(null)
+  const fired = useRef(false)
+
   const vertices = useVertices()
   const edges = useEdges()
   const stepId = useStepId()
@@ -23,7 +28,7 @@ const Panel = () => {
   const generate = useRandomGraph()
 
   const next = () => {
-    const adj = createAdjList(vertices.get(), edges.get())
+    const adj: TAdjList = createAdjList(vertices.get(), edges.get())
 
     if (currentAlgo.get() === 'dfs') {
       const steps = dfs(0, adj)
@@ -88,6 +93,32 @@ const Panel = () => {
     resetStyles()
   }
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (!fired.current) {
+        if (event.key === 'ArrowRight') {
+          nextRef.current?.click()
+        } else if (event.key === 'ArrowLeft') {
+          prevRef.current?.click()
+        }
+        fired.current = true
+      }
+    }
+
+    const handleKeyUp = () => {
+      fired.current = false
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keyup', handleKeyUp)
+
+    // Cleanup function to remove the event listeners
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('keyup', handleKeyUp)
+    }
+  }, [])
+
   return (
     <div className="bg-slate-200">
       {graphSizes.map((size) => (
@@ -118,6 +149,7 @@ const Panel = () => {
         bfs
       </button>
       <button
+        ref={prevRef}
         className="py-2 px-5 bg-green-700 border border-zinc-600"
         onClick={prev}
       >
@@ -137,6 +169,7 @@ const Panel = () => {
       </button>
 
       <button
+        ref={nextRef}
         className="py-2 px-5 bg-green-700 border border-zinc-600"
         onClick={next}
       >

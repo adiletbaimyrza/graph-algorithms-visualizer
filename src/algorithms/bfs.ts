@@ -6,21 +6,21 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
   stepTracker.add(
     'Starting Breadth-First Search (BFS) algorithm',
     0,
-    'NoActionOnGraph'
+    'NoAction'
   )
 
   const verticesToVisit = [startVertexId] // algorithm
   stepTracker.add(
     `Initialized the queue with the starting vertex ${startVertexId}`,
     1,
-    'NoActionOnGraph'
+    'NoAction'
   )
 
   const visitedVertices = new Set<number>() // algorithm
   stepTracker.add(
     'Initialized an empty set to keep track of visited vertices',
     2,
-    'NoActionOnGraph'
+    'NoAction'
   )
 
   while (verticesToVisit.length > 0) {
@@ -28,14 +28,14 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
     stepTracker.add(
       'There are still vertices to visit, continue the loop',
       3,
-      'NoActionOnGraph'
+      'NoAction'
     )
 
     const currentVertexId = verticesToVisit.shift() as number // algorithm
     stepTracker.add(
       `Dequeued vertex ${currentVertexId} for processing`,
       4,
-      'NoActionOnGraph'
+      'NoAction'
     )
 
     let currentEdgeId = undefined
@@ -58,7 +58,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
       stepTracker.add(
         `Checking if vertex ${currentVertexId} has been visited`,
         5,
-        'toBeLooked',
+        'Check',
         currentVertexId,
         currentEdgeId
       )
@@ -67,7 +67,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
       stepTracker.add(
         `Marked vertex ${currentVertexId} as visited`,
         6,
-        'toBeVisited',
+        'Visit',
         currentVertexId,
         currentEdgeId
       )
@@ -79,7 +79,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
         stepTracker.add(
           `Processing each adjacent vertex of the current vertex ${currentVertexId}. Now looking at vertex ${neighbor.vertex.id}`,
           7,
-          'NoActionOnGraph'
+          'NoAction'
         )
 
         if (!visitedVertices.has(neighbor.vertex.id)) {
@@ -87,7 +87,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
           stepTracker.add(
             `Checking if vertex ${neighbor.vertex.id} has been visited`,
             8,
-            'toBeLooked',
+            'Check',
             neighbor.vertex.id,
             neighbor.edge.id
           )
@@ -95,13 +95,13 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
           stepTracker.add(
             `Enqueued vertex ${neighbor.vertex.id} for future processing`,
             9,
-            'NoActionOnGraph'
+            'NoAction'
           )
         } else {
           stepTracker.add(
             `Checking if vertex ${neighbor.vertex.id} has been visited`,
             8,
-            'toBeLooked',
+            'Check',
             neighbor.vertex.id,
             neighbor.edge.id
           )
@@ -111,14 +111,14 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
       stepTracker.add(
         `Checking if vertex ${currentVertexId} has been visited`,
         5,
-        'toBeLooked',
+        'Check',
         currentVertexId,
         currentEdgeId
       )
     }
   }
 
-  stepTracker.add('Finished Breadth-First Search (BFS)', 14, 'NoActionOnGraph')
+  stepTracker.add('Finished Breadth-First Search (BFS)', 14, 'NoAction')
   return stepTracker.get()
 }
 
