@@ -6,7 +6,11 @@ import {
   useIsAnimating,
 } from '../../contexts'
 import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
-import { animateFinishUntil, animateStartFrom } from '../../animations'
+import {
+  animateFinishUntil,
+  animateStartFrom,
+  resetStyles,
+} from '../../animations'
 import graphSizes from './graphSizes'
 import { TGraphSize } from '../../types'
 
@@ -80,6 +84,10 @@ const Panel = () => {
     generate((event.target as HTMLButtonElement).value as TGraphSize)
   }
 
+  const reset = () => {
+    resetStyles()
+  }
+
   return (
     <div className="bg-slate-200">
       {graphSizes.map((size) => (
@@ -133,6 +141,12 @@ const Panel = () => {
         onClick={next}
       >
         next
+      </button>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={reset}
+      >
+        reset
       </button>
     </div>
   )

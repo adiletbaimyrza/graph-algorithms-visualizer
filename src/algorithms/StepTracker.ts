@@ -1,4 +1,4 @@
-import { TStep } from '../types'
+import { TAnim, TStep } from '../types'
 
 class StepTracker {
   private steps: TStep[]
@@ -12,23 +12,25 @@ class StepTracker {
   public add = (
     description: string,
     codeLineId: number,
+    animation: TAnim,
     vertexId?: number,
-    edgeId?: number,
-    isVisited?: boolean
+    edgeId?: number
   ) => {
     const newStep = {
       id: this.stepId++,
       description,
+      codeLineId,
+      animation,
       vertexId,
       edgeId,
-      isVisited,
-      codeLineId,
     }
 
     this.steps.push(newStep)
   }
 
   public get = () => [...this.steps]
+
+  public getStepId = () => this.stepId
 }
 
 export default StepTracker
