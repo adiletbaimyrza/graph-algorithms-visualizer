@@ -2,21 +2,21 @@ import StepTracker from './StepTracker'
 import { TAdjList, TPath } from '../types'
 
 const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
-  const stepTracker = new StepTracker() // algorithm
+  const stepTracker = new StepTracker()
   stepTracker.add(
     'Starting Depth-First Search (DFS) algorithm',
     0,
     'NoActionOnGraph'
   )
 
-  const verticesToVisit = [startVertexId] // algorithm
+  const verticesToVisit = [startVertexId]
   stepTracker.add(
     `Initialized the stack with the starting vertex ${startVertexId}`,
     1,
     'NoActionOnGraph'
   )
 
-  const visitedVertices = new Set<number>() // algorithm
+  const visitedVertices = new Set<number>()
   stepTracker.add(
     'Initialized an empty set to keep track of visited vertices',
     2,
@@ -39,8 +39,6 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
 
     let currentEdgeId = undefined
     if (!visitedVertices.has(currentVertexId)) {
-      // algorithm
-
       const prevStepId = stepTracker.getStepId() - 1
 
       const prevStep = stepTracker.get().find((step) => step.id === prevStepId)
@@ -64,7 +62,7 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
         currentEdgeId
       )
 
-      visitedVertices.add(currentVertexId) // algorithm
+      visitedVertices.add(currentVertexId)
       stepTracker.add(
         `Marked vertex ${currentVertexId} as visited`,
         6,
@@ -73,10 +71,9 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
         currentEdgeId
       )
 
-      const adjacentVertices = adjacencyList.get(currentVertexId) as TPath[] // algorithm
+      const adjacentVertices = adjacencyList.get(currentVertexId) as TPath[]
 
       adjacentVertices.forEach((neighbor) => {
-        // algorithm
         stepTracker.add(
           `Processing each adjacent vertex of the current vertex ${currentVertexId}. Now looking at vertex ${neighbor.vertex.id}`,
           7,
@@ -91,7 +88,7 @@ const dfs = (startVertexId: number, adjacencyList: TAdjList) => {
             neighbor.vertex.id,
             neighbor.edge.id
           )
-          verticesToVisit.push(neighbor.vertex.id) // algorithm
+          verticesToVisit.push(neighbor.vertex.id)
           stepTracker.add(
             `Pushed vertex ${neighbor.vertex.id} onto the stack for future processing`,
             9,
