@@ -44,7 +44,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
 
       const prevStepId = stepTracker.getStepId() - 1
       const prevStep = stepTracker.get()[prevStepId]
-      const prevVertexId = prevStep.vertexId
+      const prevVertexId = prevStep.vxId
       if (prevStepId >= 0) {
         const prevStepAdjacentVertices = adjacencyList.get(
           prevVertexId as number

@@ -1,29 +1,32 @@
 import { TAdjList, TVertex, TEdge, TPath } from '../types'
 
-const createAdjList = (vertices: TVertex[], edges: TEdge[]) => {
-  const adjacencyList: TAdjList = new Map<number, TPath[]>()
+const isItsEdge = (vx: TVertex, dg: TEdge) => {
+  return dg.vertexOne.id === vx.id || dg.vertexTwo.id === vx.id
+}
 
-  vertices.forEach((vertex) => {
-    const itsEdges: TEdge[] = edges.filter(
-      (edge) =>
-        edge.vertexOne.id === vertex.id || edge.vertexTwo.id === vertex.id
-    )
+const getOppositeVx = (vx: TVertex, edge: TEdge): TVertex => {
+  return edge.vertexOne.id === vx.id ? edge.vertexTwo : edge.vertexOne
+}
+
+const createAdjList = (vertices: TVertex[], edges: TEdge[]) => {
+  const adjList: TAdjList = new Map<number, TPath[]>()
+
+  vertices.forEach((vx) => {
+    const itsEdges: TEdge[] = edges.filter((dg) => isItsEdge(vx, dg))
 
     const paths: TPath[] = []
+
     itsEdges.forEach((itsEdge) => {
       paths.push({
         edge: itsEdge,
-        vertex:
-          itsEdge.vertexOne.id === vertex.id
-            ? itsEdge.vertexTwo
-            : itsEdge.vertexOne,
+        vertex: getOppositeVx(vx, itsEdge),
       })
     })
 
-    adjacencyList.set(vertex.id, paths)
+    adjList.set(vx.id, paths)
   })
 
-  return adjacencyList
+  return adjList
 }
 
 export default createAdjList

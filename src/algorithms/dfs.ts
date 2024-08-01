@@ -1,5 +1,31 @@
 import Tracker from './StepTracker'
 import { TAdjList, TPath } from '../types'
+import StepTracker from './StepTracker'
+
+const getEdgeFromPath = (
+  adj: TAdjList,
+  prevStepId: number,
+  tracker: StepTracker
+): number | undefined => {
+  const prevStep = tracker.get().find((step) => step.id === prevStepId)
+
+  if (prevStep !== undefined) {
+    const prevVxId = prevStep.vxId as number
+    const prevStepAdjVxs = adj.get(prevVxId)
+
+    if (prevStepAdjVxs) {
+      const filterAdjPaths = prevStepAdjVxs.filter(
+        (neighbor) => neighbor.vertex.id === prevVxId
+      )
+      const currentPath = filterAdjPaths[0]
+      if (currentPath && currentPath.edge) {
+        return currentPath.edge.id
+      }
+    }
+  }
+
+  return undefined
+}
 
 const dfs = (startVxId: number, adjList: TAdjList) => {
   const tracker = new Tracker()
@@ -18,9 +44,8 @@ const dfs = (startVxId: number, adjList: TAdjList) => {
 
     let currDgId = undefined
     const prevStepId = tracker.getStepId() - 1
-
     const prevStep = tracker.get().find((step) => step.id === prevStepId)
-    const prevVxId = prevStep?.vertexId
+    const prevVxId = prevStep?.vxId
     if (prevVxId !== undefined) {
       const prevStepAdjVxs = adjList.get(prevVxId) as TPath[] | undefined
       if (prevStepAdjVxs) {
@@ -45,7 +70,7 @@ const dfs = (startVxId: number, adjList: TAdjList) => {
       const prevStepId = tracker.getStepId() - 1
 
       const prevStep = tracker.get().find((step) => step.id === prevStepId)
-      const prevVxId = prevStep?.vertexId
+      const prevVxId = prevStep?.vxId
       if (prevVxId !== undefined) {
         const prevStepAdjVxs = adjList.get(prevVxId) as TPath[] | undefined
         if (prevStepAdjVxs) {

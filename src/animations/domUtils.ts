@@ -17,9 +17,9 @@ const dgCls = {
 }
 const codeCls = { default: 'bg-slate-600', highlight: 'bg-yellow-500' }
 
-const vxClsList = Object.values(vxCls)
-const dgClsList = Object.values(dgCls)
-const codeClsList = Object.values(codeCls)
+const vxClsList = Object.values(vxCls).join(' ')
+const dgClsList = Object.values(dgCls).join(' ')
+const codeClsList = Object.values(codeCls).join(' ')
 
 const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
   let vxClr = ''
@@ -45,7 +45,7 @@ const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
   }
   $(`#circle-${vxId}`).removeClass(vxClsList).addClass(vxClr)
 
-  if (dgId) {
+  if (dgId !== undefined) {
     $(`#line-${dgId}`).removeClass(dgClsList).addClass(dgClr)
   }
 }

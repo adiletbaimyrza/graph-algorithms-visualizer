@@ -7,17 +7,17 @@ const animateFinishUntil = async (steps: TStep[], stepId: number) => {
     resetStyles()
 
     for (const step of steps) {
-      if (step.id === stepId) {
+      if (step.id - 1 === stepId) {
         break
       }
 
-      $('#info').html(step.description)
+      $('#info').html(step.dsc)
 
-      paintPath(step.vertexId as number, step.edgeId, step.animation)
+      paintPath(step.vxId as number, step.dgId, step.anim)
     }
 
     console.log(steps[stepId])
-    highlightCode(steps[stepId].codeLineId)
+    highlightCode(steps[stepId].cdId)
   }
 }
 

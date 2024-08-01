@@ -20,22 +20,22 @@ const animateStartFrom = async (
       break
     }
 
-    $(`#pseudo-${step.codeLineId}`)
+    $(`#pseudo-${step.cdId}`)
       .removeClass('bg-slate-600')
       .addClass('bg-yellow-600')
 
-    if (step.vertexId !== undefined && step.edgeId !== undefined) {
-      $(`#circle-${step.vertexId}`)
+    if (step.vxId !== undefined && step.dgId !== undefined) {
+      $(`#circle-${step.vxId}`)
         .removeClass('fill-slate-400')
         .addClass('fill-yellow-200')
 
-      $(`#line-${step.edgeId}`)
+      $(`#line-${step.dgId}`)
         .removeClass('stroke-green-700')
         .addClass('stroke-yellow-200')
     }
 
-    if (step.vertexId !== undefined && step.edgeId === undefined) {
-      $(`#circle-${step.vertexId}`)
+    if (step.vxId !== undefined && step.dgId === undefined) {
+      $(`#circle-${step.vxId}`)
         .removeClass('fill-yellow-200')
         .removeClass('fill-slate-400')
         .addClass('fill-red-700')
@@ -43,7 +43,7 @@ const animateStartFrom = async (
 
     await sleep(1)
 
-    $(`#pseudo-${step.codeLineId}`)
+    $(`#pseudo-${step.cdId}`)
       .removeClass('bg-yellow-600')
       .addClass('bg-slate-600')
 

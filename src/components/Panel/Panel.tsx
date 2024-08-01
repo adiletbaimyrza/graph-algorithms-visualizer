@@ -12,7 +12,7 @@ import {
   resetStyles,
 } from '../../animations'
 import graphSizes from './graphSizes'
-import { TAdjList, TGraphSize } from '../../types'
+import { TAdjList, TAlgo, TGraphSize } from '../../types'
 import { useEffect, useRef } from 'react'
 
 const Panel = () => {
@@ -27,11 +27,10 @@ const Panel = () => {
   const isAnimating = useIsAnimating()
   const generate = useRandomGraph()
 
-  const next = () => {
-    const adj: TAdjList = createAdjList(vertices.get(), edges.get())
-
-    if (currentAlgo.get() === 'dfs') {
+  const runAlgo = (tAlgo: TAlgo, adj: TAdjList) => {
+    if (tAlgo === 'dfs') {
       const steps = dfs(0, adj)
+
       if (stepId.get() < steps.length - 1) {
         animateFinishUntil(steps, stepId.forward().get())
         stepId.increment()
@@ -40,6 +39,7 @@ const Panel = () => {
       }
     } else {
       const steps = bfs(0, adj)
+
       if (stepId.get() < steps.length - 1) {
         animateFinishUntil(steps, stepId.forward().get())
         stepId.increment()
@@ -47,6 +47,12 @@ const Panel = () => {
         console.warn('Attempt to increment stepId beyond last step')
       }
     }
+  }
+
+  const next = () => {
+    const adj: TAdjList = createAdjList(vertices.get(), edges.get())
+    const algo = currentAlgo.get()
+    runAlgo(algo, adj)
   }
 
   const prev = () => {
