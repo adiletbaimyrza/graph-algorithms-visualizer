@@ -1,3 +1,3 @@
-type TPaths = Map<number, number>
+type TPaths = Map<number, Map<number, number>>
 
 export default TPaths
