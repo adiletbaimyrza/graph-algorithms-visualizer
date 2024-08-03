@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { TAnim } from '../types'
 
 const vxCls = {
-  default: 'fill-slate-500',
+  default: 'fill-slate-400',
   checked: 'fill-red-500',
   pushed: 'fill-yellow-500',
   popped: 'fill-orange-500',
@@ -42,7 +42,12 @@ const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
       vxClr = vxCls.visited
       dgClr = dgCls.visited
       break
+    default:
+      vxClr = vxCls.default
+      dgClr = dgCls.default
+      break
   }
+
   $(`#circle-${vxId}`).removeClass(vxClsList).addClass(vxClr)
 
   if (dgId !== undefined) {
@@ -68,6 +73,7 @@ const resetStyles = () => {
   $('p').each(function () {
     $(this).removeClass(codeClsList).addClass(defCode)
   })
+  $('#info').html('')
 }
 
 export { paintPath, highlightCode, resetStyles }

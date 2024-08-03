@@ -4,6 +4,7 @@ interface IsAnimatingContextType {
   state: boolean
   get: () => boolean
   set: (newIsAnimatingValue: boolean) => void
+  reset: () => void
 }
 
 // prettier-ignore
@@ -26,8 +27,12 @@ const IsAnimatingProvider = ({ children }: IsAnimatingProviderProps) => {
     return isAnimating.current
   }
 
+  const reset = () => {
+    isAnimating.current = false
+  }
+
   return (
-    <IsAnimatingContext.Provider value={{ state, get, set }}>
+    <IsAnimatingContext.Provider value={{ state, get, set, reset }}>
       {children}
     </IsAnimatingContext.Provider>
   )

@@ -42,22 +42,7 @@ const dfs = (startVxId: number, adjList: TAdjList) => {
 
     const currVxId = stack.pop() as number
 
-    let currDgId = undefined
-    const prevStepId = tracker.getStepId() - 1
-    const prevStep = tracker.get().find((step) => step.id === prevStepId)
-    const prevVxId = prevStep?.vxId
-    if (prevVxId !== undefined) {
-      const prevStepAdjVxs = adjList.get(prevVxId) as TPath[] | undefined
-      if (prevStepAdjVxs) {
-        const filterAdjPaths = prevStepAdjVxs.filter(
-          (neighbor) => neighbor.vertex.id === currVxId
-        )
-        const currentPath = filterAdjPaths[0]
-        if (currentPath && currentPath.edge) {
-          currDgId = currentPath.edge.id
-        }
-      }
-    }
+    let currDgId = getEdgeFromPath(adjList, tracker.getStepId() - 1, tracker)
     tracker.add(
       `Pop vertex ${currVxId} from stack`,
       4,

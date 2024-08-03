@@ -7,6 +7,7 @@ interface VerticesContextType {
   set: (newVertices: TVertex[]) => void
   add: (newVertex: TVertex) => void
   remove: (id: number) => void
+  reset: () => void
 }
 
 // prettier-ignore
@@ -39,8 +40,12 @@ const VerticesProvider = ({ children }: VerticesProviderProps) => {
     setVertices(filteredVertices)
   }
 
+  const reset = () => {
+    setVertices([])
+  }
+
   return (
-    <VerticesContext.Provider value={{ state, get, set, add, remove }}>
+    <VerticesContext.Provider value={{ state, get, set, add, remove, reset }}>
       {children}
     </VerticesContext.Provider>
   )

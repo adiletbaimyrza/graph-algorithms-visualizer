@@ -7,6 +7,7 @@ interface EdgesContextType {
   set: (newEdges: TEdge[]) => void
   add: (newEdge: TEdge) => void
   remove: (id: number) => void
+  reset: () => void
 }
 
 // prettier-ignore
@@ -39,8 +40,12 @@ const EdgesProvider = ({ children }: EdgesProviderProps) => {
     setEdges(filteredEdges)
   }
 
+  const reset = () => {
+    setEdges([])
+  }
+
   return (
-    <EdgesContext.Provider value={{ state, get, set, add, remove }}>
+    <EdgesContext.Provider value={{ state, get, set, add, remove, reset }}>
       {children}
     </EdgesContext.Provider>
   )

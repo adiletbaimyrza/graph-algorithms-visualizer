@@ -1,9 +1,13 @@
+import { useEffect, useRef } from 'react'
 import {
   useCurrentAlgo,
   useVertices,
   useEdges,
   useStepId,
   useIsAnimating,
+  useLinkingVertex,
+  useEdgeId,
+  useVertexId,
 } from '../../contexts'
 import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
 import {
@@ -11,25 +15,29 @@ import {
   animateStartFrom,
   resetStyles,
 } from '../../animations'
+import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
 import { TAdjList, TAlgo, TGraphSize } from '../../types'
-import { useEffect, useRef } from 'react'
 
 const Panel = () => {
+  const vertices = useVertices()
+  const edges = useEdges()
+  const vertexId = useVertexId()
+  const edgeId = useEdgeId()
+  const stepId = useStepId()
+  const currentAlgo = useCurrentAlgo()
+  const isAnimating = useIsAnimating()
+  const linkingVertex = useLinkingVertex()
+  const generate = useRandomGraph()
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const fired = useRef(false)
 
-  const vertices = useVertices()
-  const edges = useEdges()
-  const stepId = useStepId()
-  const currentAlgo = useCurrentAlgo()
-  const isAnimating = useIsAnimating()
-  const generate = useRandomGraph()
-
   const runAlgo = (tAlgo: TAlgo, adj: TAdjList) => {
     if (tAlgo === 'dfs') {
-      const steps = dfs(0, adj)
+      const vx = findSmallestVx(adj)
+
+      const steps = dfs(vx, adj)
 
       if (stepId.get() < steps.length - 1) {
         animateFinishUntil(steps, stepId.forward().get())
@@ -59,7 +67,7 @@ const Panel = () => {
     const adj = createAdjList(vertices.get(), edges.get())
 
     if (currentAlgo.get() === 'dfs') {
-      const steps = dfs(0, adj)
+      const steps = dfs(findSmallestVx(adj), adj)
       if (stepId.get() > 0) {
         animateFinishUntil(steps, stepId.backward().get())
       } else {
@@ -81,9 +89,19 @@ const Panel = () => {
     const adj = createAdjList(vertices.get(), edges.get())
 
     if (currentAlgo.get() === 'dfs') {
-      animateStartFrom(dfs(0, adj), stepId.get(), stepId.set, isAnimating.get)
+      animateStartFrom(
+        dfs(findSmallestVx(adj), adj),
+        stepId.get(),
+        stepId.set,
+        isAnimating.get
+      )
     } else {
-      animateStartFrom(bfs(0, adj), stepId.get(), stepId.set, isAnimating.get)
+      animateStartFrom(
+        bfs(findSmallestVx(adj), adj),
+        stepId.get(),
+        stepId.set,
+        isAnimating.get
+      )
     }
   }
 
@@ -124,6 +142,18 @@ const Panel = () => {
       document.removeEventListener('keyup', handleKeyUp)
     }
   }, [])
+
+  const deleteGraph = () => {
+    vertices.reset()
+    edges.reset()
+    isAnimating.reset()
+    linkingVertex.reset()
+    vertexId.reset()
+    edgeId.reset()
+    stepId.reset()
+
+    resetStyles()
+  }
 
   return (
     <div className="bg-slate-200">
@@ -186,6 +216,12 @@ const Panel = () => {
         onClick={reset}
       >
         reset
+      </button>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={deleteGraph}
+      >
+        delete
       </button>
     </div>
   )
