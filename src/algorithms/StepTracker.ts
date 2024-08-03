@@ -16,11 +16,8 @@ class StepTracker {
     vxId?: number,
     dgId?: number
   ) {
-    const newStepId = this.stepId
-    this.stepId = this.stepId++
-
     const newStep = {
-      id: newStepId,
+      id: this.stepId++,
       dsc,
       cdId,
       anim,
