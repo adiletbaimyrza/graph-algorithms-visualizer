@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { highlightCode, paintPath, resetStyles } from './domUtils'
 import { TStep } from '../types'
 
-const animateFinishUntil = async (steps: TStep[], stepId: number) => {
+const finishAnimationsUntil = async (steps: TStep[], stepId: number) => {
   if (0 <= stepId && stepId < steps.length) {
     resetStyles()
 
@@ -21,4 +21,4 @@ const animateFinishUntil = async (steps: TStep[], stepId: number) => {
   }
 }
 
-export default animateFinishUntil
+export default finishAnimationsUntil
