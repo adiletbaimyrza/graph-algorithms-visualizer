@@ -1,22 +1,22 @@
 import StepTracker from './StepTracker'
-import { TAdjList, TPath } from '../types'
+import { TAdjList, TPaths } from '../types'
 
 const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
-  const stepTracker = new StepTracker() // algorithm
+  const stepTracker = new StepTracker()
   stepTracker.add(
     'Starting Breadth-First Search (BFS) algorithm',
     0,
     'NoAction'
   )
 
-  const verticesToVisit = [startVertexId] // algorithm
+  const verticesToVisit = [startVertexId]
   stepTracker.add(
     `Initialized the queue with the starting vertex ${startVertexId}`,
     1,
     'NoAction'
   )
 
-  const visitedVertices = new Set<number>() // algorithm
+  const visitedVertices = new Set<number>()
   stepTracker.add(
     'Initialized an empty set to keep track of visited vertices',
     2,
@@ -24,14 +24,13 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
   )
 
   while (verticesToVisit.length > 0) {
-    // algorithm
     stepTracker.add(
       'There are still vertices to visit, continue the loop',
       3,
       'NoAction'
     )
 
-    const currentVertexId = verticesToVisit.shift() as number // algorithm
+    const currentVertexId = verticesToVisit.shift() as number
     stepTracker.add(
       `Dequeued vertex ${currentVertexId} for processing`,
       4,
@@ -40,15 +39,13 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
 
     let currentEdgeId = undefined
     if (!visitedVertices.has(currentVertexId)) {
-      // algorithm
-
       const prevStepId = stepTracker.getStepId() - 1
       const prevStep = stepTracker.get()[prevStepId]
       const prevVertexId = prevStep.vxId
       if (prevStepId >= 0) {
         const prevStepAdjacentVertices = adjacencyList.get(
           prevVertexId as number
-        ) as TPath[]
+        ) as TPaths[]
         const filteredAdjacentPaths = prevStepAdjacentVertices.filter(
           (neighbor) => neighbor.vertex.id === currentVertexId
         )
@@ -63,7 +60,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
         currentEdgeId
       )
 
-      visitedVertices.add(currentVertexId) // algorithm
+      visitedVertices.add(currentVertexId)
       stepTracker.add(
         `Marked vertex ${currentVertexId} as visited`,
         6,
@@ -72,10 +69,9 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
         currentEdgeId
       )
 
-      const adjacentVertices = adjacencyList.get(currentVertexId) as TPath[] // algorithm
+      const adjacentVertices = adjacencyList.get(currentVertexId) as TPaths[]
 
       adjacentVertices.forEach((neighbor) => {
-        // algorithm
         stepTracker.add(
           `Processing each adjacent vertex of the current vertex ${currentVertexId}. Now looking at vertex ${neighbor.vertex.id}`,
           7,
@@ -83,7 +79,6 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
         )
 
         if (!visitedVertices.has(neighbor.vertex.id)) {
-          // algorithm
           stepTracker.add(
             `Checking if vertex ${neighbor.vertex.id} has been visited`,
             8,
@@ -91,7 +86,7 @@ const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
             neighbor.vertex.id,
             neighbor.edge.id
           )
-          verticesToVisit.push(neighbor.vertex.id) // algorithm
+          verticesToVisit.push(neighbor.vertex.id)
           stepTracker.add(
             `Enqueued vertex ${neighbor.vertex.id} for future processing`,
             9,

@@ -2,8 +2,8 @@ import TVertex from './TVertex'
 
 type TEdge = {
   id: number
-  vertexOne: TVertex
-  vertexTwo: TVertex
+  vx1: TVertex
+  vx2: TVertex
 }
 
 export default TEdge

@@ -1,4 +1,2 @@
-import TPath from './TPath'
-
-type TAdjList = Map<number, TPath[]>
+type TAdjList = Map<number, number[]>
 export default TAdjList

@@ -3,18 +3,18 @@ import { TEdge } from '../../types'
 const isEdgeExists = (edge: TEdge, edges: TEdge[]) => {
   return edges.some(
     (existingEdge) =>
-      (existingEdge.vertexOne.id === edge.vertexOne.id &&
-        existingEdge.vertexTwo.id === edge.vertexTwo.id) ||
-      (existingEdge.vertexOne.id === edge.vertexTwo.id &&
-        existingEdge.vertexTwo.id === edge.vertexOne.id)
+      (existingEdge.vx1.id === edge.vx1.id &&
+        existingEdge.vx2.id === edge.vx2.id) ||
+      (existingEdge.vx1.id === edge.vx2.id &&
+        existingEdge.vx2.id === edge.vx1.id)
   )
 }
 
 const isLinkingToSelf = (edge: TEdge) => {
   return (
-    edge.vertexOne.id === edge.vertexTwo.id &&
-    edge.vertexOne.x === edge.vertexTwo.x &&
-    edge.vertexOne.y === edge.vertexTwo.y
+    edge.vx1.id === edge.vx2.id &&
+    edge.vx1.x === edge.vx2.x &&
+    edge.vx1.y === edge.vx2.y
   )
 }
 

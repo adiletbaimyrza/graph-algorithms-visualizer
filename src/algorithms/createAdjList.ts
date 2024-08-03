@@ -1,32 +1,29 @@
-import { TAdjList, TVertex, TEdge, TPath } from '../types'
+import { TAdjList, TVertex, TEdge } from '../types'
 
 const isItsEdge = (vx: TVertex, dg: TEdge) => {
-  return dg.vertexOne.id === vx.id || dg.vertexTwo.id === vx.id
+  return dg.vx1.id === vx.id || dg.vx2.id === vx.id
 }
 
-const getOppositeVx = (vx: TVertex, edge: TEdge): TVertex => {
-  return edge.vertexOne.id === vx.id ? edge.vertexTwo : edge.vertexOne
+const getOpposVxId = (vx: TVertex, dg: TEdge) => {
+  return dg.vx1.id === vx.id ? dg.vx2.id : dg.vx1.id
 }
 
-const createAdjList = (vertices: TVertex[], edges: TEdge[]) => {
-  const adjList: TAdjList = new Map<number, TPath[]>()
+const createAdjList = (vxs: TVertex[], dgs: TEdge[]) => {
+  const adj: TAdjList = new Map<number, number[]>()
 
-  vertices.forEach((vx) => {
-    const itsEdges: TEdge[] = edges.filter((dg) => isItsEdge(vx, dg))
+  vxs.forEach((vx) => {
+    const itsEdges: TEdge[] = dgs.filter((dg) => isItsEdge(vx, dg))
 
-    const paths: TPath[] = []
+    const neighbors: number[] = []
 
     itsEdges.forEach((itsEdge) => {
-      paths.push({
-        edge: itsEdge,
-        vertex: getOppositeVx(vx, itsEdge),
-      })
+      neighbors.push(getOpposVxId(vx, itsEdge))
     })
 
-    adjList.set(vx.id, paths)
+    adj.set(vx.id, neighbors)
   })
 
-  return adjList
+  return adj
 }
 
 export default createAdjList

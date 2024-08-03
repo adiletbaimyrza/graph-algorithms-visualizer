@@ -31,18 +31,18 @@ const Vertex = ({ id, x, y }: TVertex) => {
 
       const itsEdges = edges
         .get()
-        .filter((edge) => edge.vertexOne.id === id || edge.vertexTwo.id === id)
+        .filter((edge) => edge.vx1.id === id || edge.vx2.id === id)
 
       itsEdges.forEach((itsEdge) => {
         const edge = $(`#line-${itsEdge.id}`)
 
         if (edge) {
-          if (itsEdge.vertexOne.id === id) {
-            edge.attr('x1', itsEdge.vertexOne.x + event.x)
-            edge.attr('y1', itsEdge.vertexOne.y + event.y)
-          } else if (itsEdge.vertexTwo.id === id) {
-            edge.attr('x2', itsEdge.vertexTwo.x + event.x)
-            edge.attr('y2', itsEdge.vertexTwo.y + event.y)
+          if (itsEdge.vx1.id === id) {
+            edge.attr('x1', itsEdge.vx1.x + event.x)
+            edge.attr('y1', itsEdge.vx1.y + event.y)
+          } else if (itsEdge.vx2.id === id) {
+            edge.attr('x2', itsEdge.vx2.x + event.x)
+            edge.attr('y2', itsEdge.vx2.y + event.y)
           }
         }
       })
@@ -87,8 +87,8 @@ const Vertex = ({ id, x, y }: TVertex) => {
 
           return {
             ...edge,
-            vertexOne: { ...edge.vertexOne, x: x1, y: y1 },
-            vertexTwo: { ...edge.vertexTwo, x: x2, y: y2 },
+            vx1: { ...edge.vx1, x: x1, y: y1 },
+            vx2: { ...edge.vx2, x: x2, y: y2 },
           }
         }
       }) as TEdge[]
@@ -124,8 +124,8 @@ const Vertex = ({ id, x, y }: TVertex) => {
     if (linkingVertexValue) {
       const newEdge: TEdge = {
         id: edgeId.get(),
-        vertexOne: linkingVertexValue,
-        vertexTwo: { id, x, y },
+        vx1: linkingVertexValue,
+        vx2: { id, x, y },
       }
 
       if (isNewEdgeValid(newEdge, edges.get())) {
@@ -147,7 +147,7 @@ const Vertex = ({ id, x, y }: TVertex) => {
 
     const filteredEdges: TEdge[] = edges
       .get()
-      .filter((edge) => !(edge.vertexOne.id == id || edge.vertexTwo.id == id))
+      .filter((edge) => !(edge.vx1.id == id || edge.vx2.id == id))
 
     vertices.remove(id)
     edges.set(filteredEdges)

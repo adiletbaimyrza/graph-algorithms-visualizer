@@ -70,12 +70,7 @@ const useRandomGraph = () => {
 
     const shortDistanceEdges: TEdge[] = triangulatedEdges.filter(
       (edge) =>
-        euclideanDistance(
-          edge.vertexOne.x,
-          edge.vertexOne.y,
-          edge.vertexTwo.x,
-          edge.vertexTwo.y
-        ) <=
+        euclideanDistance(edge.vx1.x, edge.vx1.y, edge.vx2.x, edge.vx2.y) <=
         radius * 2
     )
 
