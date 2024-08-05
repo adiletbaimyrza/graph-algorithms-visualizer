@@ -1,8 +1,8 @@
 import $ from 'jquery'
-import { highlightCode, paintPath, resetStyles } from './domUtils'
+import { highlightCode, paintPath, resetStyles } from './animationHelpers'
 import { TStep } from '../types'
 
-const finishAnimationsUntil = async (steps: TStep[], stepId: number) => {
+const completeAnimations = (steps: TStep[], stepId: number) => {
   if (0 <= stepId && stepId < steps.length) {
     resetStyles()
 
@@ -13,12 +13,11 @@ const finishAnimationsUntil = async (steps: TStep[], stepId: number) => {
 
       $('#info').html(step.dsc)
 
-      paintPath(step.vxId as number, step.dgId, step.anim)
+      paintPath(step.vxId!, step.dgId, step.anim)
     }
 
-    console.log(steps[stepId])
     highlightCode(steps[stepId].cdId)
   }
 }
 
-export default finishAnimationsUntil
+export default completeAnimations

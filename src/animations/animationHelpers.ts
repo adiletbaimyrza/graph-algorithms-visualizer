@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { TAnim } from '../types'
 
-export const vxCls = {
+const vxCls = {
   default: 'fill-slate-400',
   checked: 'fill-red-500',
   pushed: 'fill-yellow-500',
@@ -17,7 +17,7 @@ const dgCls = {
 }
 const codeCls = { default: 'bg-slate-600', highlight: 'bg-yellow-500' }
 
-export const vxClsList = Object.values(vxCls).join(' ')
+const vxClsList = Object.values(vxCls).join(' ')
 const dgClsList = Object.values(dgCls).join(' ')
 const codeClsList = Object.values(codeCls).join(' ')
 
@@ -56,6 +56,11 @@ const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
 }
 
 const highlightCode = (codeId: number) => {
+  const lines = $('.pseudo')
+  lines.each((_, line) => {
+    $(line).removeClass(codeClsList).addClass(codeCls.default)
+  })
+
   $(`#pseudo-${codeId}`).removeClass(codeClsList).addClass(codeCls.highlight)
 }
 
@@ -76,4 +81,4 @@ const resetStyles = () => {
   $('#info').html('')
 }
 
-export { paintPath, highlightCode, resetStyles }
+export { paintPath, highlightCode, resetStyles, vxCls, vxClsList }

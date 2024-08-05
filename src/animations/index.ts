@@ -1,3 +1,3 @@
-export { default as animateFinishUntil } from './animateFinishUntil'
-export { default as animateStartFrom } from './animateStartFrom'
-export { paintPath, highlightCode, resetStyles } from './domUtils'
+export { default as completeAnimations } from './completeAnimations'
+export { default as startAnimations } from './startAnimations'
+export { paintPath, highlightCode, resetStyles } from './animationHelpers'
