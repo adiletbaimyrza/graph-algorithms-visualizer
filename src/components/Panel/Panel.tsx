@@ -93,10 +93,8 @@ const Panel = () => {
   }
 
   const reset = () => {
-    isAnimating.reset()
-    linkingVertex.reset()
-    vertexId.reset()
-    edgeId.reset()
+    isAnimating.set(false)
+
     stepId.reset()
 
     resetStyles()

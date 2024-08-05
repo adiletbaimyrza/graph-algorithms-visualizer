@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode } from 'react'
+import { useRef, createContext, ReactNode } from 'react'
 
 interface VertexIdContextType {
   state: number
@@ -15,23 +15,21 @@ interface VertexIdProviderProps {
 }
 
 const VertexIdProvider = ({ children }: VertexIdProviderProps) => {
-  const [vertexId, setVertexId] = useState<number>(0)
+  const vertexId = useRef<number>(0)
 
-  const state = vertexId
+  const state = vertexId.current
 
   const set = (newVertexId: number) => {
-    setVertexId(newVertexId)
+    vertexId.current = newVertexId
   }
 
   const get = () => {
-    const prevVertexId = vertexId
-    setVertexId(vertexId + 1)
-
+    const prevVertexId = vertexId.current++
     return prevVertexId
   }
 
   const reset = () => {
-    setVertexId(0)
+    vertexId.current = 0
   }
 
   return (
