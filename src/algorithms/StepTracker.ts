@@ -1,77 +1,32 @@
 import { TAnim, TStep } from '../types'
 
-type CurStep = {
-  id: number | undefined
-  dsc: string | undefined
-  cdId: number | undefined
-  anim: string | undefined
-  vxId: number | undefined
-  dgId: number | undefined
-}
-
-const defCurStep: CurStep = {
-  id: undefined,
-  dsc: undefined,
-  cdId: undefined,
-  anim: undefined,
-  vxId: undefined,
-  dgId: undefined,
-}
-
 class StepTracker {
   private steps: TStep[]
   private stepId: number
-  private curStep: CurStep
 
   constructor() {
     this.steps = []
     this.stepId = 0
-    this.curStep = defCurStep
   }
 
-  public dsc(dsc: string): this {
-    this.curStep.dsc = dsc
-    return this
-  }
-
-  public cdId(cdId: number): this {
-    this.curStep.cdId = cdId
-    return this
-  }
-
-  public anim(anim: TAnim): this {
-    this.curStep.anim = anim
-    return this
-  }
-
-  public vxId(vxId: number): this {
-    this.curStep.vxId = vxId
-    return this
-  }
-
-  public dgId(dgId: number): this {
-    this.curStep.dgId = dgId
-    return this
-  }
-
-  public add(): void {
-    if (!this.curStep.dsc || !this.curStep.cdId || !this.curStep.anim) {
-      throw new Error('Missing required TStep fields')
+  public add(dsc: string, cdId: number, anim: TAnim, vxId?: number, dgId?: number) {
+    const newStep: TStep = {
+      id: this.stepId++,
+      dsc,
+      cdId,
+      anim,
+      vxId,
+      dgId,
     }
 
-    this.steps.push({
-      ...this.curStep,
-      id: this.stepId++,
-    } as TStep)
-
-    this.curStep = defCurStep
+    this.steps.push(newStep)
   }
 
-  public get(): TStep[] {
+  public getTotalSteps() {
     return [...this.steps]
   }
 
-  public getStepId(): number {
+  public getCurId() {
     return this.stepId
   }
 }
