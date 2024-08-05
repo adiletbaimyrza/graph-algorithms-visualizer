@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode } from 'react'
+import { useRef, createContext, ReactNode } from 'react'
 
 interface SpeedContextType {
   state: number
@@ -14,16 +14,16 @@ interface SpeedProviderProps {
 }
 
 const SpeedProvider = ({ children }: SpeedProviderProps) => {
-  const [speed, setSpeed] = useState<number>(1)
+  const speed = useRef<number>(100)
 
-  const state = speed
+  const state = speed.current
 
   const set = (newSpeed: number) => {
-    setSpeed(newSpeed)
+    speed.current = newSpeed
   }
 
   const get = () => {
-    return speed
+    return speed.current
   }
 
   return (
