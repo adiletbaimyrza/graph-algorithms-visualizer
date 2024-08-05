@@ -11,13 +11,14 @@ import {
 } from '../../contexts'
 import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
 import {
-  animateFinishUntil,
-  animateStartFrom,
+  completeAnimations,
+  startAnimations,
   resetStyles,
 } from '../../animations'
 import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
-import { TAdjList, TAlgo, TGraphSize } from '../../types'
+import { TGraphSize, TStep } from '../../types'
+import createPaths from '../../algorithms/createPaths'
 
 const Panel = () => {
   const vertices = useVertices()
@@ -33,76 +34,52 @@ const Panel = () => {
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const fired = useRef(false)
 
-  const runAlgo = (tAlgo: TAlgo, adj: TAdjList) => {
-    if (tAlgo === 'dfs') {
-      const vx = findSmallestVx(adj)
+  const execAlgo = () => {
+    const adj = createAdjList(vertices.get(), edges.get())
+    const paths = createPaths(vertices.get(), edges.get(), adj)
+    const vx = findSmallestVx(adj)
 
-      const steps = dfs(vx, adj)
+    let steps: TStep[]
 
-      if (stepId.get() < steps.length - 1) {
-        animateFinishUntil(steps, stepId.forward().get())
-        stepId.increment()
-      } else {
-        console.warn('Attempt to increment stepId beyond last step')
-      }
-    } else {
-      const steps = bfs(0, adj)
-
-      if (stepId.get() < steps.length - 1) {
-        animateFinishUntil(steps, stepId.forward().get())
-        stepId.increment()
-      } else {
-        console.warn('Attempt to increment stepId beyond last step')
-      }
+    switch (currentAlgo.get()) {
+      case 'dfs':
+        steps = dfs(vx, adj, paths)
+        break
+      case 'bfs':
+        steps = bfs(vx, adj, paths)
+        break
     }
+
+    return steps
   }
 
   const next = () => {
-    const adj: TAdjList = createAdjList(vertices.get(), edges.get())
-    const algo = currentAlgo.get()
-    runAlgo(algo, adj)
+    const steps = execAlgo()
+
+    if (stepId.get() < steps.length) {
+      completeAnimations(steps, stepId.forward().get())
+      stepId.increment()
+    } else {
+      console.warn('Attempt to increment stepId beyond last step')
+    }
   }
 
   const prev = () => {
-    const adj = createAdjList(vertices.get(), edges.get())
+    const steps = execAlgo()
 
-    if (currentAlgo.get() === 'dfs') {
-      const steps = dfs(findSmallestVx(adj), adj)
-      if (stepId.get() > 0) {
-        animateFinishUntil(steps, stepId.backward().get())
-      } else {
-        console.warn('Attempt to decrement stepId beyond first step')
-      }
+    if (stepId.get() > 0) {
+      completeAnimations(steps, stepId.backward().get())
     } else {
-      const steps = bfs(0, adj)
-      if (stepId.get() > 0) {
-        animateFinishUntil(steps, stepId.backward().get())
-      } else {
-        console.warn('Attempt to decrement stepId beyond first step')
-      }
+      console.warn('Attempt to decrement stepId beyond first step')
     }
   }
 
   const play = () => {
     isAnimating.set(true)
 
-    const adj = createAdjList(vertices.get(), edges.get())
+    const steps = execAlgo()
 
-    if (currentAlgo.get() === 'dfs') {
-      animateStartFrom(
-        dfs(findSmallestVx(adj), adj),
-        stepId.get(),
-        stepId.set,
-        isAnimating.get
-      )
-    } else {
-      animateStartFrom(
-        bfs(findSmallestVx(adj), adj),
-        stepId.get(),
-        stepId.set,
-        isAnimating.get
-      )
-    }
+    startAnimations(steps, stepId.get(), stepId.set, isAnimating.get, 10)
   }
 
   const stop = () => {
@@ -114,11 +91,17 @@ const Panel = () => {
   }
 
   const reset = () => {
+    isAnimating.reset()
+    linkingVertex.reset()
+    vertexId.reset()
+    edgeId.reset()
+    stepId.reset()
+
     resetStyles()
   }
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (!fired.current) {
         if (event.key === 'ArrowRight') {
           nextRef.current?.click()
