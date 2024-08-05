@@ -8,6 +8,7 @@ import {
   useLinkingVertex,
   useEdgeId,
   useVertexId,
+  useSpeed,
 } from '../../contexts'
 import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
 import {
@@ -29,6 +30,7 @@ const Panel = () => {
   const currentAlgo = useCurrentAlgo()
   const isAnimating = useIsAnimating()
   const linkingVertex = useLinkingVertex()
+  const speed = useSpeed()
   const generate = useRandomGraph()
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const prevRef = useRef<HTMLButtonElement | null>(null)
@@ -79,7 +81,7 @@ const Panel = () => {
 
     const steps = execAlgo()
 
-    startAnimations(steps, stepId.get(), stepId.set, isAnimating.get, 10)
+    startAnimations(steps, stepId.get(), stepId.set, isAnimating.get, speed.get)
   }
 
   const stop = () => {
@@ -205,6 +207,37 @@ const Panel = () => {
         onClick={deleteGraph}
       >
         delete
+      </button>
+
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(200)}
+      >
+        x0.5
+      </button>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(100)}
+      >
+        x1
+      </button>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(50)}
+      >
+        x2
+      </button>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(25)}
+      >
+        x4
+      </button>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(1)}
+      >
+        turbo
       </button>
     </div>
   )

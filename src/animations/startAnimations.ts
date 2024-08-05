@@ -10,7 +10,7 @@ const startAnimations = async (
   stepId: number,
   stepIdSet: (newStepId: number) => void,
   isAnimatingGet: () => boolean,
-  speed: number
+  speedGet: () => number
 ) => {
   const newSteps = steps.slice(stepId)
 
@@ -22,7 +22,7 @@ const startAnimations = async (
     paintPath(step.vxId!, step.dgId, step.anim)
     highlightCode(step.cdId)
 
-    await sleep(speed)
+    await sleep(speedGet())
 
     stepIdSet(step.id)
   }
