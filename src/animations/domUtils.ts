@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { TAnim } from '../types'
 
-const vxCls = {
+export const vxCls = {
   default: 'fill-slate-400',
   checked: 'fill-red-500',
   pushed: 'fill-yellow-500',
@@ -17,7 +17,7 @@ const dgCls = {
 }
 const codeCls = { default: 'bg-slate-600', highlight: 'bg-yellow-500' }
 
-const vxClsList = Object.values(vxCls).join(' ')
+export const vxClsList = Object.values(vxCls).join(' ')
 const dgClsList = Object.values(dgCls).join(' ')
 const codeClsList = Object.values(codeCls).join(' ')
 
