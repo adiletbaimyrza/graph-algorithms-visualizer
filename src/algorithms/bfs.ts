@@ -1,120 +1,54 @@
 import StepTracker from './StepTracker'
 import { TAdjList, TPaths } from '../types'
 
-const bfs = (startVertexId: number, adjacencyList: TAdjList) => {
-  const stepTracker = new StepTracker()
-  stepTracker.add(
-    'Starting Breadth-First Search (BFS) algorithm',
-    0,
-    'NoAction'
-  )
+const bfs = (startVx: number, adjList: TAdjList, paths: TPaths) => {
+  const step = new StepTracker()
+  step.add('Start BFS', 0, 'NoAction')
 
-  const verticesToVisit = [startVertexId]
-  stepTracker.add(
-    `Initialized the queue with the starting vertex ${startVertexId}`,
-    1,
-    'NoAction'
-  )
+  const queue = [startVx]
+  step.add(`Init queue with start vertex ${startVx}`, 1, 'Push', startVx)
 
-  const visitedVertices = new Set<number>()
-  stepTracker.add(
-    'Initialized an empty set to keep track of visited vertices',
-    2,
-    'NoAction'
-  )
+  const visited = new Set<number>()
+  step.add('Init empty set for visited vertices', 2, 'NoAction')
 
-  while (verticesToVisit.length > 0) {
-    stepTracker.add(
-      'There are still vertices to visit, continue the loop',
-      3,
-      'NoAction'
-    )
+  let prevVx: number = 10000
+  while (queue.length > 0) {
+    step.add('Vertices still to visit, continue loop', 3, 'NoAction')
 
-    const currentVertexId = verticesToVisit.shift() as number
-    stepTracker.add(
-      `Dequeued vertex ${currentVertexId} for processing`,
-      4,
-      'NoAction'
-    )
+    const curVx = queue.shift()!
+    step.add(`Dequeue vertex ${curVx} from queue`, 4, 'Pop', curVx, paths.get(prevVx)?.get(curVx))
 
-    let currentEdgeId = undefined
-    if (!visitedVertices.has(currentVertexId)) {
-      const prevStepId = stepTracker.getStepId() - 1
-      const prevStep = stepTracker.get()[prevStepId]
-      const prevVertexId = prevStep.vxId
-      if (prevStepId >= 0) {
-        const prevStepAdjacentVertices = adjacencyList.get(
-          prevVertexId as number
-        ) as TPaths[]
-        const filteredAdjacentPaths = prevStepAdjacentVertices.filter(
-          (neighbor) => neighbor.vertex.id === currentVertexId
-        )
-        const currentPath = filteredAdjacentPaths[0]
-        currentEdgeId = currentPath.edge.id
-      }
-      stepTracker.add(
-        `Checking if vertex ${currentVertexId} has been visited`,
-        5,
-        'Check',
-        currentVertexId,
-        currentEdgeId
-      )
+    if (!visited.has(curVx)) {
+      step.add(`Check if vertex ${curVx} visited`, 5, 'Check', curVx, paths.get(prevVx)?.get(curVx))
 
-      visitedVertices.add(currentVertexId)
-      stepTracker.add(
-        `Marked vertex ${currentVertexId} as visited`,
-        6,
-        'Visit',
-        currentVertexId,
-        currentEdgeId
-      )
+      visited.add(curVx)
+      step.add(`Mark vertex ${curVx} as visited`, 6, 'Visit', curVx, paths.get(prevVx)?.get(curVx))
 
-      const adjacentVertices = adjacencyList.get(currentVertexId) as TPaths[]
+      prevVx = curVx
 
-      adjacentVertices.forEach((neighbor) => {
-        stepTracker.add(
-          `Processing each adjacent vertex of the current vertex ${currentVertexId}. Now looking at vertex ${neighbor.vertex.id}`,
-          7,
-          'NoAction'
-        )
+      const neighbors = adjList.get(curVx)!
 
-        if (!visitedVertices.has(neighbor.vertex.id)) {
-          stepTracker.add(
-            `Checking if vertex ${neighbor.vertex.id} has been visited`,
-            8,
-            'Check',
-            neighbor.vertex.id,
-            neighbor.edge.id
-          )
-          verticesToVisit.push(neighbor.vertex.id)
-          stepTracker.add(
-            `Enqueued vertex ${neighbor.vertex.id} for future processing`,
-            9,
-            'NoAction'
-          )
+      neighbors.forEach((neighbor) => {
+        step.add(`Process neighbor ${neighbor} of vertex ${curVx}`, 7, 'NoAction')
+
+        if (!visited.has(neighbor)) {
+          step.add(`Check if neighbor ${neighbor} visited`, 8, 'Check', neighbor, paths.get(curVx)!.get(neighbor))
+
+          queue.push(neighbor)
+          step.add(`Enqueue neighbor ${neighbor} to queue`, 9, 'Push', neighbor, paths.get(curVx)!.get(neighbor))
         } else {
-          stepTracker.add(
-            `Checking if vertex ${neighbor.vertex.id} has been visited`,
-            8,
-            'Check',
-            neighbor.vertex.id,
-            neighbor.edge.id
-          )
+          step.add(`Check if neighbor ${neighbor} visited`, 8, 'Check', neighbor, paths.get(curVx)!.get(neighbor))
+          step.add(`Neighbor ${neighbor} already visited`, 8, 'Visit', neighbor, paths.get(curVx)!.get(neighbor))
         }
       })
     } else {
-      stepTracker.add(
-        `Checking if vertex ${currentVertexId} has been visited`,
-        5,
-        'Check',
-        currentVertexId,
-        currentEdgeId
-      )
+      step.add(`Check if vertex ${curVx} visited`, 5, 'Check', curVx, paths.get(prevVx)?.get(curVx))
+      step.add(`Vertex ${curVx} already visited`, 5, 'Visit', curVx, paths.get(prevVx)?.get(curVx))
     }
   }
 
-  stepTracker.add('Finished Breadth-First Search (BFS)', 14, 'NoAction')
-  return stepTracker.get()
+  step.add('Finish BFS', 14, 'NoAction')
+  return step.getTotalSteps()
 }
 
 export default bfs
