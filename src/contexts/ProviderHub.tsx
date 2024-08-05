@@ -10,6 +10,7 @@ import { LineWidthProvider } from './lineWidth/LineWidthContext'
 import { CurrentAlgoProvider } from './currentAlgo/CurrentAlgoContext'
 import { StepIdProvider } from './stepId/StepIdContext'
 import { IsAnimatingProvider } from './isAnimating/IsAnimatingContext'
+import { SpeedProvider } from './speed/SpeedContext'
 
 interface ProviderHubProps {
   children: ReactNode
@@ -27,7 +28,9 @@ const ProviderHub = ({ children }: ProviderHubProps) => {
                   <LineWidthProvider>
                     <CurrentAlgoProvider>
                       <StepIdProvider>
-                        <IsAnimatingProvider>{children}</IsAnimatingProvider>
+                        <IsAnimatingProvider>
+                          <SpeedProvider>{children}</SpeedProvider>
+                        </IsAnimatingProvider>
                       </StepIdProvider>
                     </CurrentAlgoProvider>
                   </LineWidthProvider>

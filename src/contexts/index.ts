@@ -9,6 +9,7 @@ export { default as useLineWidth } from './lineWidth'
 export { default as useCurrentAlgo } from './currentAlgo'
 export { default as useStepId } from './stepId'
 export { default as useIsAnimating } from './isAnimating'
+export { default as useSpeed } from './speed'
 
 import ProviderHub from './ProviderHub'
 export default ProviderHub
