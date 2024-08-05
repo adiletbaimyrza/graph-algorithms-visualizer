@@ -1,40 +1,54 @@
+import { TAdjList, TPaths } from '../types'
 import StepTracker from './StepTracker'
-import { TAdjList } from '../types'
-import TPaths from '../types/TPaths'
 
-const dfsTraverse = (startVx: number, adj: TAdjList, paths: TPaths) => {
-  const rec = new StepTracker()
-  rec.dsc('Start DFS').cdId(0).anim('NoAction').add()
+const dfs = (startVx: number, adjList: TAdjList, paths: TPaths) => {
+  const step = new StepTracker()
+  step.add('Start DFS', 0, 'NoAction')
 
   const stack = [startVx]
-  rec
-    .dsc(`Init stack with start vertex ${startVx}`)
-    .cdId(1)
-    .anim('Push')
-    .vxId(startVx)
+  step.add(`Init stack with start vertex ${startVx}`, 1, 'Push', startVx)
 
   const visited = new Set<number>()
-  rec.dsc('Init empty set for visited vertices').cdId(2).anim('NoAction')
+  step.add('Init empty set for visited vertices', 2, 'NoAction')
 
+  let prevVx: number = 10000
   while (stack.length > 0) {
-    rec.dsc('Vertices still to visit, continue loop').cdId(3).anim('NoAction')
+    step.add('Vertices still to visit, continue loop', 3, 'NoAction')
 
-    const curVx: number = stack.pop()!
-    // TODO
-    rec.dsc(`Pop vertex ${curVx} from stack`).cdId(4).anim('Pop').vxId(curVx)
+    const curVx = stack.pop()!
+    step.add(`Pop vertex ${curVx} from stack`, 4, 'Pop', curVx, paths.get(prevVx)?.get(curVx))
 
     if (!visited.has(curVx)) {
-      visited.add(curVx)
+      step.add(`Check if vertex ${curVx} visited`, 5, 'Check', curVx, paths.get(prevVx)?.get(curVx))
 
-      const neighbors = adj.get(curVx)!
+      visited.add(curVx)
+      step.add(`Mark vertex ${curVx} as visited`, 6, 'Visit', curVx, paths.get(prevVx)?.get(curVx))
+
+      prevVx = curVx
+
+      const neighbors = adjList.get(curVx)!
 
       neighbors.forEach((neighbor) => {
+        step.add(`Process neighbor ${neighbor} of vertex ${curVx}`, 7, 'NoAction')
+
         if (!visited.has(neighbor)) {
+          step.add(`Check if neighbor ${neighbor} visited`, 8, 'Check', neighbor, paths.get(curVx)!.get(neighbor))
+
           stack.push(neighbor)
+          step.add(`Push neighbor ${neighbor} to stack`, 9, 'Push', neighbor, paths.get(curVx)!.get(neighbor))
+        } else {
+          step.add(`Check if neighbor ${neighbor} visited`, 8, 'Check', neighbor, paths.get(curVx)!.get(neighbor))
+          step.add(`Neighbor ${neighbor} already visited`, 8, 'Visit', neighbor, paths.get(curVx)!.get(neighbor))
         }
       })
+    } else {
+      step.add(`Check if vertex ${curVx} visited`, 5, 'Check', curVx, paths.get(prevVx)?.get(curVx))
+      step.add(`Vertex ${curVx} already visited`, 5, 'Visit', curVx, paths.get(prevVx)?.get(curVx))
     }
   }
+
+  step.add('Finish DFS', 14, 'NoAction')
+  return step.getTotalSteps()
 }
 
-export default dfsTraverse
+export default dfs
