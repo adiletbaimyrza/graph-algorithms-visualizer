@@ -1,18 +1,14 @@
 import $ from 'jquery'
+import { vxCls, vxClsList } from '../../animations/domUtils'
 
 const toggleLinkingVertex = (id: number) => {
   const linkingVertex = $(`#circle-${id}`)
 
   if (linkingVertex) {
-    const currentFill = linkingVertex.css('fill')
-    console.log(currentFill)
-
-    const slate400 = 'rgb(148, 163, 184)'
-
-    if (currentFill === slate400) {
-      linkingVertex.css('fill', 'red')
+    if (linkingVertex.hasClass(vxCls.default)) {
+      linkingVertex.removeClass(vxClsList).addClass(vxCls.checked)
     } else {
-      linkingVertex.css('fill', slate400)
+      linkingVertex.removeClass(vxClsList).addClass(vxCls.default)
     }
   }
 }
