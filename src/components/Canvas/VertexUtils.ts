@@ -22,4 +22,8 @@ const isNewEdgeValid = (newEdge: TEdge, edges: TEdge[]) => {
   return !isLinkingToSelf(newEdge) && !isEdgeExists(newEdge, edges)
 }
 
-export { isLinkingToSelf, isEdgeExists, isNewEdgeValid }
+const getRandWeight = (range: number) => {
+  return Math.floor(Math.random() * range)
+}
+
+export { isLinkingToSelf, isEdgeExists, isNewEdgeValid, getRandWeight }

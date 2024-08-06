@@ -12,6 +12,8 @@ import {
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
 import { TVertex, TEdge } from '../../types'
+import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
+import { getRandWeight } from './VertexUtils'
 
 const Vertex = ({ id, x, y }: TVertex) => {
   const vertices = useVertices()
@@ -21,6 +23,8 @@ const Vertex = ({ id, x, y }: TVertex) => {
   const vertexRadius = useVertexRadius()
   const fontSize = useFontSize()
   const vertexRef = useRef<SVGGElement | null>(null)
+
+  const { isWeighted } = useIsWeightedCtx()
 
   useEffect(() => {
     const onVertexDrag = (
@@ -35,14 +39,21 @@ const Vertex = ({ id, x, y }: TVertex) => {
 
       itsEdges.forEach((itsEdge) => {
         const edge = $(`#line-${itsEdge.id}`)
+        const weight = $(`#weight-${itsEdge.id}`)
 
         if (edge) {
           if (itsEdge.vx1.id === id) {
             edge.attr('x1', itsEdge.vx1.x + event.x)
             edge.attr('y1', itsEdge.vx1.y + event.y)
+
+            weight.attr('x', (itsEdge.vx1.x + event.x + itsEdge.vx2.x) / 2)
+            weight.attr('y', (itsEdge.vx1.y + event.y + itsEdge.vx2.y) / 2)
           } else if (itsEdge.vx2.id === id) {
             edge.attr('x2', itsEdge.vx2.x + event.x)
             edge.attr('y2', itsEdge.vx2.y + event.y)
+
+            weight.attr('x', (itsEdge.vx2.x + event.x + itsEdge.vx1.x) / 2)
+            weight.attr('y', (itsEdge.vx2.y + event.y + itsEdge.vx1.y) / 2)
           }
         }
       })
@@ -79,11 +90,16 @@ const Vertex = ({ id, x, y }: TVertex) => {
 
       const newEdges = edges.get().map((edge) => {
         const edgeInDOM = $(`#line-${edge.id}`)
+        const weight = $(`#weight-${edge.id}`)
+
         if (edgeInDOM) {
           const x1 = Number(edgeInDOM.attr('x1'))
           const y1 = Number(edgeInDOM.attr('y1'))
           const x2 = Number(edgeInDOM.attr('x2'))
           const y2 = Number(edgeInDOM.attr('y2'))
+
+          weight.attr('x', (x1 + x2) / 2)
+          weight.attr('y', (y1 + y2) / 2)
 
           return {
             ...edge,
@@ -119,23 +135,24 @@ const Vertex = ({ id, x, y }: TVertex) => {
   const onVertexLeftClick = (event: React.MouseEvent) => {
     event.stopPropagation()
 
-    const linkingVertexValue = linkingVertex.get()
+    const linkVxVal = linkingVertex.get()
 
-    if (linkingVertexValue) {
-      const newEdge: TEdge = {
+    if (linkVxVal) {
+      const newDg: TEdge = {
         id: edgeId.get(),
-        vx1: linkingVertexValue,
+        vx1: linkVxVal,
         vx2: { id, x, y },
+        weight: isWeighted ? getRandWeight(100) : undefined,
       }
 
-      if (isNewEdgeValid(newEdge, edges.get())) {
-        edges.add(newEdge)
+      if (isNewEdgeValid(newDg, edges.get())) {
+        edges.add(newDg)
       } else {
         console.warn('Same edge clicked or the edge already exists')
       }
 
       linkingVertex.reset()
-      toggleLinkingVertex(linkingVertexValue.id)
+      toggleLinkingVertex(linkVxVal.id)
     } else {
       linkingVertex.set({ id, x, y })
       toggleLinkingVertex(id)

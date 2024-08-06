@@ -14,6 +14,8 @@ import delaunay from './delaunay'
 import { euclideanDistance, isOutOfBounds } from '../components'
 import { configureGraphSizes } from './useRandomGraphUtils'
 import { TVertex, TEdge, TGraphSize } from '../types'
+import useIsWeightedCtx from '../contexts/isWeightedCtxHook'
+import { getRandWeight } from '../components/Canvas/VertexUtils'
 
 const useRandomGraph = () => {
   const vertexRadius = useVertexRadius()
@@ -25,6 +27,8 @@ const useRandomGraph = () => {
   const lineWidth = useLineWidth()
   const canvasWidth = useRef<number | undefined>(undefined)
   const canvasHeight = useRef<number | undefined>(undefined)
+
+  const { isWeighted } = useIsWeightedCtx()
 
   useEffect(() => {
     canvasWidth.current = $('#canvas').width()
@@ -73,6 +77,12 @@ const useRandomGraph = () => {
         euclideanDistance(edge.vx1.x, edge.vx1.y, edge.vx2.x, edge.vx2.y) <=
         radius * 2
     )
+
+    if (isWeighted) {
+      shortDistanceEdges.forEach((dg) => {
+        dg.weight = getRandWeight(100)
+      })
+    }
 
     vertices.set(inBoundsVertices)
     edges.set(shortDistanceEdges)

@@ -20,6 +20,7 @@ import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
 import { TGraphSize, TStep } from '../../types'
 import createPaths from '../../algorithms/createPaths'
+import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 
 const Panel = () => {
   const vertices = useVertices()
@@ -35,6 +36,11 @@ const Panel = () => {
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const fired = useRef(false)
+  const { isWeighted, setIsWeighted } = useIsWeightedCtx()
+
+  const toggleIsWeighted = () => {
+    setIsWeighted(!isWeighted)
+  }
 
   const execAlgo = () => {
     const adj = createAdjList(vertices.get(), edges.get())
@@ -236,6 +242,13 @@ const Panel = () => {
         onClick={() => speed.set(1)}
       >
         turbo
+      </button>
+
+      <button
+        className="py-2 px-5 bg-sky-400 border border-zinc-600"
+        onClick={toggleIsWeighted}
+      >
+        {isWeighted ? 'Unweighted' : 'Weighted'}
       </button>
     </div>
   )

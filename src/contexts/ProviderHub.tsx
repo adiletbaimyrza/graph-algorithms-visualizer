@@ -11,6 +11,7 @@ import { CurrentAlgoProvider } from './currentAlgo/CurrentAlgoContext'
 import { StepIdProvider } from './stepId/StepIdContext'
 import { IsAnimatingProvider } from './isAnimating/IsAnimatingContext'
 import { SpeedProvider } from './speed/SpeedContext'
+import { IsWeightedCtxProv } from './IsWeightedCtx'
 
 interface ProviderHubProps {
   children: ReactNode
@@ -29,7 +30,9 @@ const ProviderHub = ({ children }: ProviderHubProps) => {
                     <CurrentAlgoProvider>
                       <StepIdProvider>
                         <IsAnimatingProvider>
-                          <SpeedProvider>{children}</SpeedProvider>
+                          <SpeedProvider>
+                            <IsWeightedCtxProv>{children}</IsWeightedCtxProv>
+                          </SpeedProvider>
                         </IsAnimatingProvider>
                       </StepIdProvider>
                     </CurrentAlgoProvider>
