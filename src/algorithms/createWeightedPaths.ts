@@ -10,7 +10,7 @@ const getDgWithWeight = (vx1: number, vx2: number, dgs: TEdge[]) => {
   return [dg.id!, dg.weight!]
 }
 
-const createPaths = (
+const createWeightPaths = (
   vxs: TVertex[],
   dgs: TEdge[],
   adj: TAdjList
@@ -32,4 +32,4 @@ const createPaths = (
   return totalPaths
 }
 
-export default createPaths
+export default createWeightPaths

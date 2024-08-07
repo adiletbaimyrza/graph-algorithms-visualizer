@@ -1,5 +1,7 @@
+import { TVxId } from '../types'
+
 class MinHeap {
-  private heap: number[]
+  private heap: Array<[TVxId, TVxId, number]>
 
   constructor() {
     this.heap = []
@@ -20,7 +22,7 @@ class MinHeap {
   private heapifyUp(idx: number) {
     const parent = this.parent(idx)
 
-    if (idx > 0 && this.heap[idx] < this.heap[parent]) {
+    if (idx > 0 && this.heap[idx][2] < this.heap[parent][2]) {
       const temp = this.heap[idx]
       this.heap[idx] = this.heap[parent]
       this.heap[parent] = temp
@@ -33,11 +35,11 @@ class MinHeap {
     const right = this.rightChild(idx)
     let smallest = idx
 
-    if (left < this.heap.length && this.heap[left] < this.heap[smallest]) {
+    if (left < this.heap.length && this.heap[left][2] < this.heap[smallest][2]) {
       smallest = left
     }
 
-    if (right < this.heap.length && this.heap[right] < this.heap[smallest]) {
+    if (right < this.heap.length && this.heap[right][2] < this.heap[smallest][2]) {
       smallest = right
     }
 
@@ -45,7 +47,6 @@ class MinHeap {
       const temp = this.heap[idx]
       this.heap[idx] = this.heap[smallest]
       this.heap[smallest] = temp
-
       this.heapifyDown(smallest)
     }
   }
@@ -65,8 +66,8 @@ class MinHeap {
     return min
   }
 
-  public insert(val: number) {
-    this.heap.push(val)
+  public insert(dg: [TVxId, TVxId, number]) {
+    this.heap.push(dg)
     this.heapifyUp(this.heap.length - 1)
   }
 
@@ -79,6 +80,15 @@ class MinHeap {
 
   public size() {
     return this.heap.length
+  }
+
+  public has(vertexId2: TVxId) {
+    for (const [, v2] of this.heap) {
+      if (v2 === vertexId2) {
+        return true
+      }
+    }
+    return false
   }
 }
 

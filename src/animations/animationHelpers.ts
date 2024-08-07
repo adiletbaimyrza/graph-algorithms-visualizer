@@ -21,6 +21,9 @@ const vxClsList = Object.values(vxCls).join(' ')
 const dgClsList = Object.values(dgCls).join(' ')
 const codeClsList = Object.values(codeCls).join(' ')
 
+const vxHistory = new Map<number, [string | undefined, string | undefined]>()
+const dgHistory = new Map<number, [string | undefined, string | undefined]>()
+
 const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
   let vxClr = ''
   let dgClr = ''
@@ -42,10 +45,28 @@ const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
       vxClr = vxCls.visited
       dgClr = dgCls.visited
       break
+    case 'Reverse':
+      const vxHistoryEntry = vxHistory.get(vxId)
+      const dgHistoryEntry = dgId !== undefined ? dgHistory.get(dgId) : undefined
+      if (vxHistoryEntry) {
+        vxClr = vxHistoryEntry[0] || vxCls.default
+      }
+      if (dgHistoryEntry) {
+        dgClr = dgHistoryEntry[0] || dgCls.default
+      }
+      break
     default:
       vxClr = vxCls.default
       dgClr = dgCls.default
       break
+  }
+
+  const currentVxHistory = vxHistory.get(vxId) || [undefined, undefined]
+  vxHistory.set(vxId, [currentVxHistory[1], vxClr])
+
+  if (dgId !== undefined) {
+    const currentDgHistory = dgHistory.get(dgId) || [undefined, undefined]
+    dgHistory.set(dgId, [currentDgHistory[1], dgClr])
   }
 
   $(`#circle-${vxId}`).removeClass(vxClsList).addClass(vxClr)

@@ -11,16 +11,14 @@ import {
   useSpeed,
 } from '../../contexts'
 import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
-import {
-  completeAnimations,
-  startAnimations,
-  resetStyles,
-} from '../../animations'
+import { completeAnimations, startAnimations, resetStyles } from '../../animations'
 import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
 import { TGraphSize, TStep } from '../../types'
 import createPaths from '../../algorithms/createPaths'
 import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
+import prim from '../../algorithms/prim'
+import createWeightPaths from '../../algorithms/createWeightedPaths'
 
 const Panel = () => {
   const vertices = useVertices()
@@ -56,6 +54,8 @@ const Panel = () => {
       case 'bfs':
         steps = bfs(vx, adj, paths)
         break
+      case 'prim':
+        steps = prim(vx, adj, createWeightPaths(vertices.get(), edges.get(), adj))
     }
 
     return steps
@@ -174,80 +174,50 @@ const Panel = () => {
         bfs
       </button>
       <button
-        ref={prevRef}
-        className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={prev}
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
+        onClick={() => {
+          currentAlgo.set('prim')
+        }}
       >
+        prim
+      </button>
+      <button ref={prevRef} className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={prev}>
         prev
       </button>
-      <button
-        className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={play}
-      >
+      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={play}>
         play
       </button>
-      <button
-        className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={stop}
-      >
+      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={stop}>
         stop
       </button>
 
-      <button
-        ref={nextRef}
-        className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={next}
-      >
+      <button ref={nextRef} className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={next}>
         next
       </button>
-      <button
-        className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={reset}
-      >
+      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={reset}>
         reset
       </button>
-      <button
-        className="py-2 px-5 bg-green-700 border border-zinc-600"
-        onClick={deleteGraph}
-      >
+      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={deleteGraph}>
         delete
       </button>
 
-      <button
-        className="py-2 px-5 bg-lime-400 border border-zinc-600"
-        onClick={() => speed.set(200)}
-      >
+      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(200)}>
         x0.5
       </button>
-      <button
-        className="py-2 px-5 bg-lime-400 border border-zinc-600"
-        onClick={() => speed.set(100)}
-      >
+      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(100)}>
         x1
       </button>
-      <button
-        className="py-2 px-5 bg-lime-400 border border-zinc-600"
-        onClick={() => speed.set(50)}
-      >
+      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(50)}>
         x2
       </button>
-      <button
-        className="py-2 px-5 bg-lime-400 border border-zinc-600"
-        onClick={() => speed.set(25)}
-      >
+      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(25)}>
         x4
       </button>
-      <button
-        className="py-2 px-5 bg-lime-400 border border-zinc-600"
-        onClick={() => speed.set(1)}
-      >
+      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(1)}>
         turbo
       </button>
 
-      <button
-        className="py-2 px-5 bg-sky-400 border border-zinc-600"
-        onClick={toggleIsWeighted}
-      >
+      <button className="py-2 px-5 bg-sky-400 border border-zinc-600" onClick={toggleIsWeighted}>
         {isWeighted ? 'Unweighted' : 'Weighted'}
       </button>
     </div>

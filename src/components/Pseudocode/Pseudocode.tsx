@@ -6,7 +6,7 @@ const Pseudocode = () => {
   const currentAlgo = useCurrentAlgo()
 
   return (
-    <div className="w-[450px] bg-slate-500">
+    <div className="w-[700px] bg-slate-500">
       {pseudocodes[currentAlgo.get()].map((codeLine, index) => (
         <p
           key={index}
