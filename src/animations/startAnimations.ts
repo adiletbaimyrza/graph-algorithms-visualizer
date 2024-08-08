@@ -19,7 +19,7 @@ const startAnimations = async (
       break
     }
 
-    paintPath(step.vxId!, step.dgId, step.anim)
+    paintPath(step.vxId!, step.dgId, step.anim, step.vxId2)
     highlightCode(step.cdId)
 
     await sleep(speedGet())

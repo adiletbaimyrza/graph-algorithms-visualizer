@@ -24,40 +24,50 @@ const codeClsList = Object.values(codeCls).join(' ')
 const vxHistory = new Map<number, [string | undefined, string | undefined]>()
 const dgHistory = new Map<number, [string | undefined, string | undefined]>()
 
-const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
+const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim, vxId2: number | undefined) => {
   let vxClr = ''
   let dgClr = ''
+  let vx2Clr = ''
 
   switch (anim) {
     case 'Push':
       vxClr = vxCls.pushed
       dgClr = dgCls.pushed
+      vx2Clr = vxCls.pushed
       break
     case 'Pop':
       vxClr = vxCls.popped
       dgClr = dgCls.popped
+      vx2Clr = vxCls.popped
       break
     case 'Check':
       vxClr = vxCls.checked
       dgClr = dgCls.checked
+      vx2Clr = vxCls.checked
       break
     case 'Visit':
       vxClr = vxCls.visited
       dgClr = dgCls.visited
+      vx2Clr = vxCls.visited
       break
     case 'Reverse':
       const vxHistoryEntry = vxHistory.get(vxId)
       const dgHistoryEntry = dgId !== undefined ? dgHistory.get(dgId) : undefined
+      const vx2HistoryEntry = vxId2 !== undefined ? vxHistory.get(vxId2) : undefined
       if (vxHistoryEntry) {
         vxClr = vxHistoryEntry[0] || vxCls.default
       }
       if (dgHistoryEntry) {
         dgClr = dgHistoryEntry[0] || dgCls.default
       }
+      if (vx2HistoryEntry) {
+        vx2Clr = vx2HistoryEntry[0] || vxCls.default
+      }
       break
     default:
       vxClr = vxCls.default
       dgClr = dgCls.default
+      vx2Clr = vxCls.default
       break
   }
 
@@ -69,10 +79,19 @@ const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim) => {
     dgHistory.set(dgId, [currentDgHistory[1], dgClr])
   }
 
+  if (vxId2 !== undefined) {
+    const currentVx2History = vxHistory.get(vxId2) || [undefined, undefined]
+    vxHistory.set(vxId2, [currentVx2History[1], vx2Clr])
+  }
+
   $(`#circle-${vxId}`).removeClass(vxClsList).addClass(vxClr)
 
   if (dgId !== undefined) {
     $(`#line-${dgId}`).removeClass(dgClsList).addClass(dgClr)
+  }
+
+  if (vxId2 !== undefined) {
+    $(`#circle-${vxId2}`).removeClass(vxClsList).addClass(vx2Clr)
   }
 }
 

@@ -19,6 +19,7 @@ import createPaths from '../../algorithms/createPaths'
 import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import prim from '../../algorithms/prim'
 import createWeightPaths from '../../algorithms/createWeightedPaths'
+import kruskal from '../../algorithms/kruskal'
 
 const Panel = () => {
   const vertices = useVertices()
@@ -56,6 +57,10 @@ const Panel = () => {
         break
       case 'prim':
         steps = prim(vx, adj, createWeightPaths(vertices.get(), edges.get(), adj))
+        break
+      case 'kruskal':
+        steps = kruskal(vertices.get(), edges.get())
+        break
     }
 
     return steps
@@ -180,6 +185,14 @@ const Panel = () => {
         }}
       >
         prim
+      </button>
+      <button
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
+        onClick={() => {
+          currentAlgo.set('kruskal')
+        }}
+      >
+        kruskal
       </button>
       <button ref={prevRef} className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={prev}>
         prev

@@ -9,7 +9,7 @@ class StepTracker {
     this.stepId = 0
   }
 
-  public add(dsc: string, cdId: number, anim: TAnim, vxId?: number, dgId?: number) {
+  public add(dsc: string, cdId: number, anim: TAnim, vxId?: number, dgId?: number, vxId2?: number) {
     const newStep: TStep = {
       id: this.stepId++,
       dsc,
@@ -17,6 +17,7 @@ class StepTracker {
       anim,
       vxId,
       dgId,
+      vxId2,
     }
 
     this.steps.push(newStep)

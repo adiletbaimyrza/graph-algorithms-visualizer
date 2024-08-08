@@ -13,7 +13,7 @@ const completeAnimations = (steps: TStep[], stepId: number) => {
 
       $('#info').html(step.dsc)
 
-      paintPath(step.vxId!, step.dgId, step.anim)
+      paintPath(step.vxId!, step.dgId, step.anim, step.vxId2)
     }
 
     highlightCode(steps[stepId].cdId)
