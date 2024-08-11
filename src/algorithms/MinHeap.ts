@@ -1,54 +1,58 @@
 import { TVxId } from '../types'
 
-class MinHeap {
-  private heap: Array<[TVxId, TVxId, number]>
+class MinHeap<T> {
+  private heap: Array<T>
+  private compare: (a: T, b: T) => number
 
-  constructor() {
+  constructor(compareFn: (a: T, b: T) => number) {
     this.heap = []
+    this.compare = compareFn
   }
 
-  private parent(idx: number) {
+  private parent(idx: TVxId) {
     return Math.floor((idx - 1) / 2)
   }
 
-  private leftChild(idx: number) {
+  private leftChild(idx: TVxId) {
     return 2 * idx + 1
   }
 
-  private rightChild(idx: number) {
+  private rightChild(idx: TVxId) {
     return 2 * idx + 2
   }
 
-  private heapifyUp(idx: number) {
+  private heapifyUp(idx: TVxId) {
     const parent = this.parent(idx)
 
-    if (idx > 0 && this.heap[idx][2] < this.heap[parent][2]) {
-      const temp = this.heap[idx]
-      this.heap[idx] = this.heap[parent]
-      this.heap[parent] = temp
+    if (idx > 0 && this.compare(this.heap[idx], this.heap[parent]) < 0) {
+      this.swap(idx, parent)
       this.heapifyUp(parent)
     }
   }
 
-  private heapifyDown(idx: number) {
+  private heapifyDown(idx: TVxId) {
     const left = this.leftChild(idx)
     const right = this.rightChild(idx)
     let smallest = idx
 
-    if (left < this.heap.length && this.heap[left][2] < this.heap[smallest][2]) {
+    if (left < this.heap.length && this.compare(this.heap[left], this.heap[smallest]) < 0) {
       smallest = left
     }
 
-    if (right < this.heap.length && this.heap[right][2] < this.heap[smallest][2]) {
+    if (right < this.heap.length && this.compare(this.heap[right], this.heap[smallest]) < 0) {
       smallest = right
     }
 
     if (smallest !== idx) {
-      const temp = this.heap[idx]
-      this.heap[idx] = this.heap[smallest]
-      this.heap[smallest] = temp
+      this.swap(idx, smallest)
       this.heapifyDown(smallest)
     }
+  }
+
+  private swap(idx1: number, idx2: number) {
+    const temp = this.heap[idx1]
+    this.heap[idx1] = this.heap[idx2]
+    this.heap[idx2] = temp
   }
 
   public extractMin() {
@@ -66,8 +70,8 @@ class MinHeap {
     return min
   }
 
-  public insert(dg: [TVxId, TVxId, number]) {
-    this.heap.push(dg)
+  public insert(item: T) {
+    this.heap.push(item)
     this.heapifyUp(this.heap.length - 1)
   }
 
@@ -82,13 +86,8 @@ class MinHeap {
     return this.heap.length
   }
 
-  public has(vertexId2: TVxId) {
-    for (const [, v2] of this.heap) {
-      if (v2 === vertexId2) {
-        return true
-      }
-    }
-    return false
+  public has(predicate: (item: T) => boolean) {
+    return this.heap.some(predicate)
   }
 }
 

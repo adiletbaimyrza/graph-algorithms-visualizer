@@ -1,12 +1,12 @@
-import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
 import { TAdjList, TWeightPaths, TVxId } from '../types'
+import MinHeap from './MinHeap'
 
 const prim = (startVx: TVxId, adjList: TAdjList, paths: TWeightPaths) => {
   const step = new StepTracker()
   step.add("Start Prim's algorithm", 0, 'NoAction')
 
-  const minHeap = new MinHeap()
+  const minHeap = new MinHeap<[TVxId, TVxId, number]>((a, b) => (a[2] < b[2] ? -1 : 0))
   step.add('Initialize min-heap', 1, 'NoAction')
 
   const visited = new Set<TVxId>()
@@ -17,22 +17,12 @@ const prim = (startVx: TVxId, adjList: TAdjList, paths: TWeightPaths) => {
 
   const neighbors = adjList.get(startVx)
   neighbors!.forEach((neighbor) => {
-    step.add(
-      `Iterate if neighbors of start vertex ${startVx}. Current: ${neighbor}`,
-      4,
-      'NoAction'
-    )
+    step.add(`Iterate if neighbors of start vertex ${startVx}. Current: ${neighbor}`, 4, 'NoAction')
 
     const [dg, weight] = paths.get(startVx)!.get(neighbor)!
 
     minHeap.insert([startVx, neighbor, weight])
-    step.add(
-      `Insert edge (${startVx}, ${neighbor}) with weight ${weight} into min-heap`,
-      5,
-      'Push',
-      neighbor,
-      dg
-    )
+    step.add(`Insert edge (${startVx}, ${neighbor}) with weight ${weight} into min-heap`, 5, 'Push', neighbor, dg)
   })
   step.add(`Iterate if neighbors of start vertex ${startVx}`, 4, 'NoAction')
   step.add('No neighbors left. Exit For loop', 6, 'NoAction')
@@ -42,72 +32,32 @@ const prim = (startVx: TVxId, adjList: TAdjList, paths: TWeightPaths) => {
 
     const [from, to, weight] = minHeap.extractMin()
     const [dg] = paths.get(from)!.get(to)!
-    step.add(
-      `Extract min-weight ${weight} edge from min-heap`,
-      8,
-      'Pop',
-      to,
-      dg
-    )
+    step.add(`Extract min-weight ${weight} edge from min-heap`, 8, 'Pop', to, dg)
 
     if (!visited.has(to)) {
       step.add(`Check if vertex ${to} is visited`, 9, 'Check', to, dg)
 
       visited.add(to)
-      step.add(
-        `Add edge (${from}, ${to}) with weight ${weight} to MST`,
-        10,
-        'Visit',
-        to,
-        paths.get(from)?.get(to)![0]
-      )
+      step.add(`Add edge (${from}, ${to}) with weight ${weight} to MST`, 10, 'Visit', to, paths.get(from)?.get(to)![0])
 
       const neighbors = adjList.get(to)
       neighbors!.forEach((neighbor) => {
-        step.add(
-          `Iterate if neighbors of vertex ${to}. Current: ${neighbor}`,
-          11,
-          'NoAction'
-        )
+        step.add(`Iterate if neighbors of vertex ${to}. Current: ${neighbor}`, 11, 'NoAction')
         const [dg, weight] = paths.get(to)!.get(neighbor)!
         if (!visited.has(neighbor)) {
-          step.add(
-            `Check if neighbor ${neighbor} is visited`,
-            12,
-            'Check',
-            neighbor,
-            dg
-          )
+          step.add(`Check if neighbor ${neighbor} is visited`, 12, 'Check', neighbor, dg)
 
           minHeap.insert([to, neighbor, weight])
-          step.add(
-            `Insert edge (${to}, ${neighbor}) with weight ${weight} into min-heap`,
-            13,
-            'Push',
-            neighbor,
-            dg
-          )
+          step.add(`Insert edge (${to}, ${neighbor}) with weight ${weight} into min-heap`, 13, 'Push', neighbor, dg)
         } else {
           step.add(`Check if ${neighbor} is visited`, 12, 'Check', neighbor, dg)
-          step.add(
-            `Neighbor ${neighbor} is already visited`,
-            14,
-            'Reverse',
-            neighbor,
-            dg
-          )
+          step.add(`Neighbor ${neighbor} is already visited`, 14, 'Reverse', neighbor, dg)
         }
       })
       step.add(`Iterate if neighbors of vertex ${to}`, 11, 'NoAction')
       step.add('No neighbors left. Exit For loop', 15, 'NoAction')
     } else {
-      step.add(
-        `Extract min-weight ${weight} edge from min-heap`,
-        8,
-        'Reverse',
-        to,
-        dg
-      )
+      step.add(`Extract min-weight ${weight} edge from min-heap`, 8, 'Reverse', to, dg)
       step.add(`Check if vertex ${to} is visited`, 9, 'Check', to, dg)
       step.add(`Vertex ${to} is already visited`, 16, 'Reverse', to, dg)
     }

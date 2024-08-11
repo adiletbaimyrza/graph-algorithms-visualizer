@@ -1,2 +1,2 @@
-type TAlgo = 'dfs' | 'bfs' | 'prim' | 'kruskal'
+type TAlgo = 'dfs' | 'bfs' | 'prim' | 'kruskal' | 'dijkstra'
 export default TAlgo

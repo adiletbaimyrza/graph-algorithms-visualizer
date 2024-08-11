@@ -1,14 +1,6 @@
 import { useEffect, useRef } from 'react'
 import $ from 'jquery'
-import {
-  useVertexRadius,
-  useVertices,
-  useEdges,
-  useEdgeId,
-  useVertexId,
-  useFontSize,
-  useLineWidth,
-} from '../contexts'
+import { useVertexRadius, useVertices, useEdges, useEdgeId, useVertexId, useFontSize, useLineWidth } from '../contexts'
 import bridson from './bridson'
 import delaunay from './delaunay'
 import { euclideanDistance, isOutOfBounds } from '../components'
@@ -36,33 +28,18 @@ const useRandomGraph = () => {
   }, [])
 
   const generateRandomGraph = (graphSize: TGraphSize) => {
-    const radius = configureGraphSizes(
-      graphSize,
-      vertexRadius.set,
-      fontSize.set,
-      lineWidth.set
-    )
+    const radius = configureGraphSizes(graphSize, vertexRadius.set, fontSize.set, lineWidth.set)
 
     vertices.set([])
     edges.set([])
     vertexId.reset()
     edgeId.reset()
 
-    const sampling: TVertex[] = bridson(
-      radius,
-      canvasWidth.current!,
-      canvasHeight.current!
-    )
+    const sampling: TVertex[] = bridson(radius, canvasWidth.current!, canvasHeight.current!)
 
     const inBoundsVertices = sampling.filter(
       (sample) =>
-        !isOutOfBounds(
-          sample.x,
-          sample.y,
-          canvasWidth.current!,
-          canvasHeight.current!,
-          vertexRadius.get() * 2
-        )
+        !isOutOfBounds(sample.x, sample.y, canvasWidth.current!, canvasHeight.current!, vertexRadius.get() * 2)
     )
 
     const coordinates: number[] = []
@@ -73,9 +50,7 @@ const useRandomGraph = () => {
     const triangulatedEdges: TEdge[] = delaunay(inBoundsVertices, coordinates)
 
     const shortDistanceEdges: TEdge[] = triangulatedEdges.filter(
-      (edge) =>
-        euclideanDistance(edge.vx1.x, edge.vx1.y, edge.vx2.x, edge.vx2.y) <=
-        radius * 2
+      (edge) => euclideanDistance(edge.vx1.x, edge.vx1.y, edge.vx2.x, edge.vx2.y) <= radius * 2
     )
 
     if (isWeighted) {

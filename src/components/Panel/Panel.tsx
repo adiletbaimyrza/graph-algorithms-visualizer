@@ -20,6 +20,7 @@ import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import prim from '../../algorithms/prim'
 import createWeightPaths from '../../algorithms/createWeightedPaths'
 import kruskal from '../../algorithms/kruskal'
+import dijkstra from '../../algorithms/dijkstra'
 
 const Panel = () => {
   const vertices = useVertices()
@@ -60,6 +61,9 @@ const Panel = () => {
         break
       case 'kruskal':
         steps = kruskal(vertices.get(), edges.get())
+        break
+      case 'dijkstra':
+        steps = dijkstra(vx, vertices.get(), adj, createWeightPaths(vertices.get(), edges.get(), adj))
         break
     }
 
@@ -193,6 +197,14 @@ const Panel = () => {
         }}
       >
         kruskal
+      </button>
+      <button
+        className="py-2 px-5 bg-amber-700 border border-zinc-600"
+        onClick={() => {
+          currentAlgo.set('dijkstra')
+        }}
+      >
+        dijkstra
       </button>
       <button ref={prevRef} className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={prev}>
         prev
