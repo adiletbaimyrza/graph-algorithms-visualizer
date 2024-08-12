@@ -1,4 +1,6 @@
-import { Canvas, Panel, Pseudocode } from './components'
+import Canvas from './components/Canvas/Canvas'
+import Panel from './components/Panel/Panel'
+import Pseudocode from './components/Pseudocode/Pseudocode'
 import './App.css'
 
 function App() {

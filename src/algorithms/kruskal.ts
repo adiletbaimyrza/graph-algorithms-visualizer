@@ -1,4 +1,5 @@
-import { TVertex, TEdge } from '../types'
+import TVertex from '../types/TVertex'
+import TEdge from '../types/TEdge'
 import DisjointSet from './DisjointSet'
 import StepTracker from './StepTracker'
 

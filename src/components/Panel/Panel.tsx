@@ -1,20 +1,24 @@
 import { useEffect, useRef } from 'react'
-import {
-  useCurrentAlgo,
-  useVertices,
-  useEdges,
-  useStepId,
-  useIsAnimating,
-  useLinkingVertex,
-  useEdgeId,
-  useVertexId,
-  useSpeed,
-} from '../../contexts'
-import { createAdjList, dfs, bfs, useRandomGraph } from '../../algorithms'
-import { completeAnimations, startAnimations, resetStyles } from '../../animations'
+import useCurrentAlgo from '../../contexts/currentAlgo'
+import useVertices from '../../contexts/vertices'
+import useEdges from '../../contexts/edges'
+import useStepId from '../../contexts/stepId'
+import useIsAnimating from '../../contexts/isAnimating'
+import useLinkingVertex from '../../contexts/linkingVertex'
+import useEdgeId from '../../contexts/edgeId'
+import useVertexId from '../../contexts/vertexId'
+import useSpeed from '../../contexts/speed'
+import createAdjList from '../../algorithms/createAdjList'
+import dfs from '../../algorithms/dfs'
+import bfs from '../../algorithms/bfs'
+import useRandomGraph from '../../algorithms/useRandomGraph'
+import completeAnimations from '../../animations/completeAnimations'
+import startAnimations from '../../animations/startAnimations'
+import { resetStyles } from '../../animations/animationHelpers'
 import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
-import { TGraphSize, TStep } from '../../types'
+import TGraphSize from '../../types/TGraphSize'
+import TStep from '../../types/TStep'
 import createPaths from '../../algorithms/createPaths'
 import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import prim from '../../algorithms/prim'
@@ -57,13 +61,22 @@ const Panel = () => {
         steps = bfs(vx, adj, paths)
         break
       case 'prim':
-        steps = prim(vx, adj, createWeightPaths(vertices.get(), edges.get(), adj))
+        steps = prim(
+          vx,
+          adj,
+          createWeightPaths(vertices.get(), edges.get(), adj)
+        )
         break
       case 'kruskal':
         steps = kruskal(vertices.get(), edges.get())
         break
       case 'dijkstra':
-        steps = dijkstra(vx, vertices.get(), adj, createWeightPaths(vertices.get(), edges.get(), adj))
+        steps = dijkstra(
+          vx,
+          vertices.get(),
+          adj,
+          createWeightPaths(vertices.get(), edges.get(), adj)
+        )
         break
     }
 
@@ -206,43 +219,81 @@ const Panel = () => {
       >
         dijkstra
       </button>
-      <button ref={prevRef} className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={prev}>
+      <button
+        ref={prevRef}
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={prev}
+      >
         prev
       </button>
-      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={play}>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={play}
+      >
         play
       </button>
-      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={stop}>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={stop}
+      >
         stop
       </button>
 
-      <button ref={nextRef} className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={next}>
+      <button
+        ref={nextRef}
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={next}
+      >
         next
       </button>
-      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={reset}>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={reset}
+      >
         reset
       </button>
-      <button className="py-2 px-5 bg-green-700 border border-zinc-600" onClick={deleteGraph}>
+      <button
+        className="py-2 px-5 bg-green-700 border border-zinc-600"
+        onClick={deleteGraph}
+      >
         delete
       </button>
 
-      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(200)}>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(200)}
+      >
         x0.5
       </button>
-      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(100)}>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(100)}
+      >
         x1
       </button>
-      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(50)}>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(50)}
+      >
         x2
       </button>
-      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(25)}>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(25)}
+      >
         x4
       </button>
-      <button className="py-2 px-5 bg-lime-400 border border-zinc-600" onClick={() => speed.set(1)}>
+      <button
+        className="py-2 px-5 bg-lime-400 border border-zinc-600"
+        onClick={() => speed.set(1)}
+      >
         turbo
       </button>
 
-      <button className="py-2 px-5 bg-sky-400 border border-zinc-600" onClick={toggleIsWeighted}>
+      <button
+        className="py-2 px-5 bg-sky-400 border border-zinc-600"
+        onClick={toggleIsWeighted}
+      >
         {isWeighted ? 'Unweighted' : 'Weighted'}
       </button>
     </div>

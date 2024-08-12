@@ -1,6 +1,6 @@
 import Prism from 'prismjs'
 import '../../prism.css'
-import { useCurrentAlgo } from '../../contexts'
+import useCurrentAlgo from '../../contexts/currentAlgo'
 import { useEffect } from 'react'
 
 import pseudocodes from './pseudocodes'

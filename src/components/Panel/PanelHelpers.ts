@@ -1,4 +1,4 @@
-import { TAdjList } from '../../types'
+import TAdjList from '../../types/TAdjList'
 
 const findSmallestVx = (adj: TAdjList) => {
   const vxs = adj.keys()

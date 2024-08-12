@@ -1,6 +1,8 @@
-import { useEdges, useFontSize, useLineWidth } from '../../contexts'
+import useEdges from '../../contexts/edges'
+import useFontSize from '../../contexts/fontSize'
+import useLineWidth from '../../contexts/lineWidth'
 import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
-import { TEdge } from '../../types'
+import TEdge from '../../types/TEdge'
 
 const Edge = ({ id, vx1, vx2, weight }: TEdge) => {
   const edges = useEdges()

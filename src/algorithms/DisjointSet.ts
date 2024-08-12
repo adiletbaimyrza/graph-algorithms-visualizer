@@ -1,4 +1,4 @@
-import { TVxId } from '../types'
+import TVxId from '../types/TVxId'
 
 class DisjointSet {
   private parent: Map<TVxId, TVxId>

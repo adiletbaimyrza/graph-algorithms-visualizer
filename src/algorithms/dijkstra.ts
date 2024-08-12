@@ -1,8 +1,17 @@
-import { TAdjList, TVertex, TVxId, TWeight, TWeightPaths } from '../types'
 import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
+import TVxId from '../types/TVxId'
+import TVertex from '../types/TVertex'
+import TAdjList from '../types/TAdjList'
+import TWeightPaths from '../types/TWeightPaths'
+import TWeight from '../types/TWeight'
 
-const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightPaths) => {
+const dijkstra = (
+  startVx: TVxId,
+  vxs: TVertex[],
+  adj: TAdjList,
+  paths: TWeightPaths
+) => {
   const step = new StepTracker()
   step.add("Start Dijkstra's algorithm", 0, 'NoAction')
 
@@ -15,7 +24,9 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
   const visited = new Set<TVxId>()
   step.add('Init empty set for visited vertices', 3, 'NoAction')
 
-  const minHeap = new MinHeap<[TVxId, TWeight]>((a, b) => (a[1] < b[1] ? -1 : 0))
+  const minHeap = new MinHeap<[TVxId, TWeight]>((a, b) =>
+    a[1] < b[1] ? -1 : 0
+  )
   step.add('Init min-heap', 4, 'NoAction')
 
   for (const vx of vxs) {
@@ -28,13 +39,23 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
       step.add(`Set distance of vertex ${vx.id} to 0`, 7, 'NoAction')
 
       minHeap.insert([vx.id, 0])
-      step.add(`Insert start vertex ${vx.id} with distance 0 into min-heap`, 8, 'Push', vx.id)
+      step.add(
+        `Insert start vertex ${vx.id} with distance 0 into min-heap`,
+        8,
+        'Push',
+        vx.id
+      )
     } else {
       step.add('Check if vertex equals start vertex', 6, 'NoAction')
       step.add("Vertex doesn't equal to start vertex", 9, 'NoAction')
 
       distances.set(vx.id, Infinity)
-      step.add(`Insert vertex ${vx.id} with distance Infinity into min-heap`, 10, 'Push', vx.id)
+      step.add(
+        `Insert vertex ${vx.id} with distance Infinity into min-heap`,
+        10,
+        'Push',
+        vx.id
+      )
     }
   }
   step.add('Finish iterating over vertices', 12, 'NoAction')
@@ -45,7 +66,12 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
     const curVx: [TVxId, TWeight] = minHeap.extractMin()
 
     if (curVx[0] === startVx) {
-      step.add(`Extract vertex ${curVx[0]} with distance ${curVx[1]} from min-heap`, 14, 'Pop', curVx[0])
+      step.add(
+        `Extract vertex ${curVx[0]} with distance ${curVx[1]} from min-heap`,
+        14,
+        'Pop',
+        curVx[0]
+      )
     } else {
       step.add(
         `Extract vertex ${curVx[0]} with distance ${curVx[1]} from min-heap`,
@@ -68,23 +94,36 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
     const neighbors = adj.get(curVx[0])!
 
     for (const neighbor of neighbors) {
-      step.add(`Iterate over neighbors ${neighbor} of vertex ${curVx[0]}`, 16, 'NoAction')
+      step.add(
+        `Iterate over neighbors ${neighbor} of vertex ${curVx[0]}`,
+        16,
+        'NoAction'
+      )
 
       if (!visited.has(neighbor)) {
-        step.add(`Check if neighbor wasn't visited`, 17, 'Check', neighbor, paths.get(curVx[0])!.get(neighbor)![0])
-
-        const newDist = distances.get(curVx[0])! + paths.get(curVx[0])!.get(neighbor)![1]
         step.add(
-          `Calculate new distance for vertex ${neighbor}. New dist: ${distances.get(curVx[0])!} + ${
-            paths.get(curVx[0])!.get(neighbor)![1]
-          }`,
+          `Check if neighbor wasn't visited`,
+          17,
+          'Check',
+          neighbor,
+          paths.get(curVx[0])!.get(neighbor)![0]
+        )
+
+        const newDist =
+          distances.get(curVx[0])! + paths.get(curVx[0])!.get(neighbor)![1]
+        step.add(
+          `Calculate new distance for vertex ${neighbor}. New dist: ${distances.get(
+            curVx[0]
+          )!} + ${paths.get(curVx[0])!.get(neighbor)![1]}`,
           18,
           'NoAction'
         )
 
         if (newDist < distances.get(neighbor)!) {
           step.add(
-            `Check if new distance ${newDist} is less than current distance ${distances.get(neighbor)!}`,
+            `Check if new distance ${newDist} is less than current distance ${distances.get(
+              neighbor
+            )!}`,
             19,
             'Check',
             neighbor,
@@ -101,7 +140,11 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
           )
 
           previous.set(neighbor, curVx[0])
-          step.add(`Set previous vertex of ${neighbor} to ${curVx[0]}`, 21, 'NoAction')
+          step.add(
+            `Set previous vertex of ${neighbor} to ${curVx[0]}`,
+            21,
+            'NoAction'
+          )
 
           minHeap.insert([neighbor, newDist])
           step.add(
@@ -113,7 +156,9 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
           )
         } else {
           step.add(
-            `Check if new distance ${newDist} is less than current distance ${distances.get(neighbor)!}`,
+            `Check if new distance ${newDist} is less than current distance ${distances.get(
+              neighbor
+            )!}`,
             19,
             'Check',
             neighbor,
@@ -121,7 +166,9 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
           )
 
           step.add(
-            `New distance ${newDist} is more than current distance ${distances.get(neighbor)!}`,
+            `New distance ${newDist} is more than current distance ${distances.get(
+              neighbor
+            )!}`,
             23,
             'Reverse',
             neighbor,
@@ -129,7 +176,13 @@ const dijkstra = (startVx: TVxId, vxs: TVertex[], adj: TAdjList, paths: TWeightP
           )
         }
       } else {
-        step.add(`Check if neighbor wasn't visited`, 17, 'Check', neighbor, paths.get(curVx[0])!.get(neighbor)![0])
+        step.add(
+          `Check if neighbor wasn't visited`,
+          17,
+          'Check',
+          neighbor,
+          paths.get(curVx[0])!.get(neighbor)![0]
+        )
         step.add(
           `Vertex ${neighbor} is already visited. Skip`,
           24,

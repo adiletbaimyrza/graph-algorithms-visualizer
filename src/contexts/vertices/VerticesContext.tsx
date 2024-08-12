@@ -1,5 +1,5 @@
 import { useState, createContext, ReactNode } from 'react'
-import { TVertex } from '../../types'
+import TVertex from '../../types/TVertex'
 
 interface VerticesContextType {
   state: TVertex[]

@@ -1,3 +1,5 @@
-type TWeightPaths = Map<number, Map<number, number[]>>
+import TVxId from './TVxId'
+
+type TWeightPaths = Map<TVxId, Map<TVxId, number[]>>
 
 export default TWeightPaths

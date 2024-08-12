@@ -1,4 +1,7 @@
-import { TAnim, TStep } from '../types'
+import TAnim from '../types/TAnim'
+import TDgId from '../types/TDgId'
+import TStep from '../types/TStep'
+import TVxId from '../types/TVxId'
 
 class StepTracker {
   private steps: TStep[]
@@ -9,7 +12,14 @@ class StepTracker {
     this.stepId = 0
   }
 
-  public add(dsc: string, cdId: number, anim: TAnim, vxId?: number, dgId?: number, vxId2?: number) {
+  public add(
+    dsc: string,
+    cdId: number,
+    anim: TAnim,
+    vxId?: TVxId,
+    dgId?: TDgId,
+    vxId2?: TVxId
+  ) {
     const newStep: TStep = {
       id: this.stepId++,
       dsc,

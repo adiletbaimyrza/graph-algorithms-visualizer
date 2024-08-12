@@ -1,2 +1,5 @@
-type TAdjList = Map<number, number[]>
+import TVxId from './TVxId'
+
+type TAdjList = Map<TVxId, TVxId[]>
+
 export default TAdjList

@@ -1,19 +1,18 @@
 import { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 import $ from 'jquery'
-import {
-  useVertices,
-  useLinkingVertex,
-  useEdgeId,
-  useEdges,
-  useVertexRadius,
-  useFontSize,
-} from '../../contexts'
+import useVertices from '../../contexts/vertices'
+import useLinkingVertex from '../../contexts/linkingVertex'
+import useEdges from '../../contexts/edges'
+import useFontSize from '../../contexts/fontSize'
+import useEdgeId from '../../contexts/edgeId'
+import useVertexRadius from '../../contexts/vertexRadius'
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
-import { TVertex, TEdge } from '../../types'
 import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import { getRandWeight } from './VertexUtils'
+import TVertex from '../../types/TVertex'
+import TEdge from '../../types/TEdge'
 
 const Vertex = ({ id, x, y }: TVertex) => {
   const vertices = useVertices()

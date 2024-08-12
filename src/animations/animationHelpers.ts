@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { TAnim } from '../types'
+import TAnim from '../types/TAnim'
 
 const vxCls = {
   default: 'fill-slate-400',
@@ -24,7 +24,12 @@ const codeClsList = Object.values(codeCls).join(' ')
 const vxHistory = new Map<number, [string | undefined, string | undefined]>()
 const dgHistory = new Map<number, [string | undefined, string | undefined]>()
 
-const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim, vxId2: number | undefined) => {
+const paintPath = (
+  vxId: number,
+  dgId: number | undefined,
+  anim: TAnim,
+  vxId2: number | undefined
+) => {
   let vxClr = ''
   let dgClr = ''
   let vx2Clr = ''
@@ -52,8 +57,10 @@ const paintPath = (vxId: number, dgId: number | undefined, anim: TAnim, vxId2: n
       break
     case 'Reverse':
       const vxHistoryEntry = vxHistory.get(vxId)
-      const dgHistoryEntry = dgId !== undefined ? dgHistory.get(dgId) : undefined
-      const vx2HistoryEntry = vxId2 !== undefined ? vxHistory.get(vxId2) : undefined
+      const dgHistoryEntry =
+        dgId !== undefined ? dgHistory.get(dgId) : undefined
+      const vx2HistoryEntry =
+        vxId2 !== undefined ? vxHistory.get(vxId2) : undefined
       if (vxHistoryEntry) {
         vxClr = vxHistoryEntry[0] || vxCls.default
       }

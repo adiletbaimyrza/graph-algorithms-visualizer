@@ -1,5 +1,7 @@
+import TVxId from './TVxId'
+
 type TVertex = {
-  id: number
+  id: TVxId
   x: number
   y: number
 }

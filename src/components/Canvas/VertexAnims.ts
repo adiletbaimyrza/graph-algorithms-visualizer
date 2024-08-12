@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { vxCls, vxClsList } from '../../animations'
+import { vxCls, vxClsList } from '../../animations/animationHelpers'
 
 const toggleLinkingVertex = (id: number) => {
   const linkingVertex = $(`#circle-${id}`)

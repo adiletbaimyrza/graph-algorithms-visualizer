@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import ProviderHub from './contexts'
+import ProviderHub from './contexts/ProviderHub.tsx'
 import App from './App.tsx'
 import './index.css'
 

@@ -1,10 +1,12 @@
 import TVertex from './TVertex'
+import TVxId from './TVxId'
+import TWeight from './TWeight'
 
 type TEdge = {
-  id: number
+  id: TVxId
   vx1: TVertex
   vx2: TVertex
-  weight: number | undefined
+  weight: TWeight | undefined
 }
 
 export default TEdge

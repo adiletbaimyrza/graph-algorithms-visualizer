@@ -1,5 +1,6 @@
-import { TAdjList, TPaths } from '../types'
 import StepTracker from './StepTracker'
+import TAdjList from '../types/TAdjList'
+import TPaths from '../types/TPaths'
 
 const dfs = (startVx: number, adjList: TAdjList, paths: TPaths) => {
   const step = new StepTracker()
@@ -16,34 +17,92 @@ const dfs = (startVx: number, adjList: TAdjList, paths: TPaths) => {
     step.add('Vertices still to visit, continue loop', 3, 'NoAction')
 
     const curVx = stack.pop()!
-    step.add(`Pop vertex ${curVx} from stack`, 4, 'Pop', curVx, paths.get(prevVx)?.get(curVx))
+    step.add(
+      `Pop vertex ${curVx} from stack`,
+      4,
+      'Pop',
+      curVx,
+      paths.get(prevVx)?.get(curVx)
+    )
 
     if (!visited.has(curVx)) {
-      step.add(`Check if vertex ${curVx} visited`, 5, 'Check', curVx, paths.get(prevVx)?.get(curVx))
+      step.add(
+        `Check if vertex ${curVx} visited`,
+        5,
+        'Check',
+        curVx,
+        paths.get(prevVx)?.get(curVx)
+      )
 
       visited.add(curVx)
-      step.add(`Mark vertex ${curVx} as visited`, 6, 'Visit', curVx, paths.get(prevVx)?.get(curVx))
+      step.add(
+        `Mark vertex ${curVx} as visited`,
+        6,
+        'Visit',
+        curVx,
+        paths.get(prevVx)?.get(curVx)
+      )
 
       prevVx = curVx
 
       const neighbors = adjList.get(curVx)!
 
       neighbors.forEach((neighbor) => {
-        step.add(`Process neighbor ${neighbor} of vertex ${curVx}`, 7, 'NoAction')
+        step.add(
+          `Process neighbor ${neighbor} of vertex ${curVx}`,
+          7,
+          'NoAction'
+        )
 
         if (!visited.has(neighbor)) {
-          step.add(`Check if neighbor ${neighbor} visited`, 8, 'Check', neighbor, paths.get(curVx)!.get(neighbor))
+          step.add(
+            `Check if neighbor ${neighbor} visited`,
+            8,
+            'Check',
+            neighbor,
+            paths.get(curVx)!.get(neighbor)
+          )
 
           stack.push(neighbor)
-          step.add(`Push neighbor ${neighbor} to stack`, 9, 'Push', neighbor, paths.get(curVx)!.get(neighbor))
+          step.add(
+            `Push neighbor ${neighbor} to stack`,
+            9,
+            'Push',
+            neighbor,
+            paths.get(curVx)!.get(neighbor)
+          )
         } else {
-          step.add(`Check if neighbor ${neighbor} visited`, 8, 'Check', neighbor, paths.get(curVx)!.get(neighbor))
-          step.add(`Neighbor ${neighbor} already visited`, 8, 'Visit', neighbor, paths.get(curVx)!.get(neighbor))
+          step.add(
+            `Check if neighbor ${neighbor} visited`,
+            8,
+            'Check',
+            neighbor,
+            paths.get(curVx)!.get(neighbor)
+          )
+          step.add(
+            `Neighbor ${neighbor} already visited`,
+            8,
+            'Visit',
+            neighbor,
+            paths.get(curVx)!.get(neighbor)
+          )
         }
       })
     } else {
-      step.add(`Check if vertex ${curVx} visited`, 5, 'Check', curVx, paths.get(prevVx)?.get(curVx))
-      step.add(`Vertex ${curVx} already visited`, 5, 'Visit', curVx, paths.get(prevVx)?.get(curVx))
+      step.add(
+        `Check if vertex ${curVx} visited`,
+        5,
+        'Check',
+        curVx,
+        paths.get(prevVx)?.get(curVx)
+      )
+      step.add(
+        `Vertex ${curVx} already visited`,
+        5,
+        'Visit',
+        curVx,
+        paths.get(prevVx)?.get(curVx)
+      )
     }
   }
 

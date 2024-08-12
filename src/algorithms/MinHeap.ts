@@ -1,4 +1,4 @@
-import { TVxId } from '../types'
+import TVxId from '../types/TVxId'
 
 class MinHeap<T> {
   private heap: Array<T>
@@ -35,11 +35,17 @@ class MinHeap<T> {
     const right = this.rightChild(idx)
     let smallest = idx
 
-    if (left < this.heap.length && this.compare(this.heap[left], this.heap[smallest]) < 0) {
+    if (
+      left < this.heap.length &&
+      this.compare(this.heap[left], this.heap[smallest]) < 0
+    ) {
       smallest = left
     }
 
-    if (right < this.heap.length && this.compare(this.heap[right], this.heap[smallest]) < 0) {
+    if (
+      right < this.heap.length &&
+      this.compare(this.heap[right], this.heap[smallest]) < 0
+    ) {
       smallest = right
     }
 
