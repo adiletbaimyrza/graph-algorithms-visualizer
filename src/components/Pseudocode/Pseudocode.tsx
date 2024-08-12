@@ -1,12 +1,11 @@
 import Prism from 'prismjs'
 import '../../prism.css'
-import useCurrentAlgo from '../../contexts/currentAlgo'
 import { useEffect } from 'react'
-
 import pseudocodes from './pseudocodes'
+import { useCurrentAlgorithmContext } from '../../store/hooks'
 
 const Pseudocode = () => {
-  const currentAlgo = useCurrentAlgo()
+  const currentAlgo = useCurrentAlgorithmContext()
 
   useEffect(() => {
     Prism.highlightAll()

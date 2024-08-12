@@ -1,29 +1,30 @@
 import { useRef, useEffect } from 'react'
 import * as d3 from 'd3'
 import $ from 'jquery'
-import useVertices from '../../contexts/vertices'
-import useLinkingVertex from '../../contexts/linkingVertex'
-import useEdges from '../../contexts/edges'
-import useFontSize from '../../contexts/fontSize'
-import useEdgeId from '../../contexts/edgeId'
-import useVertexRadius from '../../contexts/vertexRadius'
 import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
-import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import { getRandWeight } from './VertexUtils'
 
 import { TVertex, TEdge } from '../../types'
+import {
+  useEdgeIDContext,
+  useEdgesContext,
+  useFontSizeContext,
+  useIsWeightedContext,
+  useLinkingVertexContext,
+  useVertexRadiusContext,
+  useVerticesContext,
+} from '../../store/hooks'
 
 const Vertex = ({ id, x, y }: TVertex) => {
-  const vertices = useVertices()
-  const edges = useEdges()
-  const linkingVertex = useLinkingVertex()
-  const edgeId = useEdgeId()
-  const vertexRadius = useVertexRadius()
-  const fontSize = useFontSize()
+  const vertices = useVerticesContext()
+  const edges = useEdgesContext()
+  const linkingVertex = useLinkingVertexContext()
+  const edgeId = useEdgeIDContext()
+  const vertexRadius = useVertexRadiusContext()
+  const fontSize = useFontSizeContext()
+  const { isWeighted } = useIsWeightedContext()
   const vertexRef = useRef<SVGGElement | null>(null)
-
-  const { isWeighted } = useIsWeightedCtx()
 
   useEffect(() => {
     const onVertexDrag = (

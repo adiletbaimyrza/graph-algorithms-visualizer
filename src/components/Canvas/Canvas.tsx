@@ -1,18 +1,20 @@
 import { useRef } from 'react'
-import useVertices from '../../contexts/vertices'
-import useVertexId from '../../contexts/vertexId'
-import useEdges from '../../contexts/edges'
-import useVertexRadius from '../../contexts/vertexRadius'
 import Vertex from './Vertex'
 import Edge from './Edge'
 import { isVertexPositionValid } from './CanvasUtils'
-import TVertex from '../../types/TVertex'
+import { TVertex } from '../../types'
+import {
+  useEdgesContext,
+  useVertexIDContext,
+  useVertexRadiusContext,
+  useVerticesContext,
+} from '../../store/hooks'
 
 function Canvas() {
-  const vertices = useVertices()
-  const edges = useEdges()
-  const vertexId = useVertexId()
-  const vertexRadius = useVertexRadius()
+  const vertices = useVerticesContext()
+  const edges = useEdgesContext()
+  const vertexId = useVertexIDContext()
+  const vertexRadius = useVertexRadiusContext()
 
   const canvasRef = useRef<SVGSVGElement | null>(null)
 

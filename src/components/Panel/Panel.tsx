@@ -1,13 +1,4 @@
 import { useEffect, useRef } from 'react'
-import useCurrentAlgo from '../../contexts/currentAlgo'
-import useVertices from '../../contexts/vertices'
-import useEdges from '../../contexts/edges'
-import useStepId from '../../contexts/stepId'
-import useIsAnimating from '../../contexts/isAnimating'
-import useLinkingVertex from '../../contexts/linkingVertex'
-import useEdgeId from '../../contexts/edgeId'
-import useVertexId from '../../contexts/vertexId'
-import useSpeed from '../../contexts/speed'
 import createAdjList from '../../algorithms/createAdjList'
 import dfs from '../../algorithms/dfs'
 import bfs from '../../algorithms/bfs'
@@ -19,27 +10,38 @@ import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
 import { TGraphSize, TStep } from '../../types'
 import createPaths from '../../algorithms/createPaths'
-import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import prim from '../../algorithms/prim'
 import createWeightPaths from '../../algorithms/createWeightedPaths'
 import kruskal from '../../algorithms/kruskal'
 import dijkstra from '../../algorithms/dijkstra'
+import {
+  useCurrentAlgorithmContext,
+  useEdgeIDContext,
+  useEdgesContext,
+  useIsAnimatingContext,
+  useIsWeightedContext,
+  useLinkingVertexContext,
+  useSpeedContext,
+  useStepIDContext,
+  useVertexIDContext,
+  useVerticesContext,
+} from '../../store/hooks'
 
 const Panel = () => {
-  const vertices = useVertices()
-  const edges = useEdges()
-  const vertexId = useVertexId()
-  const edgeId = useEdgeId()
-  const stepId = useStepId()
-  const currentAlgo = useCurrentAlgo()
-  const isAnimating = useIsAnimating()
-  const linkingVertex = useLinkingVertex()
-  const speed = useSpeed()
+  const vertices = useVerticesContext()
+  const edges = useEdgesContext()
+  const vertexId = useVertexIDContext()
+  const edgeId = useEdgeIDContext()
+  const stepId = useStepIDContext()
+  const currentAlgo = useCurrentAlgorithmContext()
+  const isAnimating = useIsAnimatingContext()
+  const linkingVertex = useLinkingVertexContext()
+  const speed = useSpeedContext()
+  const { isWeighted, setIsWeighted } = useIsWeightedContext()
   const generate = useRandomGraph()
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const prevRef = useRef<HTMLButtonElement | null>(null)
   const fired = useRef(false)
-  const { isWeighted, setIsWeighted } = useIsWeightedCtx()
 
   const toggleIsWeighted = () => {
     setIsWeighted(!isWeighted)

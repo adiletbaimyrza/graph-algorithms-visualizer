@@ -1,14 +1,16 @@
-import useEdges from '../../contexts/edges'
-import useFontSize from '../../contexts/fontSize'
-import useLineWidth from '../../contexts/lineWidth'
-import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
-import TEdge from '../../types/TEdge'
+import {
+  useEdgesContext,
+  useFontSizeContext,
+  useIsWeightedContext,
+  useLineWidthContext,
+} from '../../store/hooks'
+import { TEdge } from '../../types'
 
 const Edge = ({ id, vx1, vx2, weight }: TEdge) => {
-  const edges = useEdges()
-  const lineWidth = useLineWidth()
-  const { isWeighted } = useIsWeightedCtx()
-  const fontSize = useFontSize()
+  const edges = useEdgesContext()
+  const lineWidth = useLineWidthContext()
+  const { isWeighted } = useIsWeightedContext()
+  const fontSize = useFontSizeContext()
 
   const onRightClick = (event: React.MouseEvent) => {
     event.preventDefault()

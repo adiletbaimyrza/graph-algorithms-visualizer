@@ -1,12 +1,5 @@
 import { useEffect, useRef } from 'react'
 import $ from 'jquery'
-import useVertexRadius from '../contexts/vertexRadius'
-import useVertices from '../contexts/vertices'
-import useEdges from '../contexts/edges'
-import useEdgeId from '../contexts/edgeId'
-import useVertexId from '../contexts/vertexId'
-import useFontSize from '../contexts/fontSize'
-import useLineWidth from '../contexts/lineWidth'
 import bridson from './bridson'
 import delaunay from './delaunay'
 import {
@@ -15,21 +8,29 @@ import {
 } from '../components/Canvas/CanvasUtils'
 import { configureGraphSizes } from './useRandomGraphUtils'
 import { TVertex, TEdge, TGraphSize, TCoord } from '../types'
-import useIsWeightedCtx from '../contexts/isWeightedCtxHook'
 import { getRandWeight } from '../components/Canvas/VertexUtils'
+import {
+  useVertexRadiusContext,
+  useVerticesContext,
+  useEdgesContext,
+  useEdgeIDContext,
+  useVertexIDContext,
+  useFontSizeContext,
+  useLineWidthContext,
+  useIsWeightedContext,
+} from '../store/hooks'
 
 const useRandomGraph = () => {
-  const vertexRadius = useVertexRadius()
-  const vertices = useVertices()
-  const edges = useEdges()
-  const edgeId = useEdgeId()
-  const vertexId = useVertexId()
-  const fontSize = useFontSize()
-  const lineWidth = useLineWidth()
+  const vertexRadius = useVertexRadiusContext()
+  const vertices = useVerticesContext()
+  const edges = useEdgesContext()
+  const edgeId = useEdgeIDContext()
+  const vertexId = useVertexIDContext()
+  const fontSize = useFontSizeContext()
+  const lineWidth = useLineWidthContext()
+  const { isWeighted } = useIsWeightedContext()
   const canvasWidth = useRef<number | undefined>(undefined)
   const canvasHeight = useRef<number | undefined>(undefined)
-
-  const { isWeighted } = useIsWeightedCtx()
 
   useEffect(() => {
     canvasWidth.current = $('#canvas').width()
