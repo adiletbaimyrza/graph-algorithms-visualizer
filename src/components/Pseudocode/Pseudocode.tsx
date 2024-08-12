@@ -1,6 +1,6 @@
+import { useEffect } from 'react'
 import Prism from 'prismjs'
 import '../../prism.css'
-import { useEffect } from 'react'
 import pseudocodes from './pseudocodes'
 import { useCurrentAlgorithmContext } from '../../store/hooks'
 

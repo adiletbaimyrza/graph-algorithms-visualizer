@@ -1,4 +1,16 @@
 import { useEffect, useRef } from 'react'
+import {
+  useCurrentAlgorithmContext,
+  useEdgeIDContext,
+  useEdgesContext,
+  useIsAnimatingContext,
+  useIsWeightedContext,
+  useLinkingVertexContext,
+  useSpeedContext,
+  useStepIDContext,
+  useVertexIDContext,
+  useVerticesContext,
+} from '../../store/hooks'
 import createAdjList from '../../algorithms/createAdjList'
 import dfs from '../../algorithms/dfs'
 import bfs from '../../algorithms/bfs'
@@ -14,18 +26,6 @@ import prim from '../../algorithms/prim'
 import createWeightPaths from '../../algorithms/createWeightedPaths'
 import kruskal from '../../algorithms/kruskal'
 import dijkstra from '../../algorithms/dijkstra'
-import {
-  useCurrentAlgorithmContext,
-  useEdgeIDContext,
-  useEdgesContext,
-  useIsAnimatingContext,
-  useIsWeightedContext,
-  useLinkingVertexContext,
-  useSpeedContext,
-  useStepIDContext,
-  useVertexIDContext,
-  useVerticesContext,
-} from '../../store/hooks'
 
 const Panel = () => {
   const vertices = useVerticesContext()

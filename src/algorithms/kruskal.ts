@@ -1,6 +1,6 @@
-import { TVertex, TEdge } from '../types'
 import DisjointSet from './DisjointSet'
 import StepTracker from './StepTracker'
+import { TVertex, TEdge } from '../types'
 
 const kruskal = (vertices: TVertex[], edges: TEdge[]) => {
   const step = new StepTracker()

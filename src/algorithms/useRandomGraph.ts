@@ -1,14 +1,5 @@
 import { useEffect, useRef } from 'react'
 import $ from 'jquery'
-import bridson from './bridson'
-import delaunay from './delaunay'
-import {
-  euclideanDistance,
-  isOutOfBounds,
-} from '../components/Canvas/CanvasUtils'
-import { configureGraphSizes } from './useRandomGraphUtils'
-import { TVertex, TEdge, TGraphSize, TCoord } from '../types'
-import { getRandWeight } from '../components/Canvas/VertexUtils'
 import {
   useVertexRadiusContext,
   useVerticesContext,
@@ -19,6 +10,15 @@ import {
   useLineWidthContext,
   useIsWeightedContext,
 } from '../store/hooks'
+import bridson from './bridson'
+import delaunay from './delaunay'
+import {
+  euclideanDistance,
+  isOutOfBounds,
+} from '../components/Canvas/CanvasUtils'
+import { configureGraphSizes } from './useRandomGraphUtils'
+import { getRandWeight } from '../components/Canvas/VertexUtils'
+import { TVertex, TEdge, TGraphSize, TCoord } from '../types'
 
 const useRandomGraph = () => {
   const vertexRadius = useVertexRadiusContext()
