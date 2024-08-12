@@ -1,17 +1,17 @@
 import StepTracker from './StepTracker'
-import { TAdjList, TPaths, TVxId } from '../types'
+import { TAdjacencyList, TPaths, TVertexID } from '../types'
 
-const bfs = (startVx: TVxId, adjList: TAdjList, paths: TPaths) => {
+const bfs = (startVx: TVertexID, adjList: TAdjacencyList, paths: TPaths) => {
   const step = new StepTracker()
   step.add('Start BFS', 0, 'NoAction')
 
   const queue = [startVx]
   step.add(`Init queue with start vertex ${startVx}`, 1, 'Push', startVx)
 
-  const visited = new Set<TVxId>()
+  const visited = new Set<TVertexID>()
   step.add('Init empty set for visited vertices', 2, 'NoAction')
 
-  let prevVx: TVxId = 10000
+  let prevVx: TVertexID = 10000
   while (queue.length > 0) {
     step.add('Vertices still to visit, continue loop', 3, 'NoAction')
 

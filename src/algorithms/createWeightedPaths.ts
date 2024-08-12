@@ -1,6 +1,12 @@
-import { TVertex, TEdge, TAdjList, TWeightPaths, TVxId } from '../types'
+import {
+  TVertex,
+  TEdge,
+  TAdjacencyList,
+  TWeightedPaths,
+  TVertexID,
+} from '../types'
 
-const getDgWithWeight = (vx1: TVxId, vx2: TVxId, dgs: TEdge[]) => {
+const getDgWithWeight = (vx1: TVertexID, vx2: TVertexID, dgs: TEdge[]) => {
   const dg = dgs.find(
     (dg) =>
       (dg.vx1.id === vx1 && dg.vx2.id === vx2) ||
@@ -13,13 +19,13 @@ const getDgWithWeight = (vx1: TVxId, vx2: TVxId, dgs: TEdge[]) => {
 const createWeightPaths = (
   vxs: TVertex[],
   dgs: TEdge[],
-  adj: TAdjList
-): TWeightPaths => {
-  const totalPaths = new Map<TVxId, Map<TVxId, number[]>>()
+  adj: TAdjacencyList
+): TWeightedPaths => {
+  const totalPaths = new Map<TVertexID, Map<TVertexID, number[]>>()
 
   vxs.forEach((vx) => {
     const neighbors = adj.get(vx.id)!
-    const itsPaths = new Map<TVxId, number[]>()
+    const itsPaths = new Map<TVertexID, number[]>()
 
     neighbors.forEach((neighbor) => {
       const dg = getDgWithWeight(vx.id, neighbor, dgs)

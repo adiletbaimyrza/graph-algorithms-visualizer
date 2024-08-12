@@ -1,6 +1,6 @@
-import { TAdjList } from '../../types'
+import { TAdjacencyList } from '../../types'
 
-const findSmallestVx = (adj: TAdjList) => {
+const findSmallestVx = (adj: TAdjacencyList) => {
   const vxs = adj.keys()
 
   return Math.min(...vxs)

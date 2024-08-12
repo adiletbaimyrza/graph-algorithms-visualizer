@@ -1,26 +1,32 @@
 import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
-import { TVxId, TVertex, TAdjList, TWeightPaths, TWeight } from '../types'
+import {
+  TVertexID,
+  TVertex,
+  TAdjacencyList,
+  TWeightedPaths,
+  TWeight,
+} from '../types'
 
 const dijkstra = (
-  startVx: TVxId,
+  startVx: TVertexID,
   vxs: TVertex[],
-  adj: TAdjList,
-  paths: TWeightPaths
+  adj: TAdjacencyList,
+  paths: TWeightedPaths
 ) => {
   const step = new StepTracker()
   step.add("Start Dijkstra's algorithm", 0, 'NoAction')
 
-  const distances = new Map<TVxId, TWeight>()
+  const distances = new Map<TVertexID, TWeight>()
   step.add('Init empty map for distances', 1, 'NoAction')
 
-  const previous = new Map<TVxId, TVxId>()
+  const previous = new Map<TVertexID, TVertexID>()
   step.add('Init empty map for previous vertices', 2, 'NoAction')
 
-  const visited = new Set<TVxId>()
+  const visited = new Set<TVertexID>()
   step.add('Init empty set for visited vertices', 3, 'NoAction')
 
-  const minHeap = new MinHeap<[TVxId, TWeight]>((a, b) =>
+  const minHeap = new MinHeap<[TVertexID, TWeight]>((a, b) =>
     a[1] < b[1] ? -1 : 0
   )
   step.add('Init min-heap', 4, 'NoAction')
@@ -59,7 +65,7 @@ const dijkstra = (
   while (minHeap.size() > 0) {
     step.add('Min-heap not empty, continue loop', 13, 'NoAction')
 
-    const curVx: [TVxId, TWeight] = minHeap.extractMin()
+    const curVx: [TVertexID, TWeight] = minHeap.extractMin()
 
     if (curVx[0] === startVx) {
       step.add(

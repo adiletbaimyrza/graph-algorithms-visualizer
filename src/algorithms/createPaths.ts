@@ -1,6 +1,13 @@
-import { TVertex, TEdge, TAdjList, TPaths, TVxId, TDgId } from '../types'
+import {
+  TVertex,
+  TEdge,
+  TAdjacencyList,
+  TPaths,
+  TVertexID,
+  TEdgeID,
+} from '../types'
 
-const getEdge = (vx1: TVxId, vx2: TVxId, dgs: TEdge[]) => {
+const getEdge = (vx1: TVertexID, vx2: TVertexID, dgs: TEdge[]) => {
   const dg = dgs.find(
     (dg) =>
       (dg.vx1.id === vx1 && dg.vx2.id === vx2) ||
@@ -10,12 +17,16 @@ const getEdge = (vx1: TVxId, vx2: TVxId, dgs: TEdge[]) => {
   return dg.id
 }
 
-const createPaths = (vxs: TVertex[], dgs: TEdge[], adj: TAdjList): TPaths => {
-  const totalPaths = new Map<TVxId, Map<TVxId, TDgId>>()
+const createPaths = (
+  vxs: TVertex[],
+  dgs: TEdge[],
+  adj: TAdjacencyList
+): TPaths => {
+  const totalPaths = new Map<TVertexID, Map<TVertexID, TEdgeID>>()
 
   vxs.forEach((vx) => {
     const neighbors = adj.get(vx.id)!
-    const itsPaths = new Map<TVxId, number>()
+    const itsPaths = new Map<TVertexID, number>()
 
     neighbors.forEach((neighbor) => {
       const dg = getEdge(vx.id, neighbor, dgs)

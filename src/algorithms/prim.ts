@@ -1,17 +1,21 @@
 import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
-import { TAdjList, TVxId, TWeightPaths, TWeight } from '../types'
+import { TAdjacencyList, TVertexID, TWeightedPaths, TWeight } from '../types'
 
-const prim = (startVx: TVxId, adjList: TAdjList, paths: TWeightPaths) => {
+const prim = (
+  startVx: TVertexID,
+  adjList: TAdjacencyList,
+  paths: TWeightedPaths
+) => {
   const step = new StepTracker()
   step.add("Start Prim's algorithm", 0, 'NoAction')
 
-  const minHeap = new MinHeap<[TVxId, TVxId, TWeight]>((a, b) =>
+  const minHeap = new MinHeap<[TVertexID, TVertexID, TWeight]>((a, b) =>
     a[2] < b[2] ? -1 : 0
   )
   step.add('Initialize min-heap', 1, 'NoAction')
 
-  const visited = new Set<TVxId>()
+  const visited = new Set<TVertexID>()
   step.add('Init empty set for visited vertices', 2, 'NoAction')
 
   visited.add(startVx)

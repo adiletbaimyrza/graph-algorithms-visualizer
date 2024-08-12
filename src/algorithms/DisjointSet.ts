@@ -1,10 +1,10 @@
-import { TVxId } from '../types'
+import { TVertexID } from '../types'
 
 class DisjointSet {
-  private parent: Map<TVxId, TVxId>
-  private rank: Map<TVxId, number>
+  private parent: Map<TVertexID, TVertexID>
+  private rank: Map<TVertexID, number>
 
-  constructor(vxs: TVxId[]) {
+  constructor(vxs: TVertexID[]) {
     this.parent = new Map()
     this.rank = new Map()
 
@@ -14,14 +14,14 @@ class DisjointSet {
     })
   }
 
-  find(vx: TVxId): TVxId {
+  find(vx: TVertexID): TVertexID {
     if (this.parent.get(vx) !== vx) {
       this.parent.set(vx, this.find(this.parent.get(vx)!))
     }
     return this.parent.get(vx)!
   }
 
-  union(vx1: TVxId, vx2: TVxId): void {
+  union(vx1: TVertexID, vx2: TVertexID): void {
     const root1 = this.find(vx1)
     const root2 = this.find(vx2)
 
@@ -40,7 +40,7 @@ class DisjointSet {
     }
   }
 
-  isConnected(vx1: TVxId, vx2: TVxId): boolean {
+  isConnected(vx1: TVertexID, vx2: TVertexID): boolean {
     return this.find(vx1) === this.find(vx2)
   }
 }

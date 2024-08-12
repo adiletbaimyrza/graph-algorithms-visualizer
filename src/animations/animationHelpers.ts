@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { TAnim } from '../types'
+import { TAnimation } from '../types'
 
 const vxCls = {
   default: 'fill-slate-400',
@@ -27,7 +27,7 @@ const dgHistory = new Map<number, [string | undefined, string | undefined]>()
 const paintPath = (
   vxId: number,
   dgId: number | undefined,
-  anim: TAnim,
+  anim: TAnimation,
   vxId2: number | undefined
 ) => {
   let vxClr = ''

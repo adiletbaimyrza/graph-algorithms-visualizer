@@ -1,4 +1,4 @@
-import { TVxId } from '../types'
+import { TVertexID } from '../types'
 
 class MinHeap<T> {
   private heap: Array<T>
@@ -9,19 +9,19 @@ class MinHeap<T> {
     this.compare = compareFn
   }
 
-  private parent(idx: TVxId) {
+  private parent(idx: TVertexID) {
     return Math.floor((idx - 1) / 2)
   }
 
-  private leftChild(idx: TVxId) {
+  private leftChild(idx: TVertexID) {
     return 2 * idx + 1
   }
 
-  private rightChild(idx: TVxId) {
+  private rightChild(idx: TVertexID) {
     return 2 * idx + 2
   }
 
-  private heapifyUp(idx: TVxId) {
+  private heapifyUp(idx: TVertexID) {
     const parent = this.parent(idx)
 
     if (idx > 0 && this.compare(this.heap[idx], this.heap[parent]) < 0) {
@@ -30,7 +30,7 @@ class MinHeap<T> {
     }
   }
 
-  private heapifyDown(idx: TVxId) {
+  private heapifyDown(idx: TVertexID) {
     const left = this.leftChild(idx)
     const right = this.rightChild(idx)
     let smallest = idx

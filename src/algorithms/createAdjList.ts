@@ -1,4 +1,4 @@
-import { TVertex, TEdge, TAdjList, TVxId } from '../types'
+import { TVertex, TEdge, TAdjacencyList, TVertexID } from '../types'
 
 const isItsEdge = (vx: TVertex, dg: TEdge) => {
   return dg.vx1.id === vx.id || dg.vx2.id === vx.id
@@ -9,12 +9,12 @@ const getOpposVxId = (vx: TVertex, dg: TEdge) => {
 }
 
 const createAdjList = (vxs: TVertex[], dgs: TEdge[]) => {
-  const adj: TAdjList = new Map<TVxId, TVxId[]>()
+  const adj: TAdjacencyList = new Map<TVertexID, TVertexID[]>()
 
   vxs.forEach((vx) => {
     const itsEdges: TEdge[] = dgs.filter((dg) => isItsEdge(vx, dg))
 
-    const neighbors: TVxId[] = []
+    const neighbors: TVertexID[] = []
 
     itsEdges.forEach((itsEdge) => {
       neighbors.push(getOpposVxId(vx, itsEdge))
