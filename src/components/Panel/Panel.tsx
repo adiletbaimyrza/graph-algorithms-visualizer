@@ -21,11 +21,11 @@ import { resetStyles } from '../../animations/animationHelpers'
 import { findSmallestVx } from './PanelHelpers'
 import graphSizes from './graphSizes'
 import { TGraphSize, TStep } from '../../types'
-import createPaths from '../../algorithms/createPaths'
+import Paths from '../../algorithms/Paths'
 import prim from '../../algorithms/prim'
-import createWeightPaths from '../../algorithms/createWeightedPaths'
 import kruskal from '../../algorithms/kruskal'
 import dijkstra from '../../algorithms/dijkstra'
+import WeightedPaths from '../../algorithms/WeightedPaths'
 
 const Panel = () => {
   const vertices = useVerticesContext()
@@ -49,23 +49,23 @@ const Panel = () => {
 
   const execAlgo = () => {
     const adj = new AdjacencyList(vertices.get(), edges.get())
-    const paths = createPaths(vertices.get(), edges.get(), adj.get())
+    const paths = new Paths(vertices.get(), edges.get(), adj.get())
     const vx = findSmallestVx(adj.get())
 
     let steps: TStep[]
 
     switch (currentAlgo.get()) {
       case 'dfs':
-        steps = dfs(vx, adj.get(), paths)
+        steps = dfs(vx, adj.get(), paths.get())
         break
       case 'bfs':
-        steps = bfs(vx, adj.get(), paths)
+        steps = bfs(vx, adj.get(), paths.get())
         break
       case 'prim':
         steps = prim(
           vx,
           adj.get(),
-          createWeightPaths(vertices.get(), edges.get(), adj.get())
+          new WeightedPaths(vertices.get(), edges.get(), adj.get()).get()
         )
         break
       case 'kruskal':
@@ -76,7 +76,7 @@ const Panel = () => {
           vx,
           vertices.get(),
           adj.get(),
-          createWeightPaths(vertices.get(), edges.get(), adj.get())
+          new WeightedPaths(vertices.get(), edges.get(), adj.get()).get()
         )
         break
     }
