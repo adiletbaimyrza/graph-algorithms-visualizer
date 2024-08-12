@@ -1,6 +1,5 @@
 import StepTracker from './StepTracker'
-import TAdjList from '../types/TAdjList'
-import TPaths from '../types/TPaths'
+import { TAdjList, TPaths } from '../types'
 
 const dfs = (startVx: number, adjList: TAdjList, paths: TPaths) => {
   const step = new StepTracker()

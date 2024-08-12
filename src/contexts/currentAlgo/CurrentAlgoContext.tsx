@@ -1,5 +1,5 @@
 import { useState, createContext, ReactNode } from 'react'
-import TAlgo from '../../types/TAlgo'
+import { TAlgo } from '../../types'
 
 interface CurrentAlgoContextType {
   state: TAlgo

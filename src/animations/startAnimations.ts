@@ -1,4 +1,4 @@
-import TStep from '../types/TStep'
+import { TStep } from '../types'
 import { highlightCode, paintPath } from './animationHelpers'
 
 const sleep = (ms: number) => {

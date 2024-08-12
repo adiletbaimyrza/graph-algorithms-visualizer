@@ -1,6 +1,6 @@
 import { euclideanDistance } from '../components/Canvas/CanvasUtils'
 import { isOutOfBounds } from '../components/Canvas/CanvasUtils'
-import TVertex from '../types/TVertex'
+import { TVertex } from '../types'
 
 const isGridPlacementValid = (
   grid: (TVertex | null)[][],

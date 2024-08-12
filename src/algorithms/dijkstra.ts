@@ -1,10 +1,6 @@
 import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
-import TVxId from '../types/TVxId'
-import TVertex from '../types/TVertex'
-import TAdjList from '../types/TAdjList'
-import TWeightPaths from '../types/TWeightPaths'
-import TWeight from '../types/TWeight'
+import { TVxId, TVertex, TAdjList, TWeightPaths, TWeight } from '../types'
 
 const dijkstra = (
   startVx: TVxId,

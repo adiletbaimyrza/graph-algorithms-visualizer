@@ -1,5 +1,5 @@
 import { isGridPlacementValid } from './bridsonUtils'
-import TVertex from '../types/TVertex'
+import { TVertex } from '../types'
 
 const bridson = (
   radius: number,

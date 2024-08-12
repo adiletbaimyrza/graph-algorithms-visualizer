@@ -1,7 +1,6 @@
 import Delaunator from 'delaunator'
 import { isNewEdgeValid } from '../components/Canvas/VertexUtils'
-import TVertex from '../types/TVertex'
-import TEdge from '../types/TEdge'
+import { TVertex, TEdge } from '../types'
 
 const delaunay = (vxs: TVertex[], vxsCoors: number[]): TEdge[] => {
   const delaunay = new Delaunator(vxsCoors)

@@ -1,7 +1,4 @@
-import TVertex from '../types/TVertex'
-import TEdge from '../types/TEdge'
-import TAdjList from '../types/TAdjList'
-import TVxId from '../types/TVxId'
+import { TVertex, TEdge, TAdjList, TVxId } from '../types'
 
 const isItsEdge = (vx: TVertex, dg: TEdge) => {
   return dg.vx1.id === vx.id || dg.vx2.id === vx.id

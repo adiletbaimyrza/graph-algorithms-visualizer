@@ -1,4 +1,4 @@
-import TVxId from '../types/TVxId'
+import { TVxId } from '../types'
 
 class MinHeap<T> {
   private heap: Array<T>

@@ -11,8 +11,8 @@ import { isNewEdgeValid } from './VertexUtils'
 import { toggleLinkingVertex } from './VertexAnims'
 import useIsWeightedCtx from '../../contexts/isWeightedCtxHook'
 import { getRandWeight } from './VertexUtils'
-import TVertex from '../../types/TVertex'
-import TEdge from '../../types/TEdge'
+
+import { TVertex, TEdge } from '../../types'
 
 const Vertex = ({ id, x, y }: TVertex) => {
   const vertices = useVertices()

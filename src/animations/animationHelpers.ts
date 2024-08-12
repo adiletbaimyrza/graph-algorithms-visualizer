@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import TAnim from '../types/TAnim'
+import { TAnim } from '../types'
 
 const vxCls = {
   default: 'fill-slate-400',

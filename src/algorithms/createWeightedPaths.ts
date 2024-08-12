@@ -1,8 +1,4 @@
-import TVertex from '../types/TVertex'
-import TEdge from '../types/TEdge'
-import TAdjList from '../types/TAdjList'
-import TWeightPaths from '../types/TWeightPaths'
-import TVxId from '../types/TVxId'
+import { TVertex, TEdge, TAdjList, TWeightPaths, TVxId } from '../types'
 
 const getDgWithWeight = (vx1: TVxId, vx2: TVxId, dgs: TEdge[]) => {
   const dg = dgs.find(

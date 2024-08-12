@@ -1,7 +1,4 @@
-import TAnim from '../types/TAnim'
-import TDgId from '../types/TDgId'
-import TStep from '../types/TStep'
-import TVxId from '../types/TVxId'
+import { TAnim, TDgId, TStep, TVxId } from '../types'
 
 class StepTracker {
   private steps: TStep[]

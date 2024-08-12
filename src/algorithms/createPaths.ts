@@ -1,9 +1,4 @@
-import TVertex from '../types/TVertex'
-import TEdge from '../types/TEdge'
-import TAdjList from '../types/TAdjList'
-import TPaths from '../types/TPaths'
-import TVxId from '../types/TVxId'
-import TDgId from '../types/TDgId'
+import { TVertex, TEdge, TAdjList, TPaths, TVxId, TDgId } from '../types'
 
 const getEdge = (vx1: TVxId, vx2: TVxId, dgs: TEdge[]) => {
   const dg = dgs.find(

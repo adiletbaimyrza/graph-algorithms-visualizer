@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import { highlightCode, paintPath, resetStyles } from './animationHelpers'
-import TStep from '../types/TStep'
+import { TStep } from '../types'
 
 const completeAnimations = (steps: TStep[], stepId: number) => {
   if (0 <= stepId && stepId < steps.length) {

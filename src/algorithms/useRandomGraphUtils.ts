@@ -1,4 +1,4 @@
-import TGraphSize from '../types/TGraphSize'
+import { TGraphSize } from '../types'
 
 const configureGraphSizes = (
   graphSize: TGraphSize,

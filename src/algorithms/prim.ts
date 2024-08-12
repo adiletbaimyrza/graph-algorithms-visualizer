@@ -1,9 +1,6 @@
 import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
-import TAdjList from '../types/TAdjList'
-import TVxId from '../types/TVxId'
-import TWeightPaths from '../types/TWeightPaths'
-import TWeight from '../types/TWeight'
+import { TAdjList, TVxId, TWeightPaths, TWeight } from '../types'
 
 const prim = (startVx: TVxId, adjList: TAdjList, paths: TWeightPaths) => {
   const step = new StepTracker()

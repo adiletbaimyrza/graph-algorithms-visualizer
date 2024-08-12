@@ -14,9 +14,7 @@ import {
   isOutOfBounds,
 } from '../components/Canvas/CanvasUtils'
 import { configureGraphSizes } from './useRandomGraphUtils'
-import TVertex from '../types/TVertex'
-import TEdge from '../types/TEdge'
-import TGraphSize from '../types/TGraphSize'
+import { TVertex, TEdge, TGraphSize } from '../types'
 import useIsWeightedCtx from '../contexts/isWeightedCtxHook'
 import { getRandWeight } from '../components/Canvas/VertexUtils'
 

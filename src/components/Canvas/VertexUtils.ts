@@ -1,4 +1,4 @@
-import TEdge from '../../types/TEdge'
+import { TEdge } from '../../types'
 
 const isEdgeExists = (edge: TEdge, edges: TEdge[]) => {
   return edges.some(
