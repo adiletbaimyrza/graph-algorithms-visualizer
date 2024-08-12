@@ -1,9 +1,10 @@
 import { useRef, createContext, ReactNode } from 'react'
+import { TStepID } from '../../types'
 
 type StepIdContextType = {
-  state: number
-  get: () => number
-  set: (newStepId: number) => void
+  state: TStepID
+  get: () => TStepID
+  set: (newStepId: TStepID) => void
   increment: () => StepIdContextType
   decrement: () => StepIdContextType
   forward: () => StepIdContextType
@@ -19,12 +20,12 @@ type StepIdProviderProps = {
 }
 
 const StepIdProvider = ({ children }: StepIdProviderProps) => {
-  const stepId = useRef<number>(0)
+  const stepId = useRef<TStepID>(0)
   const isForward = useRef<boolean>(true)
 
   const state = stepId.current
 
-  const set = (newStepId: number) => {
+  const set = (newStepId: TStepID) => {
     stepId.current = newStepId
   }
 

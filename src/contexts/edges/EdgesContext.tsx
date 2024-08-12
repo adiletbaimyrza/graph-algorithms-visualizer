@@ -1,12 +1,12 @@
 import { useState, createContext, ReactNode } from 'react'
-import TEdge from '../../types/TEdge'
+import { TEdge, TEdgeID } from '../../types'
 
 interface EdgesContextType {
   state: TEdge[]
   get: () => TEdge[]
   set: (newEdges: TEdge[]) => void
   add: (newEdge: TEdge) => void
-  remove: (id: number) => void
+  remove: (id: TEdgeID) => void
   reset: () => void
 }
 
@@ -35,7 +35,7 @@ const EdgesProvider = ({ children }: EdgesProviderProps) => {
     setEdges(updatedEdges)
   }
 
-  const remove = (id: number) => {
+  const remove = (id: TEdgeID) => {
     const filteredEdges = edges.filter((edge) => edge.id !== id)
     setEdges(filteredEdges)
   }

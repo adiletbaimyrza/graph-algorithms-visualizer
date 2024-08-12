@@ -1,8 +1,15 @@
-import { TAnimation, TEdgeID, TStep, TVertexID } from '../types'
+import {
+  TAnimation,
+  TCodeID,
+  TEdgeID,
+  TStep,
+  TStepID,
+  TVertexID,
+} from '../types'
 
 class StepTracker {
   private steps: TStep[]
-  private stepId: number
+  private stepId: TStepID
 
   constructor() {
     this.steps = []
@@ -11,7 +18,7 @@ class StepTracker {
 
   public add(
     dsc: string,
-    cdId: number,
+    cdId: TCodeID,
     anim: TAnimation,
     vxId?: TVertexID,
     dgId?: TEdgeID,

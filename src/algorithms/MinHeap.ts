@@ -55,7 +55,7 @@ class MinHeap<T> {
     }
   }
 
-  private swap(idx1: number, idx2: number) {
+  private swap(idx1: TVertexID, idx2: TVertexID) {
     const temp = this.heap[idx1]
     this.heap[idx1] = this.heap[idx2]
     this.heap[idx2] = temp

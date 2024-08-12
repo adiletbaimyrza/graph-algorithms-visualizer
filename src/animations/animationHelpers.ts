@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { TAnimation } from '../types'
+import { TAnimation, TCodeID, TEdgeID, TVertexID } from '../types'
 
 const vxCls = {
   default: 'fill-slate-400',
@@ -25,10 +25,10 @@ const vxHistory = new Map<number, [string | undefined, string | undefined]>()
 const dgHistory = new Map<number, [string | undefined, string | undefined]>()
 
 const paintPath = (
-  vxId: number,
-  dgId: number | undefined,
+  vxId: TVertexID,
+  dgId: TEdgeID | undefined,
   anim: TAnimation,
-  vxId2: number | undefined
+  vxId2: TVertexID | undefined
 ) => {
   let vxClr = ''
   let dgClr = ''
@@ -102,7 +102,7 @@ const paintPath = (
   }
 }
 
-const highlightCode = (codeId: number) => {
+const highlightCode = (codeId: TCodeID) => {
   const lines = $('.pseudo')
   lines.each((_, line) => {
     $(line).removeClass(codeClsList).addClass(codeCls.default)

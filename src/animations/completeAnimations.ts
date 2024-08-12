@@ -1,8 +1,8 @@
 import $ from 'jquery'
 import { highlightCode, paintPath, resetStyles } from './animationHelpers'
-import { TStep } from '../types'
+import { TStep, TStepID } from '../types'
 
-const completeAnimations = (steps: TStep[], stepId: number) => {
+const completeAnimations = (steps: TStep[], stepId: TStepID) => {
   if (0 <= stepId && stepId < steps.length) {
     resetStyles()
 

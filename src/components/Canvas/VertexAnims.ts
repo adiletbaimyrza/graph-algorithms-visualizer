@@ -1,7 +1,8 @@
 import $ from 'jquery'
 import { vxCls, vxClsList } from '../../animations/animationHelpers'
+import { TVertexID } from '../../types'
 
-const toggleLinkingVertex = (id: number) => {
+const toggleLinkingVertex = (id: TVertexID) => {
   const linkingVertex = $(`#circle-${id}`)
 
   if (linkingVertex) {

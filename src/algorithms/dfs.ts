@@ -1,17 +1,17 @@
 import StepTracker from './StepTracker'
-import { TAdjacencyList, TPaths } from '../types'
+import { TAdjacencyList, TPaths, TVertexID } from '../types'
 
-const dfs = (startVx: number, adjList: TAdjacencyList, paths: TPaths) => {
+const dfs = (startVx: TVertexID, adjList: TAdjacencyList, paths: TPaths) => {
   const step = new StepTracker()
   step.add('Start DFS', 0, 'NoAction')
 
   const stack = [startVx]
   step.add(`Init stack with start vertex ${startVx}`, 1, 'Push', startVx)
 
-  const visited = new Set<number>()
+  const visited = new Set<TVertexID>()
   step.add('Init empty set for visited vertices', 2, 'NoAction')
 
-  let prevVx: number = 10000
+  let prevVx: TVertexID = 10000
   while (stack.length > 0) {
     step.add('Vertices still to visit, continue loop', 3, 'NoAction')
 

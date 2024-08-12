@@ -14,7 +14,7 @@ import {
   isOutOfBounds,
 } from '../components/Canvas/CanvasUtils'
 import { configureGraphSizes } from './useRandomGraphUtils'
-import { TVertex, TEdge, TGraphSize } from '../types'
+import { TVertex, TEdge, TGraphSize, TCoord } from '../types'
 import useIsWeightedCtx from '../contexts/isWeightedCtxHook'
 import { getRandWeight } from '../components/Canvas/VertexUtils'
 
@@ -66,7 +66,7 @@ const useRandomGraph = () => {
         )
     )
 
-    const coordinates: number[] = []
+    const coordinates: TCoord[] = []
     inBoundsVertices.forEach((vertex) => {
       coordinates.push(vertex.x, vertex.y)
     })

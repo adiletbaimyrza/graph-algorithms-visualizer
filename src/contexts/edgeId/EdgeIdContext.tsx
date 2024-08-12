@@ -1,9 +1,10 @@
 import { useRef, createContext, ReactNode } from 'react'
+import { TEdgeID } from '../../types'
 
 interface EdgeIdContextType {
   state: number
   get: () => number
-  set: (newEdgeId: number) => void
+  set: (newEdgeId: TEdgeID) => void
   reset: () => void
 }
 
@@ -15,11 +16,11 @@ interface EdgeIdProviderProps {
 }
 
 const EdgeIdProvider = ({ children }: EdgeIdProviderProps) => {
-  const edgeId = useRef<number>(0)
+  const edgeId = useRef<TEdgeID>(0)
 
   const state = edgeId.current
 
-  const set = (newEdgeId: number) => {
+  const set = (newEdgeId: TEdgeID) => {
     edgeId.current = newEdgeId
   }
 

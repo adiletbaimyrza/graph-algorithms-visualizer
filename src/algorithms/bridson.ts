@@ -1,5 +1,5 @@
 import { isGridPlacementValid } from './bridsonUtils'
-import { TVertex } from '../types'
+import { TCoord, TVertex } from '../types'
 
 const bridson = (
   radius: number,
@@ -14,8 +14,8 @@ const bridson = (
   const numCellsWidth: number = Math.ceil(canvasWidth / cellSize)
   const numCellsHeight: number = Math.ceil(canvasHeight / cellSize)
 
-  const randomX: number = Math.floor(Math.random() * canvasWidth)
-  const randomY: number = Math.floor(Math.random() * canvasHeight)
+  const randomX: TCoord = Math.floor(Math.random() * canvasWidth)
+  const randomY: TCoord = Math.floor(Math.random() * canvasHeight)
   const initialVertex: TVertex = {
     id: finalVertices.length,
     x: randomX,
@@ -51,9 +51,9 @@ const bridson = (
         Math.random() * (2 * radius - radius) + radius
       )
       const thetaInRadians: number = (theta * Math.PI) / 180
-      const newVertexX: number =
+      const newVertexX: TCoord =
         currentVertex.x + newRadius * Math.cos(thetaInRadians)
-      const newVertexY: number =
+      const newVertexY: TCoord =
         currentVertex.y + newRadius * Math.sin(thetaInRadians)
 
       const vertexCandidate: TVertex = {

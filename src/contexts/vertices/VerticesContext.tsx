@@ -1,12 +1,12 @@
 import { useState, createContext, ReactNode } from 'react'
-import TVertex from '../../types/TVertex'
+import { TVertex, TVertexID } from '../../types'
 
 interface VerticesContextType {
   state: TVertex[]
   get: () => TVertex[]
   set: (newVertices: TVertex[]) => void
   add: (newVertex: TVertex) => void
-  remove: (id: number) => void
+  remove: (id: TVertexID) => void
   reset: () => void
 }
 
@@ -35,7 +35,7 @@ const VerticesProvider = ({ children }: VerticesProviderProps) => {
     setVertices(updatedVertices)
   }
 
-  const remove = (id: number) => {
+  const remove = (id: TVertexID) => {
     const filteredVertices = vertices.filter((vertex) => vertex.id !== id)
     setVertices(filteredVertices)
   }

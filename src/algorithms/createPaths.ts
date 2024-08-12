@@ -26,7 +26,7 @@ const createPaths = (
 
   vxs.forEach((vx) => {
     const neighbors = adj.get(vx.id)!
-    const itsPaths = new Map<TVertexID, number>()
+    const itsPaths = new Map<TVertexID, TEdgeID>()
 
     neighbors.forEach((neighbor) => {
       const dg = getEdge(vx.id, neighbor, dgs)

@@ -1,8 +1,8 @@
-import TVertex from '../../types/TVertex'
+import { TCoord, TVertex } from '../../types'
 
 const isOutOfBounds = (
-  x: number,
-  y: number,
+  x: TCoord,
+  y: TCoord,
   frameWidth: number,
   frameHeight: number,
   padding: number = 0
@@ -15,7 +15,7 @@ const isOutOfBounds = (
   )
 }
 
-const euclideanDistance = (x1: number, y1: number, x2: number, y2: number) => {
+const euclideanDistance = (x1: TCoord, y1: TCoord, x2: TCoord, y2: TCoord) => {
   return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 }
 

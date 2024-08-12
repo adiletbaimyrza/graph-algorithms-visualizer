@@ -1,4 +1,4 @@
-import { TStep } from '../types'
+import { TStep, TStepID } from '../types'
 import { highlightCode, paintPath } from './animationHelpers'
 
 const sleep = (ms: number) => {
@@ -7,8 +7,8 @@ const sleep = (ms: number) => {
 
 const startAnimations = async (
   steps: TStep[],
-  stepId: number,
-  stepIdSet: (newStepId: number) => void,
+  stepId: TStepID,
+  stepIdSet: (newStepId: TStepID) => void,
   isAnimatingGet: () => boolean,
   speedGet: () => number
 ) => {
