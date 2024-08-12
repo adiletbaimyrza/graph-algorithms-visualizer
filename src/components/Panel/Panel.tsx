@@ -11,7 +11,7 @@ import {
   useVertexIDContext,
   useVerticesContext,
 } from '../../store/hooks'
-import createAdjList from '../../algorithms/createAdjList'
+import AdjacencyList from '../../algorithms/AdjacencyList'
 import dfs from '../../algorithms/dfs'
 import bfs from '../../algorithms/bfs'
 import useRandomGraph from '../../algorithms/useRandomGraph'
@@ -48,24 +48,24 @@ const Panel = () => {
   }
 
   const execAlgo = () => {
-    const adj = createAdjList(vertices.get(), edges.get())
-    const paths = createPaths(vertices.get(), edges.get(), adj)
-    const vx = findSmallestVx(adj)
+    const adj = new AdjacencyList(vertices.get(), edges.get())
+    const paths = createPaths(vertices.get(), edges.get(), adj.get())
+    const vx = findSmallestVx(adj.get())
 
     let steps: TStep[]
 
     switch (currentAlgo.get()) {
       case 'dfs':
-        steps = dfs(vx, adj, paths)
+        steps = dfs(vx, adj.get(), paths)
         break
       case 'bfs':
-        steps = bfs(vx, adj, paths)
+        steps = bfs(vx, adj.get(), paths)
         break
       case 'prim':
         steps = prim(
           vx,
-          adj,
-          createWeightPaths(vertices.get(), edges.get(), adj)
+          adj.get(),
+          createWeightPaths(vertices.get(), edges.get(), adj.get())
         )
         break
       case 'kruskal':
@@ -75,8 +75,8 @@ const Panel = () => {
         steps = dijkstra(
           vx,
           vertices.get(),
-          adj,
-          createWeightPaths(vertices.get(), edges.get(), adj)
+          adj.get(),
+          createWeightPaths(vertices.get(), edges.get(), adj.get())
         )
         break
     }
