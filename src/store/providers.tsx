@@ -103,8 +103,16 @@ export const EdgesContextProvider = ({ children }: { children: ReactNode }) => {
     setEdges([])
   }
 
+  const update = (id: TEdgeID, updatedEdge: Partial<TEdge>) => {
+    setEdges(
+      edges.map((edge) => (edge.id === id ? { ...edge, ...updatedEdge } : edge))
+    )
+  }
+
   return (
-    <EdgesContext.Provider value={{ state, get, set, add, remove, reset }}>
+    <EdgesContext.Provider
+      value={{ state, get, set, add, remove, reset, update }}
+    >
       {children}
     </EdgesContext.Provider>
   )

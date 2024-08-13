@@ -34,6 +34,7 @@ export type TEdgesContext = {
   add: (newEdge: TEdge) => void
   remove: (id: TEdgeID) => void
   reset: () => void
+  update: (id: TEdgeID, updatedEdge: Partial<TEdge>) => void
 }
 export const EdgesContext = createContext<TEdgesContext | undefined>(undefined)
 
