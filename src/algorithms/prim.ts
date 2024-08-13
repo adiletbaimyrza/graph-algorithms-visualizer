@@ -1,12 +1,18 @@
 import MinHeap from './MinHeap'
 import StepTracker from './StepTracker'
-import { TAdjacencyList, TVertexID, TWeightedPaths, TWeight } from '../types'
+import {
+  TAdjacencyList,
+  TVertexID,
+  TWeightedPaths,
+  TWeight,
+  TStep,
+} from '../types'
 
 const prim = (
   startVx: TVertexID,
   adjList: TAdjacencyList,
   paths: TWeightedPaths
-) => {
+): TStep[] => {
   const step = new StepTracker()
   step.add("Start Prim's algorithm", 0, 'NoAction')
 

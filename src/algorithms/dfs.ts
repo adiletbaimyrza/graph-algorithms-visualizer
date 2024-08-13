@@ -1,7 +1,11 @@
 import StepTracker from './StepTracker'
-import { TAdjacencyList, TPaths, TVertexID } from '../types'
+import { TAdjacencyList, TPaths, TStep, TVertexID } from '../types'
 
-const dfs = (startVx: TVertexID, adjList: TAdjacencyList, paths: TPaths) => {
+const dfs = (
+  startVx: TVertexID,
+  adjList: TAdjacencyList,
+  paths: TPaths
+): TStep[] => {
   const step = new StepTracker()
   step.add('Start DFS', 0, 'NoAction')
 

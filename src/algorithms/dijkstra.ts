@@ -6,6 +6,7 @@ import {
   TAdjacencyList,
   TWeightedPaths,
   TWeight,
+  TStep,
 } from '../types'
 
 const dijkstra = (
@@ -13,7 +14,7 @@ const dijkstra = (
   vxs: TVertex[],
   adj: TAdjacencyList,
   paths: TWeightedPaths
-) => {
+): TStep[] => {
   const step = new StepTracker()
   step.add("Start Dijkstra's algorithm", 0, 'NoAction')
 

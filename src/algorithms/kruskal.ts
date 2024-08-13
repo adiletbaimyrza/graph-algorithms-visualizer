@@ -1,8 +1,8 @@
 import DisjointSet from './DisjointSet'
 import StepTracker from './StepTracker'
-import { TVertex, TEdge } from '../types'
+import { TVertex, TEdge, TStep } from '../types'
 
-const kruskal = (vertices: TVertex[], edges: TEdge[]) => {
+const kruskal = (vertices: TVertex[], edges: TEdge[]): TStep[] => {
   const step = new StepTracker()
   step.add("Start Kruskal's algorithm", 0, 'NoAction')
 

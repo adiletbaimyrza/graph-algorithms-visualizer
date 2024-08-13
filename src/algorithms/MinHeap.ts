@@ -9,19 +9,19 @@ class MinHeap<T> {
     this.compare = compareFn
   }
 
-  private parent(idx: TVertexID) {
+  private parent(idx: TVertexID): TVertexID {
     return Math.floor((idx - 1) / 2)
   }
 
-  private leftChild(idx: TVertexID) {
+  private leftChild(idx: TVertexID): TVertexID {
     return 2 * idx + 1
   }
 
-  private rightChild(idx: TVertexID) {
+  private rightChild(idx: TVertexID): TVertexID {
     return 2 * idx + 2
   }
 
-  private heapifyUp(idx: TVertexID) {
+  private heapifyUp(idx: TVertexID): void {
     const parent = this.parent(idx)
 
     if (idx > 0 && this.compare(this.heap[idx], this.heap[parent]) < 0) {
@@ -30,7 +30,7 @@ class MinHeap<T> {
     }
   }
 
-  private heapifyDown(idx: TVertexID) {
+  private heapifyDown(idx: TVertexID): void {
     const left = this.leftChild(idx)
     const right = this.rightChild(idx)
     let smallest = idx
@@ -55,13 +55,13 @@ class MinHeap<T> {
     }
   }
 
-  private swap(idx1: TVertexID, idx2: TVertexID) {
+  private swap(idx1: TVertexID, idx2: TVertexID): void {
     const temp = this.heap[idx1]
     this.heap[idx1] = this.heap[idx2]
     this.heap[idx2] = temp
   }
 
-  public extractMin() {
+  public extractMin(): T {
     if (this.heap.length === 0) {
       throw new Error('Heap is empty')
     }
@@ -76,23 +76,23 @@ class MinHeap<T> {
     return min
   }
 
-  public insert(item: T) {
+  public insert(item: T): void {
     this.heap.push(item)
     this.heapifyUp(this.heap.length - 1)
   }
 
-  public peek() {
+  public peek(): T {
     if (this.heap.length === 0) {
       throw new Error('Heap is empty')
     }
     return this.heap[0]
   }
 
-  public size() {
+  public size(): number {
     return this.heap.length
   }
 
-  public has(predicate: (item: T) => boolean) {
+  public has(predicate: (item: T) => boolean): boolean {
     return this.heap.some(predicate)
   }
 }

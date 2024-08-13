@@ -26,7 +26,7 @@ export default class Paths {
     })
   }
 
-  private getEdge(vx1: TVertexID, vx2: TVertexID, edges: TEdge[]) {
+  private getEdge(vx1: TVertexID, vx2: TVertexID, edges: TEdge[]): TEdgeID {
     const edge = edges.find(
       (edge) =>
         (edge.vx1.id === vx1 && edge.vx2.id === vx2) ||
@@ -36,7 +36,7 @@ export default class Paths {
     return edge.id
   }
 
-  public get() {
+  public get(): TPaths {
     return this.paths
   }
 }

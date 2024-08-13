@@ -37,11 +37,11 @@ class StepTracker {
     this.steps.push(newStep)
   }
 
-  public getTotalSteps() {
+  public getTotalSteps(): TStep[] {
     return [...this.steps]
   }
 
-  public getCurId() {
+  public getCurId(): TStepID {
     return this.stepId
   }
 }

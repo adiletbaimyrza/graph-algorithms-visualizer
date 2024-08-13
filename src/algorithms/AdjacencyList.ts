@@ -14,22 +14,22 @@ export default class AdjacencyList {
       const neighbors: TVertexID[] = []
 
       itsEdges.forEach((itsEdge) => {
-        neighbors.push(this.getOpposVxId(vertex, itsEdge))
+        neighbors.push(this.getOppositeVertexID(vertex, itsEdge))
       })
 
       this.adjacencyList.set(vertex.id, neighbors)
     })
   }
 
-  private isItsEdge(vx: TVertex, dg: TEdge) {
+  private isItsEdge(vx: TVertex, dg: TEdge): boolean {
     return dg.vx1.id === vx.id || dg.vx2.id === vx.id
   }
 
-  private getOpposVxId(vx: TVertex, dg: TEdge) {
+  private getOppositeVertexID(vx: TVertex, dg: TEdge): TVertexID {
     return dg.vx1.id === vx.id ? dg.vx2.id : dg.vx1.id
   }
 
-  public get() {
+  public get(): TAdjacencyList {
     return this.adjacencyList
   }
 }
