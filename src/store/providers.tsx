@@ -175,7 +175,7 @@ export const LineWidthContextProvider = ({
 }: {
   children: ReactNode
 }) => {
-  const [lineWidth, setLineWidth] = useState<number>(14)
+  const [lineWidth, setLineWidth] = useState<number>(6)
 
   const state = lineWidth
 
